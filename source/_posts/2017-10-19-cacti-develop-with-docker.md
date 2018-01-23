@@ -65,13 +65,13 @@ docker-compose up
 看到输出`[Note] Starting httpd service.`时即可在浏览器中打开`http://localhost`，直接开始cacti的安装。
 
 注意在这一步时
-![Alt text](../image/cacti-template-setup.png)
+![选择模版](cacti-template-setup.png)
 
 选中所有的模板；
 
 最后点`Finish`后等大概两分钟，就可看到登录页了,默认用户名和密码都是`admin`：
 
-![Alt text](../image/cacti-login.png)
+![登录](cacti-login.png)
 
 第一次登录会强制修改密码，进入后开始下一步的探索吧。
 
