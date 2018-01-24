@@ -73,8 +73,10 @@ Edit `deploy.sh`
 #!/bin/bash
 
 cd ../blog
-echo `date +%D\ %T`>> hook.log
-git pull >> hook.log 2>> hook.log
+echo `date +%D\ %T`>> ../hook/hook.log
+git reset --hard origin/master
+git clean -f
+git pull origin master >> ../hook/hook.log 2>>../hook/hook.log
 ```
 
 Add deploy key(Read-only access is just fine) for the VPS in your respository:
