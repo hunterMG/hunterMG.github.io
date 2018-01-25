@@ -1,7 +1,7 @@
 ---
 title: 利用docker搭建cacti开发平台
 date: 2017-10-19 16:11:58
-categories: 备忘录
+categories: note
 tags:
 - 配置
 - docker
@@ -12,7 +12,7 @@ tags:
 原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。
 
 以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。
-
+<!-- more -->
 ## [Docker]简介
 ### 目的
 官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.

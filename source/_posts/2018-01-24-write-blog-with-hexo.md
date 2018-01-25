@@ -7,7 +7,7 @@ tags:
 - github
 - webhook
 - submodule
-- https
+- HTTPS
 ---
 
 ## Abstract
@@ -15,7 +15,7 @@ tags:
 `github` to host the source files  
 `webhook` to automaticlly update the blog in VPS  
 `git submodule` to manage the Hexo theme  
-
+<!-- more -->
 ## Setup
 Add a new github respository(name it : github-id.github.io).  
 On your PC:
@@ -47,8 +47,8 @@ hexo d # push html files to the master branch.
 Now open https://github-id.github.io, you can see your blog.  
 
 ## Webhook
-Add a webhook of your blog's github respository(branch `master`).(url example : `http://your-host/hook.php`)  
-Edit `hook.php` in your VPS as follows:
+1. Add a webhook of your blog's github respository(branch `master`).(url example : `http://your-host/hook.php`)  
+2. Edit `hook.php` in your VPS as follows:
 ```php
 <?php
 error_reporting(1);
@@ -67,8 +67,7 @@ if($signature){
 header('X-PHP-Response-Code: 404', true, 404);
 ?>
 ```
-
-Edit `deploy.sh`
+3. Edit `deploy.sh`
 ```sh
 #!/bin/bash
 
@@ -78,8 +77,7 @@ git reset --hard origin/master
 git clean -f
 git pull origin master >> ../hook/hook.log 2>>../hook/hook.log
 ```
-
-Add deploy key(Read-only access is just fine) for the VPS in your respository:
+4. Add deploy key(Read-only access is just fine) for the VPS in your respository:
 (The example shown below is for `apache`)
 ```sh
 mkdir /var/www/.ssh
@@ -87,23 +85,21 @@ chown -R apache:apache /var/www/.ssh
 sudo -Hu apache ssh-keygen -t rsa
 cat /var/www/.ssh/id_rsa.pub
 ```
-Copy the public key to add it in github respository.
-
-Clone the repository on VPS folder `blog`:
+5. Copy the public key to add it in github respository.
+6. Clone the repository on VPS folder `blog`:
 ```sh
 mkdir blog
 chown -R apache:apache blog
 sudo -Hu apache git clone git@github.com:github-id/github-id.github.io.git blog
 ``` 
-
-Test webhook on your PC:  
+7. Test webhook on your PC:  
 ```sh
 cd blog
 git checkout master
 git commit -m "hook test" --allow-empty
 git push
 ```
-Then check the `hook.log` on VPS or just open http://your-donmain-name to check the blog.
+8. Then check the `hook.log` on VPS or just open http://your-donmain-name to check the blog.
 ## Theme -- submodule
 Fork the theme respository.(such as `hexo-theme-next`)  
 On your PC:
@@ -114,19 +110,26 @@ git submodule add git@github.com:github-id/hexo-theme-next.git theme/next
 ```
 So you can manage your blog content and theme in two respository separately.
 
-## https
-Apply a SSL CA on `freessl.org`;  
-Download the Certificate files(`domain.crt`, `domain.ca.crt`, `private.key`);  
-Install necessary module:
+## HTTPS
+1. Apply a SSL CA on `freessl.org`;  
+2. Download the Certificate files(`domain.crt`, `domain.ca.crt`, `private.key`);  
+3. Install necessary module:
 ```sh
 yum install mod_ssl openssl
 ```
-Edit /etc/httpd/conf.d/ssl.conf:
+4. Edit /etc/httpd/conf.d/ssl.conf:
 ```sh
 SSLCertificateFile /path-to/domain.ca.crt
 SSLCertificateKeyFile /path-to/private.key
 ```
-Restart apache:
+5. Force HTTPS on all pages(Optional)  
+Config the `<Derictory>` tag in `httpd.conf`:
+```
+    RewriteEngine on
+    RewriteCond %{SERVER_PORT} !^443$
+    RewriteRule ^(.*)?$ https://%{SERVER_NAME}/$1 [L,R]
+```
+6. Restart apache:
 ```sh
 service httpd restart
 ```
