@@ -42,8 +42,8 @@ tags:
 
 如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：
 ```
-git pull https://github.com/hunterMG/cacti.git
-git pull https://github.com/hunterMG/cacti-docker.git
+git clone https://github.com/hunterMG/cacti.git
+git clone https://github.com/hunterMG/cacti-docker.git
 ```
 如果没有git，到[这里](https://github.com/hunterMG/cacti)和[这里](https://github.com/hunterMG/cacti-docker)下载zip包解压到一个文件夹下即可
 
@@ -56,7 +56,7 @@ git pull https://github.com/hunterMG/cacti-docker.git
 ### 运行
 win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到`docker is running`），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看[这里](https://docs.docker.com/docker-for-windows/#shared-drives)
 
-在命令行下进入cacti文件夹，执行
+在命令行下进入`cacti-docker`文件夹，执行
 ```
 docker-compose up
 ```
@@ -73,8 +73,12 @@ docker-compose up
 
 ![登录](cacti-login.png)
 
-第一次登录会强制修改密码，进入后开始下一步的探索吧。
+第一次登录会强制修改密码，进入后开始下一步的探索吧。  
+关闭的话在命令行按`Ctrl`+`C`。  
 
+只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行`docker-compose up`，此时cacti是直接运行的，无需再次安装。  
+
+若想重新安装，则删除两个容器和cacti目录下的`install.lock`, 再执行`docker-compose up`。
 ## 最后
 开发应该把注意力放在写代码上，而不是安装软件，感谢docker。
 
