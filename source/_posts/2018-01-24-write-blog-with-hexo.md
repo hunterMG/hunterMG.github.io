@@ -90,7 +90,7 @@ cat /var/www/.ssh/id_rsa.pub
 ```sh
 mkdir blog
 chown -R apache:apache blog
-sudo -Hu apache git clone git@github.com:github-id/github-id.github.io.git blog
+/usr/bin/sudo -Hu apache git clone git@github.com:github-id/github-id.github.io.git blog
 ``` 
 7. Test webhook on your PC:  
 ```sh
@@ -135,11 +135,11 @@ service httpd restart
 ```
 ## After you changed your PC :
 ```sh
-git clone git@github.com:github-id/github-id.github.io.git
+git clone -b hexo git@github.com:github-id/github-id.github.io.git
 cd github-id.github.io
-git checkout hexo
 git submodule init
 git submodule update
+npm install hexo-cli -g
 npm install
 hexo new "new-post-name"
 ```
