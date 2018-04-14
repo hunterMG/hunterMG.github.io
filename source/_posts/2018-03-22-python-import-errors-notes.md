@@ -1,5 +1,5 @@
 ---
-title: python import errors notes
+title: python errors notes
 date: 2018-03-22 16:57:37
 categories: note
 tags:
@@ -16,4 +16,14 @@ pip install Pillow==2.6.0
 ## ModuleNotFoundError: No module named 'past'
 ```sh
 pip install future
+```
+
+## ValueError: unknown locale: UTF-8
+```sh
+vi ~/.zshrc
+```
+>   export LC_ALL=en_US.UTF-8  
+    export LANG=en_US.UTF-8
+```sh
+source ~/.zshrc
 ```
