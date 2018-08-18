@@ -19,3 +19,14 @@ https://blog.csdn.net/guolin_blog/article/details/49738023
 
 ## adb shell input text '你好'
 https://github.com/senzhk/ADBKeyBoard
+
+## execute shell comands in Java code
+https://github.com/jaredrummler/AndroidShell
+
+## CountDownTimer
+`CountDownTimer` must be canceled explicitly in `onDestroy` in a `Service`.
+```java
+if (countDownTimer1 != null){
+    countDownTimer1.cancel();
+}
+```
