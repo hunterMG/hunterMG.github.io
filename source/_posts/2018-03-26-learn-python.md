@@ -58,3 +58,61 @@ Compare two arrays and returns a new array containing the element-wise maxima. x
 ## numpy.random.rand(d0, d1, …, dn)
 随机样本位于[0, 1)中。
 
+## \xa0 \n
+```python
+>>> s
+'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'
+>>> out = "".join(s.split())
+>>> out
+'T-shirt短袖圆领衫,体恤衫'
+```
+
+## [list comprehension](https://www.pythonforbeginners.com/basics/list-comprehensions-in-python)
+```python
+new_list = [ expression(i) for i in old_list if filter(i)]
+>>> data[0]
+{'votes': {'funny': 0, 'useful': 5, 'cool': 2},
+ 'user_id': 'rLtl8ZkDX5vH5nAx9C3q5Q',
+ 'review_id': 'fWKvX83p0-ka4JS3dc6E5A'}
+>>> votes = pd.DataFrame([i['votes'] for i in data]) # data is a list which element is dict.
+```
+## np.random.shuffle()
+```python
+In [26]: x = np.arange(10)
+
+In [27]: x
+Out[27]: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+In [28]: np.random.shuffle(x)
+
+In [29]: x
+Out[29]: array([8, 3, 4, 7, 9, 5, 1, 6, 0, 2])
+```
+
+## pandas Dataframe get rows by index array
+```python
+def split_data(data):
+    x_num = data.shape[0]
+    x_idx = np.arange(x_num)
+    np.random.shuffle(x_idx)
+    x_idx_train = x_idx[0 : int(x_num*0.7)]
+    x_idx_test = x_idx[int(x_num*0.7) : ]
+    train = data.iloc[x_idx_train]
+    test = data.iloc[x_idx_test]
+    return train, test
+```
+
+## str clean
+```python
+str1 = ''.join(str1.split()) # remove '\n','\xa0'
+```
+
+## pandas : add a column to a Daraframe
+```python
+data_df['cool'] = votes['cool']
+```
+
+## pandas : groupby mean
+```python
+data_df.groupby('stars').mean()
+```
