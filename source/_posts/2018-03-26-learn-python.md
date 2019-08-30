@@ -5,6 +5,7 @@ categories: note
 tags:
 - python
 - numpy
+- pandas
 ---
 
 Note for python functions.
@@ -116,3 +117,16 @@ data_df['cool'] = votes['cool']
 ```python
 data_df.groupby('stars').mean()
 ```
+
+## pandas : group and count unique values
+
+```python
+srcIp_Host_count = df.groupby(by='srcIp')['requestHost'].nunique()
+```
+
+## [pandas ：SettingwithCopyWarning](https://www.jianshu.com/p/72274ccb647a)
+
+## pandas : reindex() ， reset_index()
+
+reindex() 是取出index为参数中指定的行
+reset_index() 才是重置索引
