@@ -130,3 +130,29 @@ srcIp_Host_count = df.groupby(by='srcIp')['requestHost'].nunique()
 
 reindex() 是取出index为参数中指定的行
 reset_index() 才是重置索引
+
+## [pandas : apply 也可用做遍历df的操作]
+```python
+import re
+def clear_character(item):
+    '''去掉所有非中文字符'''
+    pattern1='[a-zA-Z0-9]'
+    pattern2 = '\[.*?\]'
+    pattern3 = re.compile(u'[^\s1234567890:：' + '\u4e00-\u9fa5]+')
+    pattern4='[’!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]+'
+    if len(item['content']) == 0:
+        item['content'] = item['title']
+    line1=re.sub(pattern1,'',item['content'])   #去除英文字母和数字
+    line2=re.sub(pattern2,'',line1)   #去除表情
+    line3=re.sub(pattern3,'',line2)   #去除其它字符
+    line4=re.sub(pattern4, '', line3) #去掉残留的冒号及其它符号
+    item['content']=''.join(line4.split()) #去除空白
+    return item
+
+data = data.apply(clear_character, axis=1)
+```
+
+## jupyter 允许外网访问
+```shell
+jupyter notebook --ip=<host_ip>
+```
