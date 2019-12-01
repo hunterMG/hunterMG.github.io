@@ -1,12 +1,14 @@
 ---
 title: Hackintosh note
 date: 2018-04-11 09:17:24
-categories: note
+categories: macOS
 tags:
 - Hackintosh
 - macOS
 ---
 
+Some useful tips for using macOS.
+<!-- more -->
 ## Alfred
 破解后每次开机都提示访问通讯录
 ```sh

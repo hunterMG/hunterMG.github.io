@@ -1,7 +1,7 @@
 ---
 title: install Tensorflow on macOS
 date: 2018-03-01 17:12:57
-categories: note
+categories: development
 tags:
 - Machine Learning
 - Deep Learning

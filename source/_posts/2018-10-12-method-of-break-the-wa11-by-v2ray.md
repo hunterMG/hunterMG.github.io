@@ -1,7 +1,7 @@
 ---
 title: Break the wa11 by v2ray
 date: 2018-10-12 15:54:51
-categoties: Network
+categories: Network
 tags: 
 - note
 - tools

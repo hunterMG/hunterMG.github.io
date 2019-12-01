@@ -1,7 +1,7 @@
 ---
 title: learn python
 date: 2018-03-26 09:57:47
-categories: note
+categories: development
 tags:
 - python
 - numpy

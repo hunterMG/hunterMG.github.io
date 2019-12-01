@@ -1,7 +1,7 @@
 ---
 title: 利用docker搭建cacti开发平台
 date: 2017-10-19 16:11:58
-categories: note
+categories: development
 tags:
 - 配置
 - docker

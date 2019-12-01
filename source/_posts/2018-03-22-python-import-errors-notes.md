@@ -1,7 +1,7 @@
 ---
 title: python errors notes
 date: 2018-03-22 16:57:37
-categories: note
+categories: development
 tags:
 - python
 ---

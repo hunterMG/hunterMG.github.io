@@ -1,7 +1,7 @@
 ---
 title: android-auto-script
 date: 2018-08-15 11:47:18
-categoties: development
+categories: Android
 tags:
 - note
 - android
