@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>install Tensorflow on macOS</title>
+    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
+    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
+<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
+<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
+<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
+<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
+<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Deep Learning</tag>
+        <tag>TensorFlow</tag>
+        <tag>macOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用docker搭建cacti开发平台</title>
+    <url>/2017/10/19/cacti-develop-with-docker/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
+<p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p>
+<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p>
+<p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p>
+<h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p>
+<p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p>
+<p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p>
+<h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p>
+<p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p>
+<p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p>
+<p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p>
+<p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
+<p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p>
+<p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p>
+<p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p>
+<p>选中所有的模板；</p>
+<p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p>
+<p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p>
+<p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p>
+<p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p>
+<p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>配置</tag>
+        <tag>docker</tag>
+        <tag>cacti</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Write blog with Hexo</title>
+    <url>/2018/01/24/write-blog-with-hexo/</url>
+    <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p><code>hexo</code> to write blog with Markdown syntax<br><code>github</code> to host the source files<br><code>webhook</code> to automaticlly update the blog in VPS<br><code>git submodule</code> to manage the Hexo theme<br><a id="more"></a></p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>Add a new github respository(name it : github-id.github.io).<br>On your PC:<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install hexo-cli -g <span class="comment"># Node.js required</span></span><br><span class="line">hexo init</span><br><span class="line">git init</span><br><span class="line"><span class="comment"># use branch 'hexo' to store the source files, branch 'master' to store the html files.</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line">git remote add origin git@github.com:github-id/github-id.github.io.git</span><br><span class="line">hexo new <span class="string">"my-first-post"</span></span><br><span class="line"><span class="comment"># write blog</span></span><br><span class="line">hexo g <span class="comment"># generate static html files</span></span><br><span class="line">hexo s <span class="comment"># preview the blog on your pc(default: http://localhost:4000)</span></span><br></pre></td></tr></table></figure></p>
+<p>Config the github repository in <code>_config.yml</code> :<br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:github-id/github-id.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></p>
+<p>Deploy the blog.<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo d <span class="comment"># push html files to the master branch.</span></span><br></pre></td></tr></table></figure></p>
+<p>Now open <a href="https://github-id.github.io" target="_blank" rel="noopener">https://github-id.github.io</a>, you can see your blog.  </p>
+<h2 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h2><ol>
+<li>Add a webhook of your blog’s github respository(branch <code>master</code>).(url example : <code>http://your-host/hook.php</code>)  </li>
+<li><p>Edit <code>hook.php</code> in your VPS as follows:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">$secret = <span class="string">'blog'</span>; <span class="comment"># must be same as the secret you type on github</span></span><br><span class="line">$signature = $_SERVER[<span class="string">'HTTP_X_HUB_SIGNATURE'</span>];</span><br><span class="line">$json = json_decode(file_get_contents(<span class="string">'php://input'</span>), <span class="keyword">true</span>);</span><br><span class="line">$cmd = <span class="string">"./deploy.sh"</span>;</span><br><span class="line"><span class="keyword">if</span>($signature)&#123;</span><br><span class="line">    $hash = <span class="string">"sha1="</span> . hash_hmac(<span class="string">'sha1'</span>, $HTTP_RAW_POST_DATA, $secret);</span><br><span class="line">    <span class="keyword">if</span> (strcmp($signature, $hash) == <span class="number">0</span> &amp;&amp; array_key_exists(<span class="string">'ref'</span>, $json)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> shell_exec($cmd);</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">header(<span class="string">'X-PHP-Response-Code: 404'</span>, <span class="keyword">true</span>, <span class="number">404</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Edit <code>deploy.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ../blog</span><br><span class="line"><span class="built_in">echo</span> `date +%D\ %T`&gt;&gt; ../hook/hook.log</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">git clean -f</span><br><span class="line">git pull origin master &gt;&gt; ../hook/hook.log 2&gt;&gt;../hook/hook.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add deploy key(Read-only access is just fine) for the VPS in your respository:<br>(The example shown below is for <code>apache</code>)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir /var/www/.ssh</span><br><span class="line">chown -R apache:apache /var/www/.ssh</span><br><span class="line">sudo -Hu apache ssh-keygen -t rsa</span><br><span class="line">cat /var/www/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Copy the public key to add it in github respository.</p>
+</li>
+<li><p>Clone the repository on VPS folder <code>blog</code>:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line">chown -R apache:apache blog</span><br><span class="line">/usr/bin/sudo -Hu apache git <span class="built_in">clone</span> git@github.com:github-id/github-id.github.io.git blog</span><br><span class="line">``` </span><br><span class="line">7. Test webhook on your PC:  </span><br><span class="line">```sh</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git checkout master</span><br><span class="line">git commit -m <span class="string">"hook test"</span> --allow-empty</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Then check the <code>hook.log</code> on VPS or just open <a href="http://your-donmain-name" target="_blank" rel="noopener">http://your-donmain-name</a> to check the blog.</p>
+<h2 id="Theme-–-submodule"><a href="#Theme-–-submodule" class="headerlink" title="Theme – submodule"></a>Theme – submodule</h2><p>Fork the theme respository.(such as <code>hexo-theme-next</code>)<br>On your PC:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git checkout hexo</span><br><span class="line">git submodule add git@github.com:github-id/hexo-theme-next.git theme/next</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>So you can manage your blog content and theme in two respository separately.</p>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><ol>
+<li>Apply a SSL CA on <code>freessl.org</code>;  </li>
+<li>Download the Certificate files(<code>domain.crt</code>, <code>domain.ca.crt</code>, <code>private.key</code>);  </li>
+<li><p>Install necessary module:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install mod_ssl openssl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Edit /etc/httpd/conf.d/ssl.conf:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SSLCertificateFile /path-to/domain.ca.crt</span><br><span class="line">SSLCertificateKeyFile /path-to/private.key</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Force HTTPS on all pages(Optional)<br>Config the <code>&lt;Derictory&gt;</code> tag in <code>httpd.conf</code>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond %&#123;SERVER_PORT&#125; !^443$</span><br><span class="line">RewriteRule ^(.*)?$ https://%&#123;SERVER_NAME&#125;/$1 [L,R]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Restart apache:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">service httpd restart</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="After-you-changed-your-PC"><a href="#After-you-changed-your-PC" class="headerlink" title="After you changed your PC :"></a>After you changed your PC :</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b hexo git@github.com:github-id/github-id.github.io.git</span><br><span class="line"><span class="built_in">cd</span> github-id.github.io</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install</span><br><span class="line">hexo new <span class="string">"new-post-name"</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>webhook</tag>
+        <tag>submodule</tag>
+        <tag>HTTPS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>learn python</title>
+    <url>/2018/03/26/learn-python/</url>
+    <content><![CDATA[<p>Note for python functions.<br><a id="more"></a></p>
+<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">Counter()</a></h2><h2 id="most-common"><a href="#most-common" class="headerlink" title="most_common()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">most_common()</a></h2><h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><h2 id="sum"><a href="#sum" class="headerlink" title="sum"></a><a href="https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.sum.html#numpy.sum" target="_blank" rel="noopener">sum</a></h2><p>Calculate the summary of ndarray a according to the given axis, axis is a integer or tuple</p>
+<h2 id="argsort"><a href="#argsort" class="headerlink" title="argsort"></a><a href="">argsort</a></h2><p>返回数组的排序索引（从小到大），若为矩阵可指定轴。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">k = <span class="number">2</span></span><br><span class="line">x = np.array([[<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>],</span><br><span class="line">              [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line">top_k_idx = np.argsort(x[<span class="number">0</span>])[:k]</span><br><span class="line">print(x)</span><br><span class="line">print(top_k_idx)</span><br><span class="line"></span><br><span class="line">top_k = np.argsort(x, axis=<span class="number">1</span>)</span><br><span class="line">print(top_k)</span><br></pre></td></tr></table></figure></p>
+<h2 id="np-square"><a href="#np-square" class="headerlink" title="np.square"></a>np.square</h2><p><code>np.square</code>是用c实现的，比<code>**</code>快多了😭。 661s:36s.</p>
+<h2 id="np-linalg-norm"><a href="#np-linalg-norm" class="headerlink" title="np.linalg.norm"></a>np.linalg.norm</h2><p>求<a href="https://blog.csdn.net/shijing_0214/article/details/51757564" target="_blank" rel="noopener">范数</a>，L1范数-&gt;曼哈顿距离（L1距离），L2范数-&gt;欧氏距离（L2距离）<a href="https://blog.csdn.net/hqh131360239/article/details/79061535" target="_blank" rel="noopener">np.linalg.norm</a></p>
+<h2 id="vstack-hstack"><a href="#vstack-hstack" class="headerlink" title="vstack, hstack"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html" target="_blank" rel="noopener">vstack, hstack</a></h2><p><a href="https://blog.csdn.net/csdn15698845876/article/details/73380803" target="_blank" rel="noopener">refer</a></p>
+<h2 id="array-split"><a href="#array-split" class="headerlink" title="array_split"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array_split.html" target="_blank" rel="noopener">array_split</a></h2><h2 id="concatenate"><a href="#concatenate" class="headerlink" title="concatenate"></a><a href="https://blog.csdn.net/garfielder007/article/details/51378296" target="_blank" rel="noopener">concatenate</a></h2><h2 id="np-random-choice"><a href="#np-random-choice" class="headerlink" title="np.random.choice"></a>np.random.choice</h2><p>生成随机序列，可指定范围或来源于某个数组。</p>
+<h2 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h2><p>改变矩阵为指定形状</p>
+<h2 id="mean"><a href="#mean" class="headerlink" title="mean"></a>mean</h2><p>求平均值，可指定matrix的轴</p>
+<h2 id="fmax-x1-x2"><a href="#fmax-x1-x2" class="headerlink" title="fmax(x1, x2)"></a>fmax(x1, x2)</h2><p>Compare two arrays and returns a new array containing the element-wise maxima. x2可以是一个数。</p>
+<h2 id="numpy-random-randn-d0-d1-…-dn"><a href="#numpy-random-randn-d0-d1-…-dn" class="headerlink" title="numpy.random.randn(d0, d1, …, dn)"></a>numpy.random.randn(d0, d1, …, dn)</h2><p>从标准正态分布中返回一个或多个样本值。</p>
+<h2 id="numpy-random-rand-d0-d1-…-dn"><a href="#numpy-random-rand-d0-d1-…-dn" class="headerlink" title="numpy.random.rand(d0, d1, …, dn)"></a>numpy.random.rand(d0, d1, …, dn)</h2><p>随机样本位于[0, 1)中。</p>
+<h2 id="xa0-n"><a href="#xa0-n" class="headerlink" title="\xa0 \n"></a>\xa0 \n</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out = <span class="string">""</span>.join(s.split())</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out</span><br><span class="line"><span class="string">'T-shirt短袖圆领衫,体恤衫'</span></span><br></pre></td></tr></table></figure>
+<h2 id="list-comprehension"><a href="#list-comprehension" class="headerlink" title="list comprehension"></a><a href="https://www.pythonforbeginners.com/basics/list-comprehensions-in-python" target="_blank" rel="noopener">list comprehension</a></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new_list = [ expression(i) <span class="keyword">for</span> i <span class="keyword">in</span> old_list <span class="keyword">if</span> filter(i)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data[<span class="number">0</span>]</span><br><span class="line">&#123;<span class="string">'votes'</span>: &#123;<span class="string">'funny'</span>: <span class="number">0</span>, <span class="string">'useful'</span>: <span class="number">5</span>, <span class="string">'cool'</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">'user_id'</span>: <span class="string">'rLtl8ZkDX5vH5nAx9C3q5Q'</span>,</span><br><span class="line"> <span class="string">'review_id'</span>: <span class="string">'fWKvX83p0-ka4JS3dc6E5A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>votes = pd.DataFrame([i[<span class="string">'votes'</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]) <span class="comment"># data is a list which element is dict.</span></span><br></pre></td></tr></table></figure>
+<h2 id="np-random-shuffle"><a href="#np-random-shuffle" class="headerlink" title="np.random.shuffle()"></a>np.random.shuffle()</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">26</span>]: x = np.arange(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: x</span><br><span class="line">Out[<span class="number">27</span>]: array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: np.random.shuffle(x)</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: x</span><br><span class="line">Out[<span class="number">29</span>]: array([<span class="number">8</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-Dataframe-get-rows-by-index-array"><a href="#pandas-Dataframe-get-rows-by-index-array" class="headerlink" title="pandas Dataframe get rows by index array"></a>pandas Dataframe get rows by index array</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_data</span><span class="params">(data)</span>:</span></span><br><span class="line">    x_num = data.shape[<span class="number">0</span>]</span><br><span class="line">    x_idx = np.arange(x_num)</span><br><span class="line">    np.random.shuffle(x_idx)</span><br><span class="line">    x_idx_train = x_idx[<span class="number">0</span> : int(x_num*<span class="number">0.7</span>)]</span><br><span class="line">    x_idx_test = x_idx[int(x_num*<span class="number">0.7</span>) : ]</span><br><span class="line">    train = data.iloc[x_idx_train]</span><br><span class="line">    test = data.iloc[x_idx_test]</span><br><span class="line">    <span class="keyword">return</span> train, test</span><br></pre></td></tr></table></figure>
+<h2 id="str-clean"><a href="#str-clean" class="headerlink" title="str clean"></a>str clean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">''</span>.join(str1.split()) <span class="comment"># remove '\n','\xa0'</span></span><br></pre></td></tr></table></figure>
+<h2 id="pandas-add-a-column-to-a-Daraframe"><a href="#pandas-add-a-column-to-a-Daraframe" class="headerlink" title="pandas : add a column to a Daraframe"></a>pandas : add a column to a Daraframe</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df[<span class="string">'cool'</span>] = votes[<span class="string">'cool'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-groupby-mean"><a href="#pandas-groupby-mean" class="headerlink" title="pandas : groupby mean"></a>pandas : groupby mean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df.groupby(<span class="string">'stars'</span>).mean()</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-group-and-count-unique-values"><a href="#pandas-group-and-count-unique-values" class="headerlink" title="pandas : group and count unique values"></a>pandas : group and count unique values</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">srcIp_Host_count = df.groupby(by=<span class="string">'srcIp'</span>)[<span class="string">'requestHost'</span>].nunique()</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-：SettingwithCopyWarning"><a href="#pandas-：SettingwithCopyWarning" class="headerlink" title="pandas ：SettingwithCopyWarning"></a><a href="https://www.jianshu.com/p/72274ccb647a" target="_blank" rel="noopener">pandas ：SettingwithCopyWarning</a></h2><h2 id="pandas-reindex-，-reset-index"><a href="#pandas-reindex-，-reset-index" class="headerlink" title="pandas : reindex() ， reset_index()"></a>pandas : reindex() ， reset_index()</h2><p>reindex() 是取出index为参数中指定的行<br>reset_index() 才是重置索引</p>
+<h2 id="pandas-apply-也可用做遍历df的操作"><a href="#pandas-apply-也可用做遍历df的操作" class="headerlink" title="[pandas : apply 也可用做遍历df的操作]"></a>[pandas : apply 也可用做遍历df的操作]</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clear_character</span><span class="params">(item)</span>:</span></span><br><span class="line">    <span class="string">'''去掉所有非中文字符'''</span></span><br><span class="line">    pattern1=<span class="string">'[a-zA-Z0-9]'</span></span><br><span class="line">    pattern2 = <span class="string">'\[.*?\]'</span></span><br><span class="line">    pattern3 = re.compile(<span class="string">u'[^\s1234567890:：'</span> + <span class="string">'\u4e00-\u9fa5]+'</span>)</span><br><span class="line">    pattern4=<span class="string">'[’!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`&#123;|&#125;~]+'</span></span><br><span class="line">    <span class="keyword">if</span> len(item[<span class="string">'content'</span>]) == <span class="number">0</span>:</span><br><span class="line">        item[<span class="string">'content'</span>] = item[<span class="string">'title'</span>]</span><br><span class="line">    line1=re.sub(pattern1,<span class="string">''</span>,item[<span class="string">'content'</span>])   <span class="comment">#去除英文字母和数字</span></span><br><span class="line">    line2=re.sub(pattern2,<span class="string">''</span>,line1)   <span class="comment">#去除表情</span></span><br><span class="line">    line3=re.sub(pattern3,<span class="string">''</span>,line2)   <span class="comment">#去除其它字符</span></span><br><span class="line">    line4=re.sub(pattern4, <span class="string">''</span>, line3) <span class="comment">#去掉残留的冒号及其它符号</span></span><br><span class="line">    item[<span class="string">'content'</span>]=<span class="string">''</span>.join(line4.split()) <span class="comment">#去除空白</span></span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">data = data.apply(clear_character, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-允许外网访问"><a href="#jupyter-允许外网访问" class="headerlink" title="jupyter 允许外网访问"></a>jupyter 允许外网访问</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jupyter notebook --ip=&lt;host_ip&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>numpy</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android-auto-script</title>
+    <url>/2018/08/15/android-auto-script/</url>
+    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
+<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
+<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
+<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
+<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
+<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>android</tag>
+        <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stop being horny: I choose to dig myself</title>
+    <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
+    <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
+<p>昨天晚上经历了很痛苦的一段时间，选择写下来的原因是因为想要以后避免这样痛苦的经历。都说“痛苦，是成长最快的方式”，不是吗？还有就是要记录下自己的情感，既然它产生了，就不能完完全全的否定它，选择记下来也是为了在情感的道路上有一些成长吧。而且写在这里也不会有什么人看到吧，毕竟我的博客好像也没啥人关注😂<br><a id="more"></a></p>
+<h2 id="怎么会爱上了她"><a href="#怎么会爱上了她" class="headerlink" title="怎么会爱上了她"></a>怎么会爱上了她</h2><p>其实事情要从远古时期开始说起吧，，， </p>
+<h3 id="夏令营"><a href="#夏令营" class="headerlink" title="夏令营"></a>夏令营</h3><p>大学之前的一个同学，之前一直是“好兄弟”的关系，而且是属于我在她面前可以无所顾忌的说话的那种。因为在正式的高中开始之前就一起被选择作为中考成绩优秀的学生参加了未来高中学校的夏令营，而且是一个组（7个人），她是组长，我是副组长。（描述的这么详细如果是当年一起夏令营的可能会想到是谁了，不过以我的判断当年夏令营里的人应该都不会知道我有博客）。当时她给我的感觉是大大咧咧的，然后身高不高，很娇小，但是嗓门很大，操着一口纯正的我们的方言，像个小大人；嗓门大给我一种能量很大的感觉，然后性格是很活泼（现在也是），可以说是自来熟了，我当时反而是比较内向，现在想来就是一个自我感觉良好的单纯傻小子吧。因为在一个组就免不了打交道，她就像完全对别人不陌生一样（另一个现在关系仍然很好的沙雕组员可以作证）,这让当时内向的我感觉挺舒服的吧，就是没那么尴尬，所以还是挺喜欢和她说话的。因为是组长，所以跟我说话的时候给我一种“颐指气使”的感觉（应该是她幽默的方式），然后我也甘愿“做牛做马”（抖M？），所以相处起来还是挺愉快的。当时可能也没多想什么吧。  </p>
+<h3 id="高中"><a href="#高中" class="headerlink" title="高中"></a>高中</h3><p>七天夏令营结束后就是高一开学了，高中三年给我的感觉是一样的吧，我们俩在隔壁班。平时路上有时候会遇到。因为之前认识，聊天也能聊到一块去。还有就是当时我在班里算是比较优秀的，然后别人就会把我当成一个学霸去对待，就是感觉不到那种平等交流的感觉。我当时的沟通能力也是比较差劲。所以在班里的氛围的感觉就不是特别的舒服（所幸我的初中好友现在也还是好基友是我的同桌，然后还认识了俩好基友，过得也能开心起来，现在想起来真的得感谢他们让我当时没有更自闭）。  </p>
+<p>因为这种状况，我俩遇见的时候我就会觉得特别亲切，因为从某种方面来说我们俩是平等的，我就可以无所顾忌的说话，彼此也能懂对方的心思，有时候有个人进步退步也会真的能为对方感同身受。正是因为如此，我当时就对她很有好感了吧。当时基友看见我俩聊天还会拿我们打趣。但是当时也没有表露出自己的心思，至少没有明显的表现出来吧（一部分因为当时的自闭，一部分因为当时认为高中应该把所有精力放在学习上，所以也没有表白之类的）。她对我应该也就是好朋友的方式吧（直到现在应该也是）。就这样过去了三年。中间她居然还谈了一次恋爱，用“居然“是因为她在我的印象里就是一个不会谈恋爱的人（大大咧咧，小大人，这种人怎么会和人拍拖的嘛），看来还是失算了。当时还挺失望的说实话，不过我也没对人家说过啥，那也是她的自由，平时也还是以好朋友的关系继续往来。  </p>
+<h3 id="本科"><a href="#本科" class="headerlink" title="本科"></a>本科</h3><p>该上大学了，后来知道差点去了一个学校。大学的时候也偶尔联系，很好的朋友。有意思的是我一直以为她是另一个大学的，后来来了一个城市之后约饭我不小心暴露了，她就总拿这个说事，不过我从一开始就以为她是另一所大学的，不知道是之前聊填志愿还是看她朋友圈所以才那么认为的，后来就一直那么认为。唉，头疼。有次寒假在家我们几个好朋友一块约饭的时候知道她当时分手了，竟然有点开心是怎么回事？  </p>
+<h3 id="研一"><a href="#研一" class="headerlink" title="研一"></a>研一</h3><p>然后是研究生了，她工作了，我们在同一个城市了。老友见面吃饭玩耍，很愉快。  </p>
+<p>研一开始想谈恋爱，一个是因为之前可能一直是单相思的状态，也想体会一下爱人和被爱的感觉（本科的时候谈过两次恋爱，不过都是异地，最终都是因为不太合适就分手了。给我最大的感触就是再也不要异地恋了，我也想牵着恋人的手，哪怕就是随意地在路边溜达）；还有一个也是因为考虑到以后也是要结婚的，而结婚的话肯定是和合适的人一起度过后半生才能幸福，那么如何找到一个合适的人呢，你们又要彼此相爱，又要合适，其实感觉是很难的。所以平时就有意识的关注一些心理学的知识，感觉会有一些帮助。但是如果这样只看理论知识没有过相处的情感经历的话怎么能确保自己最后选择的是合适的呢？所以秉着对双方负责的态度，我想恋爱了。</p>
+<p>研一班里其实女生数量还是挺多的，但是因为研究生的关系，大家也就上课见个面，平时也都有自己的事情，所以有看着有好感的也是没什么机会。和她是开学的时候见了个面，后来一直想一块去香山来着，后来每次不是她有事就是我有事就没去成（今年也是，，，醉了，，，）。平时也有交流，还给她写过一个提升工作效率的小软件，后来见面的时候还想让我给写个抢票软件。</p>
+<h3 id="现在"><a href="#现在" class="headerlink" title="现在"></a>现在</h3><p>然后今年是研二开学的时候一起逛了逛恭王府，这次我是真的动心了。那天聊得真得很开心。因为认识了这么多年，重聚在一起，已经很开心了，聊的又投机，就更开心。但当时也没有现场表示什么。回来后，也许是以前的感情又开始在我的心里泛起波澜，加上现在距离又这么近，而且我想我们有同样的背景，就更容易互相理解，我想这次该抓住这个机会了。然后就平时会在微信上聊几句，不过她给我的感觉是在微信上和现实中不太一样，见面的时候很热情，但在微信上就只简短的回复而且有时隔比较久，让我一度以为她失联了。也许是由于工作比较忙的原因吧。然后香山红叶节的时候一直约着去，但是都有事，红叶节过了也就没去成。然后这中间也许是由于报复心理（我是怎么了，，，），我就参加联谊,然后疯狂地和在联谊上认识的女生约会，好像都不太合适，最后都没有第二次了。</p>
+<p>然后就这周五下雪了，我就约她周六去故宫玩，她说要在家里写报告，然后我因为基友没带身份证就没去成故宫，我就说那我去你家串门吧，然后她也百般不愿意，说10平的房子都没地方坐，你还是别来了，还以为我被盗号了，最后说不想我去她家串门，我说“好伤心”，她说“不用伤心”。然后我就也不想跟她在微信上聊了，我是真的很伤心，她可能以为我在开玩笑。然后我就坐在桌子前面，合上笔记本，就这样趴在桌子上想从这一开始一直到现在，然后就留下泪来，我在想自己就是想体会一下被爱和爱人的感觉有什么错吗，为什么会这么痛苦，然后越想就越难受，眼泪似乎也止不住，过了几分钟好了点，擦干眼泪去洗澡睡觉。当时就想着我一定要把这种感觉记下来，以后再也不要经历这种感觉了。当时因为太晚就只记录了自己想说的几句话：</p>
+<blockquote>
+<p>stop being horny：I choose to dig myself<br>因为有所期待，所以才会伤心<br>再也不会因为别人改变自己的想法，做回真正的自己<br>还是会表达自己，分享自己的想法<br>还是会满怀期待，还是会充满希望<br>痛苦，是成长的方式吧  </p>
+</blockquote>
+<p>现在看起来当时因为心情有些激动，有些话似乎过于偏激了。现在看的话也不完全是她让我如此的痛苦，也有我自己的原因：没有明确的告诉她我对她的感情，而是想慢慢地让她感受，实践证明这不靠谱，也不知道是我暗示得太不明显还是她是个榆木脑袋又或许是对我并没有任何非分之想，唉，，，我好难啊。之前她好像说过自己不想谈恋爱一个人过挺好的。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>最后强行升华一下主题吧：在寻觅爱情的同时，我不会放弃对实现自我价值的追求，而且我会把自我价值看得更重。不能因为想谈个恋爱就放弃自己了，一味地委曲求全只会让人失去自我。具有自我意识的人也更有其魅力。还有就是，在表达自己的感情上，是不是也应该大胆一些了，或者说：勇敢一些，毕竟是个大老爷们。</p>
+<p>慢慢来吧，，，</p>
+]]></content>
+      <categories>
+        <category>emotion</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Break the wa11 by v2ray</title>
+    <url>/2018/10/12/method-of-break-the-wa11-by-v2ray/</url>
+    <content><![CDATA[<h1 id="Check-the-time-VPS-and-your-host"><a href="#Check-the-time-VPS-and-your-host" class="headerlink" title="Check the time (VPS and your host)"></a>Check the time (VPS and your host)</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date -r</span><br></pre></td></tr></table></figure>
+<p>Make sure the distance between them is smaller than 2 minutes. Different timezone is OK.<br><a id="more"></a></p>
+<h1 id="install-v2ray"><a href="#install-v2ray" class="headerlink" title="install v2ray"></a>install v2ray</h1><p>There is no difference between servers and clients. They differ by configurations.</p>
+<ul>
+<li>Linux</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash &lt;(curl -L -s https://install.direct/go.sh)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>macOS</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew tap v2ray/v2ray</span><br><span class="line">brew install v2ray-core</span><br><span class="line">brew info v2ray-core</span><br></pre></td></tr></table></figure>
+<h1 id="customize-your-configuration-refer"><a href="#customize-your-configuration-refer" class="headerlink" title="customize your configuration (refer)"></a>customize your configuration (<a href="https://yuan.ga/v2ray-complete-tutorial/" target="_blank" rel="noopener">refer</a>)</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/v2ray/config.json</span><br></pre></td></tr></table></figure>
+<p><code>jq</code> can verify the format of json.<br>Or just test the configuration by v2ray itself:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">v2ray -test -config=./config.json</span><br></pre></td></tr></table></figure>
+<h1 id="Start-your-server"><a href="#Start-your-server" class="headerlink" title="Start your server"></a>Start your server</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start v2ray</span><br><span class="line">systemctl status v2ray</span><br></pre></td></tr></table></figure>
+<h1 id="Start-your-client"><a href="#Start-your-client" class="headerlink" title="Start your client"></a>Start your client</h1><ul>
+<li>macOS</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">v2ray -config=./config.json</span><br></pre></td></tr></table></figure>
+<p>Or use brew (auto restart at login) :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew services start v2ray/v2ray/v2ray-core</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>macOS GUI :v2rayX</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install v2rayx</span><br></pre></td></tr></table></figure>
+<p>I suggest that configure the v2rayX manully, because the import method doesn’t work on my machine.</p>
+<p>V2rayX will configure the system proxy automaticly, so <code>SwitchOmega</code> is not necessary.</p>
+<ul>
+<li>Android: <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang&amp;hl=en_US" target="_blank" rel="noopener">v2rayNG</a></li>
+</ul>
+<h1 id="Enjoy"><a href="#Enjoy" class="headerlink" title="Enjoy"></a>Enjoy</h1><p>There is no worry any more about my study!!!😂</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>tools</tag>
+        <tag>wa11</tag>
+        <tag>v2ray</tag>
+        <tag>privacy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+  </entry>
+  <entry>
+    <title>lesson from wechat group</title>
+    <url>/2020/02/21/lesson-from-wechat-group/</url>
+    <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
+<blockquote>
+<p>到了片尾，空海说“通过杨玉环的生死参透了无上密”，白居易说“一字不改，诗是假的，可情是真的”。白居易也参透了无上密。<br>也就是说两个人都明白了一个道理：这个世界是由真相与谎言交织成的，我们要认识到这一点，不要否认现实。同时，如何对待这样的世界呢？接纳谎言，用力地拥抱真相。也可以延伸为：明白这个世界有残酷、无情、虚假的部分，但我不因此厌世，而是将这一部分搁置，用力去珍惜这个世界一点一滴的美好，这样就能得到内心的平静。<br>这也解释了那个抱孩妇人的事情。<br>空海问她为什么平静。她回答：“只要孩子睡着就好了。”也就是说，即使这个世界有惊涛骇浪，但毕竟还有美好的部分，我把我的精力全都用来拥抱这美好、品味这美好，自然无暇去为惊涛骇浪而惊慌了。<br><a href="https://movie.douban.com/review/9011512/" target="_blank" rel="noopener">原文链接</a></p>
+</blockquote>
+<p>不同的人（尤其是不同年龄、时代的人）对同一事物（特别是新生事物）的理解能力是不一样的。思维能力和价值观也会有很大差异，所以，不要去强求别人去理解你的观点或者认同你的价值观。<br>如果想输出价值观的话，还是要好好考虑方式方法。  </p>
+<p>真理总是掌握在少数人的手里，那些实在不能明理的人，不要去强求了。你救不了他们。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
+    <url>/2020/12/26/fix-pcap-ext/</url>
+    <content><![CDATA[<p>最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 <code>0xa1b2c3d4</code>, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 <code>0x0a0d0d0a</code>, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见<a href="https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error" target="_blank" rel="noopener">dpkt invalid tcpdump header error</a>）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 <code>.pcapng</code>.<br><a id="more"></a></p>
+<p>批量检查pcap文件头并改正的脚本: <code>fixPcapExt.sh</code><br>参数：放置pcap文件的目录<br>思路：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">遍历目录中的文件：  </span><br><span class="line">    如果文件的扩展名是否是`.pcap`：  </span><br><span class="line">        如果文件的前4个字节为`0x0a0d0d0a`:  </span><br><span class="line">            修改文件名</span><br></pre></td></tr></table></figure></p>
+<p>实现：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fix wrong pcap file extention.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> pcap files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">for file in `ls .`</span><br><span class="line">    do</span><br><span class="line">    if [ "$&#123;file##*.&#125;"x = "pcap"x ];then</span><br><span class="line">        if [ `hexdump -n 4 -e '4 "%x"' $file`x = "a0d0d0a"x ];then</span><br><span class="line">            echo $file</span><br><span class="line">            name=$(ls $file | cut -d. -f1) </span><br><span class="line">            mv $file "$name".pcapng</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    done</span><br></pre></td></tr></table></figure></p>
+<p>要点：</p>
+<ol>
+<li><p>if [ “${file##*.}”x = “pcap”x ];then   </p>
+<p>${file##*.} 是提取文件扩展名，##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容；<br>x 是防止字符串为空时报错；<br>这一行中的空格都不能去掉，会报错。</p>
+</li>
+<li><p>`hexdump -n 4 -e ‘4 “%x”‘ $file`</p>
+<p> 用hexdump检查前4个字节，并格式化输出</p>
+</li>
+<li><p>name=$(ls $file | cut -d. -f1) </p>
+<p> 提取文件名中的名字部分。<br> <code>cut -d. -f1</code> :提取以点为分隔符的第1部分。  </p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>shell</tag>
+        <tag>Linix</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2017/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>当你看过世界</title>
+    <url>/2020/04/27/nothing/</url>
+    <content><![CDATA[<p>..<br><a id="more"></a><br>现在每天似乎都有焦虑在伴随着我。<br>悲观，抑郁，丧，或许就是现在的我吧。<br>吃完午饭，刷个朋友圈，一个班的同学在知乎上发表了一篇NLP领域的文章。打开链接，读过文章，却不能领略其中一二，评论区也有著名导师、大牛师兄纷纷称赞。<br>是羡慕吗，还是嫉妒？不管是什么，又有什么用。<br>每天做着毫无意义的工作，没有能力的提升，<br>未来会怎么样，<br>当你知道你穷极一生也没办法过上自己向往的生活，实现自己的价值，你会怎么想。<br>是该妥协吗，<br>老老实实的做个平凡人，<br>你的出身没办法改变，<br>原来人在出生的时候就到达了顶点。<br>想这些又有什么用，<br>觉得活着太累，没有希望，<br>可你家里只有自己，<br>连离开的权利都被剥夺。<br>当你看着别人过着你想要的生活，<br>燃起过无数次希望，<br>也绝望过无数次，<br>没有意义。  </p>
+<p>当你看过世界，<br>却发现世界并不是你的。  </p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+  </entry>
+</search>
