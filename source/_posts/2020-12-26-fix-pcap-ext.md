@@ -1,10 +1,10 @@
 ---
 title: 使用shell脚本批量检查pcap文件头并修改文件扩展名
 date: 2020-12-26 15:10:13
-categoties: Shell
+categories: Shell
 tags:
 - shell
-- Linix
+- Linux
 ---
 
 最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 `0xa1b2c3d4`, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 `0x0a0d0d0a`, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见[dpkt invalid tcpdump header error](https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error)）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 `.pcapng`.

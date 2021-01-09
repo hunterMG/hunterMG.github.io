@@ -1,7 +1,7 @@
 ---
 title: oneindex refer test
 date: 2020-02-16 21:40:31
-categoties: tools
+categories: tools
 tags:
 ---
 
