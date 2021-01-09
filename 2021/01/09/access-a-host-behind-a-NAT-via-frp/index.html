@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="HunterMG">
 <meta property="og:description" content="使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。">
 <meta property="og:locale" content="_en">
-<meta property="og:updated_time" content="2021-01-09T06:11:35.728Z">
+<meta property="og:updated_time" content="2021-01-09T06:25:14.037Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用frp进行内网穿透">
 <meta name="twitter:description" content="使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。">
@@ -356,6 +356,24 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -400,7 +418,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.34.3/frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">tar xvzf frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.34.3_linux_amd64 </span><br><span class="line">vim frps.ini</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Server 端配置(tcp模式)：<br>（可以使用 stcp 模式给连接添加密钥，还有一种是 xtcp 通过 P2P 的方式连接，连接成功后不走服务器流量。但这两种方式需要在自己的机器上也运行一个 frpc，考虑到有时候可能需要用平板连，遂放弃。具体参考：<a href="https://github.com/fatedier/frp#expose-your-service-privately" target="_blank" rel="noopener">stcp</a>, <a href="https://github.com/fatedier/frp#p2p-mode" target="_blank" rel="noopener">xtcp</a>）  </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> frps.ini</span><br><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line"><span class="meta">#</span>dashboard_port = 7500</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> frps.ini</span></span><br><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line"><span class="meta">#</span><span class="bash">dashboard_port = 7500</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动 Server 端:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
@@ -411,7 +429,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.34.3/frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">tar xvzf frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.34.3_linux_amd64 </span><br><span class="line">vim frpc.ini</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Client 端配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr = server.ip</span><br><span class="line">server_port = 7000</span><br><span class="line">login_fail_exit = false</span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> frpc.ini</span></span><br><span class="line">[common]</span><br><span class="line">server_addr = server.ip</span><br><span class="line">server_port = 7000</span><br><span class="line">login_fail_exit = false</span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动 Client 端：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
@@ -576,7 +594,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
