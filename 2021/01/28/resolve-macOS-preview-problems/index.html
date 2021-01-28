@@ -100,21 +100,21 @@
 
 
   
-  <meta name="keywords" content="Linux,">
+  <meta name="keywords" content="macOS,shell,qlmarkdown,qlcolorcode,preview,">
 
 
-<meta name="description" content="使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。">
-<meta name="keywords" content="Linux">
+<meta name="description" content="Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 qlmarkdown 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。">
+<meta name="keywords" content="macOS,shell,qlmarkdown,qlcolorcode,preview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用frp进行内网穿透">
-<meta property="og:url" content="https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/index.html">
+<meta property="og:title" content="macOS Markdown 预览和 lsd 进程占用 CPU">
+<meta property="og:url" content="https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/index.html">
 <meta property="og:site_name" content="HunterMG">
-<meta property="og:description" content="使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。">
+<meta property="og:description" content="Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 qlmarkdown 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。">
 <meta property="og:locale" content="_en">
-<meta property="og:updated_time" content="2021-01-09T06:25:14.037Z">
+<meta property="og:updated_time" content="2021-01-28T15:10:31.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用frp进行内网穿透">
-<meta name="twitter:description" content="使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。">
+<meta name="twitter:title" content="macOS Markdown 预览和 lsd 进程占用 CPU">
+<meta name="twitter:description" content="Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 qlmarkdown 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。">
 
 
 
@@ -123,10 +123,10 @@
 
 
 
-  <link rel="canonical" href="https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/">
+  <link rel="canonical" href="https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/">
 
 
-  <title>使用frp进行内网穿透 | HunterMG</title>
+  <title>macOS Markdown 预览和 lsd 进程占用 CPU | HunterMG</title>
   
 
 
@@ -317,7 +317,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/">
+    <link itemprop="mainEntityOfPage" href="https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hunterMG">
@@ -334,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用frp进行内网穿透</h1>
+          <h1 class="post-title" itemprop="name headline">macOS Markdown 预览和 lsd 进程占用 CPU</h1>
         
 
         <div class="post-meta">
@@ -346,7 +346,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-09T11:09:02+08:00">2021-01-09</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-28T11:11:07+08:00">2021-01-28</time>
             
 
             
@@ -367,7 +367,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/macOS/" itemprop="url" rel="index"><span itemprop="name">macOS</span></a></span>
 
                 
                 
@@ -382,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/01/09/access-a-host-behind-a-NAT-via-frp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/09/access-a-host-behind-a-NAT-via-frp/" itemprop="commentCount"></span>
+                <a href="/2021/01/28/resolve-macOS-preview-problems/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/28/resolve-macOS-preview-problems/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,56 +411,25 @@
       
 
       
-        <p>使用frp进行内网穿透，实现在外网访问位于内网没有公有IP的主机。<br><a id="more"></a></p>
-<p>需要：有公有IP的外网主机一个, 作为 Server 转发内网主机的流量，可以自己买个配置低一点的VPS。</p>
-<h3 id="在公网主机上配置-Server-端："><a href="#在公网主机上配置-Server-端：" class="headerlink" title="在公网主机上配置 Server 端："></a>在公网主机上配置 Server 端：</h3><ul>
-<li><p>从GitHub下载程序</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.34.3/frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">tar xvzf frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.34.3_linux_amd64 </span><br><span class="line">vim frps.ini</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Server 端配置(tcp模式)：<br>（可以使用 stcp 模式给连接添加密钥，还有一种是 xtcp 通过 P2P 的方式连接，连接成功后不走服务器流量。但这两种方式需要在自己的机器上也运行一个 frpc，考虑到有时候可能需要用平板连，遂放弃。具体参考：<a href="https://github.com/fatedier/frp#expose-your-service-privately" target="_blank" rel="noopener">stcp</a>, <a href="https://github.com/fatedier/frp#p2p-mode" target="_blank" rel="noopener">xtcp</a>）  </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> frps.ini</span></span><br><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line"><span class="meta">#</span><span class="bash">dashboard_port = 7500</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动 Server 端:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="在内网主机上配置-Client-端"><a href="#在内网主机上配置-Client-端" class="headerlink" title="在内网主机上配置 Client 端"></a>在内网主机上配置 Client 端</h3><ul>
-<li><p>从github下载程序</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.34.3/frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">tar xvzf frp_0.34.3_linux_amd64.tar.gz</span><br><span class="line">cd frp_0.34.3_linux_amd64 </span><br><span class="line">vim frpc.ini</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Client 端配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> frpc.ini</span></span><br><span class="line">[common]</span><br><span class="line">server_addr = server.ip</span><br><span class="line">server_port = 7000</span><br><span class="line">login_fail_exit = false</span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动 Client 端：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可能需要在 VPS 的控制台上允许流量通过指定的端口(如该例中为 7000,6000)。 </p>
-<h3 id="在自己的机器上连接"><a href="#在自己的机器上连接" class="headerlink" title="在自己的机器上连接"></a>在自己的机器上连接</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oPort=6000 user@server.ip</span><br></pre></td></tr></table></figure>
-<h3 id="开机自动启动服务"><a href="#开机自动启动服务" class="headerlink" title="开机自动启动服务"></a>开机自动启动服务</h3><p>上面启动服务端和客户端的方式随着 Terminal 的关闭进程会停止，当然可以用 nohup 的方式在后台运行，但如果重启机器就不会自动启动。所以根据具体的 OS 配置开机自启服务。</p>
-<h4 id="Server-Debian-10"><a href="#Server-Debian-10" class="headerlink" title="Server(Debian 10)"></a>Server(Debian 10)</h4><ul>
-<li><p>安装supervisor</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install supervisor</span><br><span class="line">sudo vim /etc/supervisor/conf.d/frp.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>frp.conf :</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[program:frp]</span><br><span class="line">command = /path/to/frps -c /path/to/frps.ini</span><br><span class="line">autostart = true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看状态</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart supervisor</span><br><span class="line">sudo supervisorctl status</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="Client-CentOS-7"><a href="#Client-CentOS-7" class="headerlink" title="Client(CentOS 7)"></a>Client(CentOS 7)</h4><ul>
-<li><p>拷贝程序和配置文件并编辑service文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cp frpc /usr/bin/frpc</span><br><span class="line">sudo cp frpc.ini /etc/frp/frpc.ini</span><br><span class="line">sudo vim /usr/lib/systemd/system/frpc.service</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>frpc.service :</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Frp Client Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini</span><br><span class="line">ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini</span><br><span class="line">ExecStop=/bin/kill $MAINPID</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动frpc：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable frpc</span><br><span class="line">sudo systemctl start frpc</span><br><span class="line">sudo systemctl status frpc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br><a href="https://free-e.net/109" target="_blank" rel="noopener">frp自动启动</a>  </p>
+        <p>Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 <a href="https://github.com/toland/qlmarkdown" target="_blank" rel="noopener">qlmarkdown</a> 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。<br><a id="more"></a></p>
+<h2 id="初现端倪"><a href="#初现端倪" class="headerlink" title="初现端倪"></a>初现端倪</h2><p>在 github 的 issue 里找到了这个 <a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">issue 39</a>, 说只能预览 <code>.markdown</code> 扩展名的文件，于是我把 <code>.md</code> 文件的扩展名改成了 <code>.markdown</code>，果真可以预览了，看来问题是一样的。</p>
+<p>于是我就往下翻评论，看到了有个老哥给出了下面的这个命令，重建 Launch Service 数据库，有人说有用，我就尝试了一下。结果马上就能预览 <code>.md</code> 扩展名的文件了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user ; killall Dock</span><br></pre></td></tr></table></figure>
+<h2 id="节外生枝"><a href="#节外生枝" class="headerlink" title="节外生枝"></a>节外生枝</h2><p>但又一个问题出现了：<code>lsd</code> 进程一直在占用 30-40%的cpu，有时候能到 100%，过了一天（22小时）之后还是如此，用<code>Monitor</code>看了一下，磁盘写入量达到了 46G，这也太不正常了，于是又找解决方法。</p>
+<p>然后看到了这个<a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>，发现有两个命令，一个和上面的相同，另一个如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /System/Library/Frameworks -type f -name "lsregister" -exec &#123;&#125; -kill -seed -r \;</span><br></pre></td></tr></table></figure>
+<p>这篇文章说这两个命令是一样的，其实参数不一样。在 <code>lsd</code> 持续占用 CPU时，我运行了下面这个命令，效果立竿见影，<code>lsd</code>马上就不占用 CPU了。就在我以为万事大吉，准备收工，这篇记录写了一半时，我突然发现 Markdown 的预览又不起作用了，，，重启无效，，，</p>
+<h2 id="峰回路转"><a href="#峰回路转" class="headerlink" title="峰回路转"></a>峰回路转</h2><p>正当我欲哭无泪时，我想到了 Finder 的一些插件经常会冲突，比如坚果云和 OneDrive 的文件同步状态显示插件就经常失效，需要在系统设置里的插件设置中重启一下才行。我就想会不会是和别的预览插件冲突了。除了 qlmarkdown 之外，我还装了 qlcolorcode 用于在预览源代码文件时提供语法高亮等。然后列出了一下 <code>~/Library/QuickLook</code> 目录，准备一个一个排除。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lrwxr-xr-x   1 yg  staff    73B 11 12  2019 NSQuickLookPlugin.qlgenerator -&gt; /Applications/Nutstore.app/Contents/PlugIns/NSQuickLookPlugin.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 12 16 03:36 QLColorCode.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B 10 22  2019 QLMarkdown.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B  2  4  2020 QLStephen.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  7 18  2016 QuickLookASE.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2  3  2013 QuickLookCSV.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 10 22  2019 QuickLookJSON.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2 28  2018 WebpQuickLook.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  3 24  2019 qlImageSize.qlgenerator</span><br></pre></td></tr></table></figure></p>
+<p>第一个就是坚果云的，其实我首先想到的是quicklook插件似乎是在 <code>Info.plist</code> 里声明了 preview 的文件类型，在这里还有一个冷知识：</p>
+<blockquote>
+<p>Launch Service 是用于将文件类型和打开该类型文件的程序关联起来的。<br>macOS 中的文件类型并不是靠文件的扩展名区分的，而是文件的 <code>kMDItemContentType</code>,可以用以下命令查看一个文件的类型：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mdls README.md</span></span><br><span class="line">_kMDItemDisplayNameWithExtensions      = "README.md"</span><br><span class="line">kMDItemContentCreationDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentCreationDate_Ranking     = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentModificationDate         = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentModificationDate_Ranking = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentType                     = "net.daringfireball.markdown"</span><br><span class="line">kMDItemContentTypeTree                 = (</span><br><span class="line">    "net.daringfireball.markdown",</span><br><span class="line">    "public.plain-text",</span><br><span class="line">    "public.text",</span><br><span class="line">    "public.data",</span><br><span class="line">    "public.item",</span><br><span class="line">    "public.content"</span><br><span class="line">)</span><br><span class="line">kMDItemDateAdded                       = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemDateAdded_Ranking               = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemDisplayName                     = "README.md"</span><br><span class="line">kMDItemDocumentIdentifier              = 0</span><br><span class="line">kMDItemFSContentChangeDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreationDate                  = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreatorCode                   = ""</span><br><span class="line">kMDItemFSFinderFlags                   = 0</span><br><span class="line">kMDItemFSHasCustomIcon                 = (null)</span><br><span class="line">kMDItemFSInvisible                     = 0</span><br><span class="line">kMDItemFSIsExtensionHidden             = 0</span><br><span class="line">kMDItemFSIsStationery                  = (null)</span><br><span class="line">kMDItemFSLabel                         = 0</span><br><span class="line">kMDItemFSName                          = "README.md"</span><br><span class="line">kMDItemFSNodeCount                     = (null)</span><br><span class="line">kMDItemFSOwnerGroupID                  = 20</span><br><span class="line">kMDItemFSOwnerUserID                   = 501</span><br><span class="line">kMDItemFSSize                          = 2550</span><br><span class="line">kMDItemFSTypeCode                      = ""</span><br><span class="line">kMDItemInterestingDate_Ranking         = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemKind                            = "Markdown"</span><br><span class="line">kMDItemLastUsedDate                    = 2021-01-27 03:35:22 +0000</span><br><span class="line">kMDItemLastUsedDate_Ranking            = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemLogicalSize                     = 2550</span><br><span class="line">kMDItemPhysicalSize                    = 4096</span><br><span class="line">kMDItemUseCount                        = 2</span><br><span class="line">kMDItemUsedDates                       = (</span><br><span class="line">    "2021-01-26 16:00:00 +0000"</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>所以我先检查了 <code>NSQuickLookPlugin.qlgenerator</code> 的 <code>Info.plist</code> 中的 <code>LSItemContentTypes</code> 的值，但并没找到任何与 <code>qlmarkdown</code> 冲突的部分。所以还是直接卸载坚果云试试，反正现在也不用坚果云了。</p>
+<h2 id="万事大吉"><a href="#万事大吉" class="headerlink" title="万事大吉"></a>万事大吉</h2><p>然后， qlmarkdown works fine❕❕❕😭</p>
+<p>此时此刻，我只想说：Stupid software。</p>
+<p>或许这篇记录现在可以改名为 <code>坚果云引发的惨案</code>。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">qlmarkdown issue 39</a><br><a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>  </p>
 
       
     </div>
@@ -478,7 +447,15 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/macOS/" rel="tag"># macOS</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+            <a href="/tags/qlmarkdown/" rel="tag"># qlmarkdown</a>
+          
+            <a href="/tags/qlcolorcode/" rel="tag"># qlcolorcode</a>
+          
+            <a href="/tags/preview/" rel="tag"># preview</a>
           
         </div>
       
@@ -491,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/12/26/fix-pcap-ext/" rel="next" title="使用shell脚本批量检查pcap文件头并修改文件扩展名">
-                <i class="fa fa-chevron-left"></i> 使用shell脚本批量检查pcap文件头并修改文件扩展名
+              <a href="/2021/01/09/access-a-host-behind-a-NAT-via-frp/" rel="next" title="使用frp进行内网穿透">
+                <i class="fa fa-chevron-left"></i> 使用frp进行内网穿透
               </a>
             
           </div>
@@ -500,10 +477,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/01/28/resolve-macOS-preview-problems/" rel="prev" title="macOS Markdown 预览和 lsd 进程占用 CPU">
-                macOS Markdown 预览和 lsd 进程占用 CPU <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -668,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在公网主机上配置-Server-端："><span class="nav-number">1.</span> <span class="nav-text">在公网主机上配置 Server 端：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在内网主机上配置-Client-端"><span class="nav-number">2.</span> <span class="nav-text">在内网主机上配置 Client 端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在自己的机器上连接"><span class="nav-number">3.</span> <span class="nav-text">在自己的机器上连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开机自动启动服务"><span class="nav-number">4.</span> <span class="nav-text">开机自动启动服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Server-Debian-10"><span class="nav-number">4.1.</span> <span class="nav-text">Server(Debian 10)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client-CentOS-7"><span class="nav-number">4.2.</span> <span class="nav-text">Client(CentOS 7)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初现端倪"><span class="nav-number">1.</span> <span class="nav-text">初现端倪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节外生枝"><span class="nav-number">2.</span> <span class="nav-text">节外生枝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#峰回路转"><span class="nav-number">3.</span> <span class="nav-text">峰回路转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#万事大吉"><span class="nav-number">4.</span> <span class="nav-text">万事大吉</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></li></div>
             
 
           </div>
@@ -825,9 +798,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/';
-        this.page.identifier = '2021/01/09/access-a-host-behind-a-NAT-via-frp/';
-        this.page.title = '使用frp进行内网穿透';
+        this.page.url = 'https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/';
+        this.page.identifier = '2021/01/28/resolve-macOS-preview-problems/';
+        this.page.title = 'macOS Markdown 预览和 lsd 进程占用 CPU';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
