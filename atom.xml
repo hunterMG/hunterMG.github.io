@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hunterMG.github.io/"/>
-  <updated>2021-01-28T15:10:31.271Z</updated>
+  <updated>2021-02-06T17:29:46.502Z</updated>
   <id>https://hunterMG.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>批量重命名文件</title>
+    <link href="https://hunterMG.github.io/2021/02/07/rename-files-to-numbers-by-file-modification-time/"/>
+    <id>https://hunterMG.github.io/2021/02/07/rename-files-to-numbers-by-file-modification-time/</id>
+    <published>2021-02-06T17:06:11.000Z</published>
+    <updated>2021-02-06T17:29:46.502Z</updated>
+    
+    <content type="html"><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p><p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"><span class="meta">#</span> Raname file to numbers by file modification time.</span><br><span class="line"><span class="meta">#</span> Arg:  dir path where files at.</span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in `ls -rt`;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    name=$(ls $file | cut -d. -f1)</span><br><span class="line">    ext=$(ls $file | cut -d. -f2)</span><br><span class="line">    mv $file $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p><p>用法：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p><p>dir1 是需要批量重命名的文件所在的文件夹。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 &lt;code&gt;001&lt;/code&gt; 开始的数字。根据&lt;a href=&quot;/2020/12/26/fix-pcap-ext/index.html&quot;&gt;使用shell脚本批量检查pcap文件头并修改文件扩展名&lt;/a&gt;中写的脚本修改而来。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="tool" scheme="https://hunterMG.github.io/categories/tool/"/>
+    
+    
+      <category term="Linux" scheme="https://hunterMG.github.io/tags/Linux/"/>
+    
+      <category term="Shell" scheme="https://hunterMG.github.io/tags/Shell/"/>
+    
+  </entry>
   
   <entry>
     <title>macOS Markdown 预览和 lsd 进程占用 CPU</title>
