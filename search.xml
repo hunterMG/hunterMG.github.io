@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用docker搭建cacti开发平台</title>
     <url>/2017/10/19/cacti-develop-with-docker/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
@@ -119,21 +137,19 @@
       </tags>
   </entry>
   <entry>
-    <title>python errors notes</title>
-    <url>/2018/03/22/python-import-errors-notes/</url>
-    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
-<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
-<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
-<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>development</category>
+        <category>macOS</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
       </tags>
   </entry>
   <entry>
@@ -169,22 +185,6 @@
         <tag>python</tag>
         <tag>numpy</tag>
         <tag>pandas</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hackintosh note</title>
-    <url>/2018/04/11/Hackintosh-note/</url>
-    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
-<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
-<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>macOS</category>
-      </categories>
-      <tags>
-        <tag>macOS</tag>
-        <tag>Hackintosh</tag>
       </tags>
   </entry>
   <entry>
@@ -278,14 +278,6 @@
       </categories>
   </entry>
   <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-  </entry>
-  <entry>
     <title>lesson from wechat group</title>
     <url>/2020/02/21/lesson-from-wechat-group/</url>
     <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
@@ -297,6 +289,14 @@
 ]]></content>
       <categories>
         <category>life</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
       </categories>
   </entry>
   <entry>
@@ -432,20 +432,47 @@
       </tags>
   </entry>
   <entry>
-    <title>批量重命名文件</title>
-    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
-    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
-<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"><span class="meta">#</span> Raname file to numbers by file modification time.</span><br><span class="line"><span class="meta">#</span> Arg:  dir path where files at.</span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in `ls -rt`;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    name=$(ls $file | cut -d. -f1)</span><br><span class="line">    ext=$(ls $file | cut -d. -f2)</span><br><span class="line">    mv $file $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
-<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
-<p>dir1 是需要批量重命名的文件所在的文件夹。</p>
+    <title>Get newest code from original repo</title>
+    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
+    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
+<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
+<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
+<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> cd test</span><br><span class="line"><span class="meta">$</span> git remote -v # check remote repo address</span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span> git remote remove origin # remove remote repo</span><br><span class="line"><span class="meta">$</span> git remote add origin git@github.com:hunterMG/test.git # add remote repo of yourself</span><br><span class="line"><span class="meta">$</span> git push -u origin master # push code to your remote repo</span><br></pre></td></tr></table></figure>
+<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
+<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
+<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
+<ol>
+<li><p>添加远程 repo，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程 repo 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建并切换到分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并最新的代码，解决冲突：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
+<li><p>切换到 master 分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除临时分支（optional）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
+<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
 ]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -460,5 +487,21 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>批量重命名文件</title>
+    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
+    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
+<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Raname file to numbers by file modification time.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in `ls -rt`;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    name=$(ls $file | cut -d. -f1)</span><br><span class="line">    ext=$(ls $file | cut -d. -f2)</span><br><span class="line">    mv $file $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
+<p>dir1 是需要批量重命名的文件所在的文件夹。</p>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
   </entry>
 </search>
