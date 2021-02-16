@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>利用docker搭建cacti开发平台</title>
-    <url>/2017/10/19/cacti-develop-with-docker/</url>
-    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
-<p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p>
-<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p>
-<p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p>
-<h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p>
-<p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p>
-<p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p>
-<h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p>
-<p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p>
-<p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p>
-<p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p>
-<p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
-<p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p>
-<p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p>
-<p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p>
-<p>选中所有的模板；</p>
-<p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p>
-<p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p>
-<p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p>
-<p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p>
-<p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>
-]]></content>
+    <title>install Tensorflow on macOS</title>
+    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
+    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
+<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
+<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
+<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
+<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
+<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>development</category>
       </categories>
       <tags>
-        <tag>配置</tag>
-        <tag>docker</tag>
-        <tag>cacti</tag>
+        <tag>Machine Learning</tag>
+        <tag>Deep Learning</tag>
+        <tag>TensorFlow</tag>
+        <tag>macOS</tag>
       </tags>
   </entry>
   <entry>
@@ -98,77 +81,41 @@
       </tags>
   </entry>
   <entry>
-    <title>install Tensorflow on macOS</title>
-    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
-    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
-<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
-<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
-<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
-<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
-<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
-<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
-<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Deep Learning</tag>
-        <tag>TensorFlow</tag>
-        <tag>macOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python errors notes</title>
-    <url>/2018/03/22/python-import-errors-notes/</url>
-    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
-<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
-<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
-<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
+    <title>利用docker搭建cacti开发平台</title>
+    <url>/2017/10/19/cacti-develop-with-docker/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
+<p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p>
+<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p>
+<p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p>
+<h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p>
+<p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p>
+<p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p>
+<h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p>
+<p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p>
+<p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p>
+<p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p>
+<p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
+<p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p>
+<p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p>
+<p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p>
+<p>选中所有的模板；</p>
+<p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p>
+<p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p>
+<p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p>
+<p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p>
+<p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>
 ]]></content>
       <categories>
         <category>development</category>
       </categories>
       <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>learn python</title>
-    <url>/2018/03/26/learn-python/</url>
-    <content><![CDATA[<p>Note for python functions.<br><a id="more"></a></p>
-<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">Counter()</a></h2><h2 id="most-common"><a href="#most-common" class="headerlink" title="most_common()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">most_common()</a></h2><h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><h2 id="sum"><a href="#sum" class="headerlink" title="sum"></a><a href="https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.sum.html#numpy.sum" target="_blank" rel="noopener">sum</a></h2><p>Calculate the summary of ndarray a according to the given axis, axis is a integer or tuple</p>
-<h2 id="argsort"><a href="#argsort" class="headerlink" title="argsort"></a><a href="">argsort</a></h2><p>返回数组的排序索引（从小到大），若为矩阵可指定轴。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">k = <span class="number">2</span></span><br><span class="line">x = np.array([[<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>],</span><br><span class="line">              [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line">top_k_idx = np.argsort(x[<span class="number">0</span>])[:k]</span><br><span class="line">print(x)</span><br><span class="line">print(top_k_idx)</span><br><span class="line"></span><br><span class="line">top_k = np.argsort(x, axis=<span class="number">1</span>)</span><br><span class="line">print(top_k)</span><br></pre></td></tr></table></figure></p>
-<h2 id="np-square"><a href="#np-square" class="headerlink" title="np.square"></a>np.square</h2><p><code>np.square</code>是用c实现的，比<code>**</code>快多了😭。 661s:36s.</p>
-<h2 id="np-linalg-norm"><a href="#np-linalg-norm" class="headerlink" title="np.linalg.norm"></a>np.linalg.norm</h2><p>求<a href="https://blog.csdn.net/shijing_0214/article/details/51757564" target="_blank" rel="noopener">范数</a>，L1范数-&gt;曼哈顿距离（L1距离），L2范数-&gt;欧氏距离（L2距离）<a href="https://blog.csdn.net/hqh131360239/article/details/79061535" target="_blank" rel="noopener">np.linalg.norm</a></p>
-<h2 id="vstack-hstack"><a href="#vstack-hstack" class="headerlink" title="vstack, hstack"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html" target="_blank" rel="noopener">vstack, hstack</a></h2><p><a href="https://blog.csdn.net/csdn15698845876/article/details/73380803" target="_blank" rel="noopener">refer</a></p>
-<h2 id="array-split"><a href="#array-split" class="headerlink" title="array_split"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array_split.html" target="_blank" rel="noopener">array_split</a></h2><h2 id="concatenate"><a href="#concatenate" class="headerlink" title="concatenate"></a><a href="https://blog.csdn.net/garfielder007/article/details/51378296" target="_blank" rel="noopener">concatenate</a></h2><h2 id="np-random-choice"><a href="#np-random-choice" class="headerlink" title="np.random.choice"></a>np.random.choice</h2><p>生成随机序列，可指定范围或来源于某个数组。</p>
-<h2 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h2><p>改变矩阵为指定形状</p>
-<h2 id="mean"><a href="#mean" class="headerlink" title="mean"></a>mean</h2><p>求平均值，可指定matrix的轴</p>
-<h2 id="fmax-x1-x2"><a href="#fmax-x1-x2" class="headerlink" title="fmax(x1, x2)"></a>fmax(x1, x2)</h2><p>Compare two arrays and returns a new array containing the element-wise maxima. x2可以是一个数。</p>
-<h2 id="numpy-random-randn-d0-d1-…-dn"><a href="#numpy-random-randn-d0-d1-…-dn" class="headerlink" title="numpy.random.randn(d0, d1, …, dn)"></a>numpy.random.randn(d0, d1, …, dn)</h2><p>从标准正态分布中返回一个或多个样本值。</p>
-<h2 id="numpy-random-rand-d0-d1-…-dn"><a href="#numpy-random-rand-d0-d1-…-dn" class="headerlink" title="numpy.random.rand(d0, d1, …, dn)"></a>numpy.random.rand(d0, d1, …, dn)</h2><p>随机样本位于[0, 1)中。</p>
-<h2 id="xa0-n"><a href="#xa0-n" class="headerlink" title="\xa0 \n"></a>\xa0 \n</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out = <span class="string">""</span>.join(s.split())</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out</span><br><span class="line"><span class="string">'T-shirt短袖圆领衫,体恤衫'</span></span><br></pre></td></tr></table></figure>
-<h2 id="list-comprehension"><a href="#list-comprehension" class="headerlink" title="list comprehension"></a><a href="https://www.pythonforbeginners.com/basics/list-comprehensions-in-python" target="_blank" rel="noopener">list comprehension</a></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new_list = [ expression(i) <span class="keyword">for</span> i <span class="keyword">in</span> old_list <span class="keyword">if</span> filter(i)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data[<span class="number">0</span>]</span><br><span class="line">&#123;<span class="string">'votes'</span>: &#123;<span class="string">'funny'</span>: <span class="number">0</span>, <span class="string">'useful'</span>: <span class="number">5</span>, <span class="string">'cool'</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">'user_id'</span>: <span class="string">'rLtl8ZkDX5vH5nAx9C3q5Q'</span>,</span><br><span class="line"> <span class="string">'review_id'</span>: <span class="string">'fWKvX83p0-ka4JS3dc6E5A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>votes = pd.DataFrame([i[<span class="string">'votes'</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]) <span class="comment"># data is a list which element is dict.</span></span><br></pre></td></tr></table></figure>
-<h2 id="np-random-shuffle"><a href="#np-random-shuffle" class="headerlink" title="np.random.shuffle()"></a>np.random.shuffle()</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">26</span>]: x = np.arange(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: x</span><br><span class="line">Out[<span class="number">27</span>]: array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: np.random.shuffle(x)</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: x</span><br><span class="line">Out[<span class="number">29</span>]: array([<span class="number">8</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="pandas-Dataframe-get-rows-by-index-array"><a href="#pandas-Dataframe-get-rows-by-index-array" class="headerlink" title="pandas Dataframe get rows by index array"></a>pandas Dataframe get rows by index array</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_data</span><span class="params">(data)</span>:</span></span><br><span class="line">    x_num = data.shape[<span class="number">0</span>]</span><br><span class="line">    x_idx = np.arange(x_num)</span><br><span class="line">    np.random.shuffle(x_idx)</span><br><span class="line">    x_idx_train = x_idx[<span class="number">0</span> : int(x_num*<span class="number">0.7</span>)]</span><br><span class="line">    x_idx_test = x_idx[int(x_num*<span class="number">0.7</span>) : ]</span><br><span class="line">    train = data.iloc[x_idx_train]</span><br><span class="line">    test = data.iloc[x_idx_test]</span><br><span class="line">    <span class="keyword">return</span> train, test</span><br></pre></td></tr></table></figure>
-<h2 id="str-clean"><a href="#str-clean" class="headerlink" title="str clean"></a>str clean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">''</span>.join(str1.split()) <span class="comment"># remove '\n','\xa0'</span></span><br></pre></td></tr></table></figure>
-<h2 id="pandas-add-a-column-to-a-Daraframe"><a href="#pandas-add-a-column-to-a-Daraframe" class="headerlink" title="pandas : add a column to a Daraframe"></a>pandas : add a column to a Daraframe</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df[<span class="string">'cool'</span>] = votes[<span class="string">'cool'</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="pandas-groupby-mean"><a href="#pandas-groupby-mean" class="headerlink" title="pandas : groupby mean"></a>pandas : groupby mean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df.groupby(<span class="string">'stars'</span>).mean()</span><br></pre></td></tr></table></figure>
-<h2 id="pandas-group-and-count-unique-values"><a href="#pandas-group-and-count-unique-values" class="headerlink" title="pandas : group and count unique values"></a>pandas : group and count unique values</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">srcIp_Host_count = df.groupby(by=<span class="string">'srcIp'</span>)[<span class="string">'requestHost'</span>].nunique()</span><br></pre></td></tr></table></figure>
-<h2 id="pandas-：SettingwithCopyWarning"><a href="#pandas-：SettingwithCopyWarning" class="headerlink" title="pandas ：SettingwithCopyWarning"></a><a href="https://www.jianshu.com/p/72274ccb647a" target="_blank" rel="noopener">pandas ：SettingwithCopyWarning</a></h2><h2 id="pandas-reindex-，-reset-index"><a href="#pandas-reindex-，-reset-index" class="headerlink" title="pandas : reindex() ， reset_index()"></a>pandas : reindex() ， reset_index()</h2><p>reindex() 是取出index为参数中指定的行<br>reset_index() 才是重置索引</p>
-<h2 id="pandas-apply-也可用做遍历df的操作"><a href="#pandas-apply-也可用做遍历df的操作" class="headerlink" title="[pandas : apply 也可用做遍历df的操作]"></a>[pandas : apply 也可用做遍历df的操作]</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clear_character</span><span class="params">(item)</span>:</span></span><br><span class="line">    <span class="string">'''去掉所有非中文字符'''</span></span><br><span class="line">    pattern1=<span class="string">'[a-zA-Z0-9]'</span></span><br><span class="line">    pattern2 = <span class="string">'\[.*?\]'</span></span><br><span class="line">    pattern3 = re.compile(<span class="string">u'[^\s1234567890:：'</span> + <span class="string">'\u4e00-\u9fa5]+'</span>)</span><br><span class="line">    pattern4=<span class="string">'[’!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`&#123;|&#125;~]+'</span></span><br><span class="line">    <span class="keyword">if</span> len(item[<span class="string">'content'</span>]) == <span class="number">0</span>:</span><br><span class="line">        item[<span class="string">'content'</span>] = item[<span class="string">'title'</span>]</span><br><span class="line">    line1=re.sub(pattern1,<span class="string">''</span>,item[<span class="string">'content'</span>])   <span class="comment">#去除英文字母和数字</span></span><br><span class="line">    line2=re.sub(pattern2,<span class="string">''</span>,line1)   <span class="comment">#去除表情</span></span><br><span class="line">    line3=re.sub(pattern3,<span class="string">''</span>,line2)   <span class="comment">#去除其它字符</span></span><br><span class="line">    line4=re.sub(pattern4, <span class="string">''</span>, line3) <span class="comment">#去掉残留的冒号及其它符号</span></span><br><span class="line">    item[<span class="string">'content'</span>]=<span class="string">''</span>.join(line4.split()) <span class="comment">#去除空白</span></span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">data = data.apply(clear_character, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-允许外网访问"><a href="#jupyter-允许外网访问" class="headerlink" title="jupyter 允许外网访问"></a>jupyter 允许外网访问</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jupyter notebook --ip=&lt;host_ip&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>numpy</tag>
-        <tag>pandas</tag>
+        <tag>配置</tag>
+        <tag>docker</tag>
+        <tag>cacti</tag>
       </tags>
   </entry>
   <entry>
@@ -204,6 +151,24 @@
         <tag>note</tag>
         <tag>android</tag>
         <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -252,6 +217,41 @@
       </tags>
   </entry>
   <entry>
+    <title>learn python</title>
+    <url>/2018/03/26/learn-python/</url>
+    <content><![CDATA[<p>Note for python functions.<br><a id="more"></a></p>
+<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">Counter()</a></h2><h2 id="most-common"><a href="#most-common" class="headerlink" title="most_common()"></a><a href="http://www.pythoner.com/205.html" target="_blank" rel="noopener">most_common()</a></h2><h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><h2 id="sum"><a href="#sum" class="headerlink" title="sum"></a><a href="https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.sum.html#numpy.sum" target="_blank" rel="noopener">sum</a></h2><p>Calculate the summary of ndarray a according to the given axis, axis is a integer or tuple</p>
+<h2 id="argsort"><a href="#argsort" class="headerlink" title="argsort"></a><a href="">argsort</a></h2><p>返回数组的排序索引（从小到大），若为矩阵可指定轴。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">k = <span class="number">2</span></span><br><span class="line">x = np.array([[<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>],</span><br><span class="line">              [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]])</span><br><span class="line">top_k_idx = np.argsort(x[<span class="number">0</span>])[:k]</span><br><span class="line">print(x)</span><br><span class="line">print(top_k_idx)</span><br><span class="line"></span><br><span class="line">top_k = np.argsort(x, axis=<span class="number">1</span>)</span><br><span class="line">print(top_k)</span><br></pre></td></tr></table></figure></p>
+<h2 id="np-square"><a href="#np-square" class="headerlink" title="np.square"></a>np.square</h2><p><code>np.square</code>是用c实现的，比<code>**</code>快多了😭。 661s:36s.</p>
+<h2 id="np-linalg-norm"><a href="#np-linalg-norm" class="headerlink" title="np.linalg.norm"></a>np.linalg.norm</h2><p>求<a href="https://blog.csdn.net/shijing_0214/article/details/51757564" target="_blank" rel="noopener">范数</a>，L1范数-&gt;曼哈顿距离（L1距离），L2范数-&gt;欧氏距离（L2距离）<a href="https://blog.csdn.net/hqh131360239/article/details/79061535" target="_blank" rel="noopener">np.linalg.norm</a></p>
+<h2 id="vstack-hstack"><a href="#vstack-hstack" class="headerlink" title="vstack, hstack"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html" target="_blank" rel="noopener">vstack, hstack</a></h2><p><a href="https://blog.csdn.net/csdn15698845876/article/details/73380803" target="_blank" rel="noopener">refer</a></p>
+<h2 id="array-split"><a href="#array-split" class="headerlink" title="array_split"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array_split.html" target="_blank" rel="noopener">array_split</a></h2><h2 id="concatenate"><a href="#concatenate" class="headerlink" title="concatenate"></a><a href="https://blog.csdn.net/garfielder007/article/details/51378296" target="_blank" rel="noopener">concatenate</a></h2><h2 id="np-random-choice"><a href="#np-random-choice" class="headerlink" title="np.random.choice"></a>np.random.choice</h2><p>生成随机序列，可指定范围或来源于某个数组。</p>
+<h2 id="reshape"><a href="#reshape" class="headerlink" title="reshape"></a>reshape</h2><p>改变矩阵为指定形状</p>
+<h2 id="mean"><a href="#mean" class="headerlink" title="mean"></a>mean</h2><p>求平均值，可指定matrix的轴</p>
+<h2 id="fmax-x1-x2"><a href="#fmax-x1-x2" class="headerlink" title="fmax(x1, x2)"></a>fmax(x1, x2)</h2><p>Compare two arrays and returns a new array containing the element-wise maxima. x2可以是一个数。</p>
+<h2 id="numpy-random-randn-d0-d1-…-dn"><a href="#numpy-random-randn-d0-d1-…-dn" class="headerlink" title="numpy.random.randn(d0, d1, …, dn)"></a>numpy.random.randn(d0, d1, …, dn)</h2><p>从标准正态分布中返回一个或多个样本值。</p>
+<h2 id="numpy-random-rand-d0-d1-…-dn"><a href="#numpy-random-rand-d0-d1-…-dn" class="headerlink" title="numpy.random.rand(d0, d1, …, dn)"></a>numpy.random.rand(d0, d1, …, dn)</h2><p>随机样本位于[0, 1)中。</p>
+<h2 id="xa0-n"><a href="#xa0-n" class="headerlink" title="\xa0 \n"></a>\xa0 \n</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out = <span class="string">""</span>.join(s.split())</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out</span><br><span class="line"><span class="string">'T-shirt短袖圆领衫,体恤衫'</span></span><br></pre></td></tr></table></figure>
+<h2 id="list-comprehension"><a href="#list-comprehension" class="headerlink" title="list comprehension"></a><a href="https://www.pythonforbeginners.com/basics/list-comprehensions-in-python" target="_blank" rel="noopener">list comprehension</a></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new_list = [ expression(i) <span class="keyword">for</span> i <span class="keyword">in</span> old_list <span class="keyword">if</span> filter(i)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data[<span class="number">0</span>]</span><br><span class="line">&#123;<span class="string">'votes'</span>: &#123;<span class="string">'funny'</span>: <span class="number">0</span>, <span class="string">'useful'</span>: <span class="number">5</span>, <span class="string">'cool'</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">'user_id'</span>: <span class="string">'rLtl8ZkDX5vH5nAx9C3q5Q'</span>,</span><br><span class="line"> <span class="string">'review_id'</span>: <span class="string">'fWKvX83p0-ka4JS3dc6E5A'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>votes = pd.DataFrame([i[<span class="string">'votes'</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]) <span class="comment"># data is a list which element is dict.</span></span><br></pre></td></tr></table></figure>
+<h2 id="np-random-shuffle"><a href="#np-random-shuffle" class="headerlink" title="np.random.shuffle()"></a>np.random.shuffle()</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">26</span>]: x = np.arange(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: x</span><br><span class="line">Out[<span class="number">27</span>]: array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: np.random.shuffle(x)</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: x</span><br><span class="line">Out[<span class="number">29</span>]: array([<span class="number">8</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-Dataframe-get-rows-by-index-array"><a href="#pandas-Dataframe-get-rows-by-index-array" class="headerlink" title="pandas Dataframe get rows by index array"></a>pandas Dataframe get rows by index array</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_data</span><span class="params">(data)</span>:</span></span><br><span class="line">    x_num = data.shape[<span class="number">0</span>]</span><br><span class="line">    x_idx = np.arange(x_num)</span><br><span class="line">    np.random.shuffle(x_idx)</span><br><span class="line">    x_idx_train = x_idx[<span class="number">0</span> : int(x_num*<span class="number">0.7</span>)]</span><br><span class="line">    x_idx_test = x_idx[int(x_num*<span class="number">0.7</span>) : ]</span><br><span class="line">    train = data.iloc[x_idx_train]</span><br><span class="line">    test = data.iloc[x_idx_test]</span><br><span class="line">    <span class="keyword">return</span> train, test</span><br></pre></td></tr></table></figure>
+<h2 id="str-clean"><a href="#str-clean" class="headerlink" title="str clean"></a>str clean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">''</span>.join(str1.split()) <span class="comment"># remove '\n','\xa0'</span></span><br></pre></td></tr></table></figure>
+<h2 id="pandas-add-a-column-to-a-Daraframe"><a href="#pandas-add-a-column-to-a-Daraframe" class="headerlink" title="pandas : add a column to a Daraframe"></a>pandas : add a column to a Daraframe</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df[<span class="string">'cool'</span>] = votes[<span class="string">'cool'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-groupby-mean"><a href="#pandas-groupby-mean" class="headerlink" title="pandas : groupby mean"></a>pandas : groupby mean</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_df.groupby(<span class="string">'stars'</span>).mean()</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-group-and-count-unique-values"><a href="#pandas-group-and-count-unique-values" class="headerlink" title="pandas : group and count unique values"></a>pandas : group and count unique values</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">srcIp_Host_count = df.groupby(by=<span class="string">'srcIp'</span>)[<span class="string">'requestHost'</span>].nunique()</span><br></pre></td></tr></table></figure>
+<h2 id="pandas-：SettingwithCopyWarning"><a href="#pandas-：SettingwithCopyWarning" class="headerlink" title="pandas ：SettingwithCopyWarning"></a><a href="https://www.jianshu.com/p/72274ccb647a" target="_blank" rel="noopener">pandas ：SettingwithCopyWarning</a></h2><h2 id="pandas-reindex-，-reset-index"><a href="#pandas-reindex-，-reset-index" class="headerlink" title="pandas : reindex() ， reset_index()"></a>pandas : reindex() ， reset_index()</h2><p>reindex() 是取出index为参数中指定的行<br>reset_index() 才是重置索引</p>
+<h2 id="pandas-apply-也可用做遍历df的操作"><a href="#pandas-apply-也可用做遍历df的操作" class="headerlink" title="[pandas : apply 也可用做遍历df的操作]"></a>[pandas : apply 也可用做遍历df的操作]</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clear_character</span><span class="params">(item)</span>:</span></span><br><span class="line">    <span class="string">'''去掉所有非中文字符'''</span></span><br><span class="line">    pattern1=<span class="string">'[a-zA-Z0-9]'</span></span><br><span class="line">    pattern2 = <span class="string">'\[.*?\]'</span></span><br><span class="line">    pattern3 = re.compile(<span class="string">u'[^\s1234567890:：'</span> + <span class="string">'\u4e00-\u9fa5]+'</span>)</span><br><span class="line">    pattern4=<span class="string">'[’!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`&#123;|&#125;~]+'</span></span><br><span class="line">    <span class="keyword">if</span> len(item[<span class="string">'content'</span>]) == <span class="number">0</span>:</span><br><span class="line">        item[<span class="string">'content'</span>] = item[<span class="string">'title'</span>]</span><br><span class="line">    line1=re.sub(pattern1,<span class="string">''</span>,item[<span class="string">'content'</span>])   <span class="comment">#去除英文字母和数字</span></span><br><span class="line">    line2=re.sub(pattern2,<span class="string">''</span>,line1)   <span class="comment">#去除表情</span></span><br><span class="line">    line3=re.sub(pattern3,<span class="string">''</span>,line2)   <span class="comment">#去除其它字符</span></span><br><span class="line">    line4=re.sub(pattern4, <span class="string">''</span>, line3) <span class="comment">#去掉残留的冒号及其它符号</span></span><br><span class="line">    item[<span class="string">'content'</span>]=<span class="string">''</span>.join(line4.split()) <span class="comment">#去除空白</span></span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">data = data.apply(clear_character, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-允许外网访问"><a href="#jupyter-允许外网访问" class="headerlink" title="jupyter 允许外网访问"></a>jupyter 允许外网访问</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jupyter notebook --ip=&lt;host_ip&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>numpy</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Stop being horny: I choose to dig myself</title>
     <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
     <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
@@ -278,14 +278,6 @@
       </categories>
   </entry>
   <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-  </entry>
-  <entry>
     <title>lesson from wechat group</title>
     <url>/2020/02/21/lesson-from-wechat-group/</url>
     <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
@@ -297,6 +289,14 @@
 ]]></content>
       <categories>
         <category>life</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
       </categories>
   </entry>
   <entry>
@@ -334,6 +334,40 @@
       <tags>
         <tag>shell</tag>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>macOS Markdown 预览和 lsd 进程占用 CPU</title>
+    <url>/2021/01/28/resolve-macOS-preview-problems/</url>
+    <content><![CDATA[<p>Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 <a href="https://github.com/toland/qlmarkdown" target="_blank" rel="noopener">qlmarkdown</a> 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。<br><a id="more"></a></p>
+<h2 id="初现端倪"><a href="#初现端倪" class="headerlink" title="初现端倪"></a>初现端倪</h2><p>在 github 的 issue 里找到了这个 <a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">issue 39</a>, 说只能预览 <code>.markdown</code> 扩展名的文件，于是我把 <code>.md</code> 文件的扩展名改成了 <code>.markdown</code>，果真可以预览了，看来问题是一样的。</p>
+<p>于是我就往下翻评论，看到了有个老哥给出了下面的这个命令，重建 Launch Service 数据库，有人说有用，我就尝试了一下。结果马上就能预览 <code>.md</code> 扩展名的文件了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user ; killall Dock</span><br></pre></td></tr></table></figure>
+<h2 id="节外生枝"><a href="#节外生枝" class="headerlink" title="节外生枝"></a>节外生枝</h2><p>但又一个问题出现了：<code>lsd</code> 进程一直在占用 30-40%的cpu，有时候能到 100%，过了一天（22小时）之后还是如此，用<code>Monitor</code>看了一下，磁盘写入量达到了 46G，这也太不正常了，于是又找解决方法。</p>
+<p>然后看到了这个<a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>，发现有两个命令，一个和上面的相同，另一个如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /System/Library/Frameworks -type f -name "lsregister" -exec &#123;&#125; -kill -seed -r \;</span><br></pre></td></tr></table></figure>
+<p>这篇文章说这两个命令是一样的，其实参数不一样。在 <code>lsd</code> 持续占用 CPU时，我运行了下面这个命令，效果立竿见影，<code>lsd</code>马上就不占用 CPU了。就在我以为万事大吉，准备收工，这篇记录写了一半时，我突然发现 Markdown 的预览又不起作用了，，，重启无效，，，</p>
+<h2 id="峰回路转"><a href="#峰回路转" class="headerlink" title="峰回路转"></a>峰回路转</h2><p>正当我欲哭无泪时，我想到了 Finder 的一些插件经常会冲突，比如坚果云和 OneDrive 的文件同步状态显示插件就经常失效，需要在系统设置里的插件设置中重启一下才行。我就想会不会是和别的预览插件冲突了。除了 qlmarkdown 之外，我还装了 qlcolorcode 用于在预览源代码文件时提供语法高亮等。然后列出了一下 <code>~/Library/QuickLook</code> 目录，准备一个一个排除。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lrwxr-xr-x   1 yg  staff    73B 11 12  2019 NSQuickLookPlugin.qlgenerator -&gt; /Applications/Nutstore.app/Contents/PlugIns/NSQuickLookPlugin.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 12 16 03:36 QLColorCode.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B 10 22  2019 QLMarkdown.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B  2  4  2020 QLStephen.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  7 18  2016 QuickLookASE.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2  3  2013 QuickLookCSV.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 10 22  2019 QuickLookJSON.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2 28  2018 WebpQuickLook.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  3 24  2019 qlImageSize.qlgenerator</span><br></pre></td></tr></table></figure></p>
+<p>第一个就是坚果云的，其实我首先想到的是quicklook插件似乎是在 <code>Info.plist</code> 里声明了 preview 的文件类型，在这里还有一个冷知识：</p>
+<blockquote>
+<p>Launch Service 是用于将文件类型和打开该类型文件的程序关联起来的。<br>macOS 中的文件类型并不是靠文件的扩展名区分的，而是文件的 <code>kMDItemContentType</code>,可以用以下命令查看一个文件的类型：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mdls README.md</span></span><br><span class="line">_kMDItemDisplayNameWithExtensions      = "README.md"</span><br><span class="line">kMDItemContentCreationDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentCreationDate_Ranking     = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentModificationDate         = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentModificationDate_Ranking = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentType                     = "net.daringfireball.markdown"</span><br><span class="line">kMDItemContentTypeTree                 = (</span><br><span class="line">    "net.daringfireball.markdown",</span><br><span class="line">    "public.plain-text",</span><br><span class="line">    "public.text",</span><br><span class="line">    "public.data",</span><br><span class="line">    "public.item",</span><br><span class="line">    "public.content"</span><br><span class="line">)</span><br><span class="line">kMDItemDateAdded                       = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemDateAdded_Ranking               = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemDisplayName                     = "README.md"</span><br><span class="line">kMDItemDocumentIdentifier              = 0</span><br><span class="line">kMDItemFSContentChangeDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreationDate                  = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreatorCode                   = ""</span><br><span class="line">kMDItemFSFinderFlags                   = 0</span><br><span class="line">kMDItemFSHasCustomIcon                 = (null)</span><br><span class="line">kMDItemFSInvisible                     = 0</span><br><span class="line">kMDItemFSIsExtensionHidden             = 0</span><br><span class="line">kMDItemFSIsStationery                  = (null)</span><br><span class="line">kMDItemFSLabel                         = 0</span><br><span class="line">kMDItemFSName                          = "README.md"</span><br><span class="line">kMDItemFSNodeCount                     = (null)</span><br><span class="line">kMDItemFSOwnerGroupID                  = 20</span><br><span class="line">kMDItemFSOwnerUserID                   = 501</span><br><span class="line">kMDItemFSSize                          = 2550</span><br><span class="line">kMDItemFSTypeCode                      = ""</span><br><span class="line">kMDItemInterestingDate_Ranking         = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemKind                            = "Markdown"</span><br><span class="line">kMDItemLastUsedDate                    = 2021-01-27 03:35:22 +0000</span><br><span class="line">kMDItemLastUsedDate_Ranking            = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemLogicalSize                     = 2550</span><br><span class="line">kMDItemPhysicalSize                    = 4096</span><br><span class="line">kMDItemUseCount                        = 2</span><br><span class="line">kMDItemUsedDates                       = (</span><br><span class="line">    "2021-01-26 16:00:00 +0000"</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>所以我先检查了 <code>NSQuickLookPlugin.qlgenerator</code> 的 <code>Info.plist</code> 中的 <code>LSItemContentTypes</code> 的值，但并没找到任何与 <code>qlmarkdown</code> 冲突的部分。所以还是直接卸载坚果云试试，反正现在也不用坚果云了。</p>
+<h2 id="万事大吉"><a href="#万事大吉" class="headerlink" title="万事大吉"></a>万事大吉</h2><p>然后， qlmarkdown works fine❕❕❕😭</p>
+<p>此时此刻，我只想说：Stupid software。</p>
+<p>或许这篇记录现在可以改名为 <code>坚果云引发的惨案</code>。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">qlmarkdown issue 39</a><br><a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>  </p>
+]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>shell</tag>
+        <tag>qlmarkdown</tag>
+        <tag>qlcolorcode</tag>
+        <tag>preview</tag>
       </tags>
   </entry>
   <entry>
@@ -398,38 +432,40 @@
       </tags>
   </entry>
   <entry>
-    <title>macOS Markdown 预览和 lsd 进程占用 CPU</title>
-    <url>/2021/01/28/resolve-macOS-preview-problems/</url>
-    <content><![CDATA[<p>Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 <a href="https://github.com/toland/qlmarkdown" target="_blank" rel="noopener">qlmarkdown</a> 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。<br><a id="more"></a></p>
-<h2 id="初现端倪"><a href="#初现端倪" class="headerlink" title="初现端倪"></a>初现端倪</h2><p>在 github 的 issue 里找到了这个 <a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">issue 39</a>, 说只能预览 <code>.markdown</code> 扩展名的文件，于是我把 <code>.md</code> 文件的扩展名改成了 <code>.markdown</code>，果真可以预览了，看来问题是一样的。</p>
-<p>于是我就往下翻评论，看到了有个老哥给出了下面的这个命令，重建 Launch Service 数据库，有人说有用，我就尝试了一下。结果马上就能预览 <code>.md</code> 扩展名的文件了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user ; killall Dock</span><br></pre></td></tr></table></figure>
-<h2 id="节外生枝"><a href="#节外生枝" class="headerlink" title="节外生枝"></a>节外生枝</h2><p>但又一个问题出现了：<code>lsd</code> 进程一直在占用 30-40%的cpu，有时候能到 100%，过了一天（22小时）之后还是如此，用<code>Monitor</code>看了一下，磁盘写入量达到了 46G，这也太不正常了，于是又找解决方法。</p>
-<p>然后看到了这个<a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>，发现有两个命令，一个和上面的相同，另一个如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /System/Library/Frameworks -type f -name "lsregister" -exec &#123;&#125; -kill -seed -r \;</span><br></pre></td></tr></table></figure>
-<p>这篇文章说这两个命令是一样的，其实参数不一样。在 <code>lsd</code> 持续占用 CPU时，我运行了下面这个命令，效果立竿见影，<code>lsd</code>马上就不占用 CPU了。就在我以为万事大吉，准备收工，这篇记录写了一半时，我突然发现 Markdown 的预览又不起作用了，，，重启无效，，，</p>
-<h2 id="峰回路转"><a href="#峰回路转" class="headerlink" title="峰回路转"></a>峰回路转</h2><p>正当我欲哭无泪时，我想到了 Finder 的一些插件经常会冲突，比如坚果云和 OneDrive 的文件同步状态显示插件就经常失效，需要在系统设置里的插件设置中重启一下才行。我就想会不会是和别的预览插件冲突了。除了 qlmarkdown 之外，我还装了 qlcolorcode 用于在预览源代码文件时提供语法高亮等。然后列出了一下 <code>~/Library/QuickLook</code> 目录，准备一个一个排除。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lrwxr-xr-x   1 yg  staff    73B 11 12  2019 NSQuickLookPlugin.qlgenerator -&gt; /Applications/Nutstore.app/Contents/PlugIns/NSQuickLookPlugin.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 12 16 03:36 QLColorCode.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B 10 22  2019 QLMarkdown.qlgenerator</span><br><span class="line">drwxr-xr-x   3 yg  staff    96B  2  4  2020 QLStephen.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  7 18  2016 QuickLookASE.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2  3  2013 QuickLookCSV.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B 10 22  2019 QuickLookJSON.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  2 28  2018 WebpQuickLook.qlgenerator</span><br><span class="line">drwxr-xr-x@  3 yg  staff    96B  3 24  2019 qlImageSize.qlgenerator</span><br></pre></td></tr></table></figure></p>
-<p>第一个就是坚果云的，其实我首先想到的是quicklook插件似乎是在 <code>Info.plist</code> 里声明了 preview 的文件类型，在这里还有一个冷知识：</p>
-<blockquote>
-<p>Launch Service 是用于将文件类型和打开该类型文件的程序关联起来的。<br>macOS 中的文件类型并不是靠文件的扩展名区分的，而是文件的 <code>kMDItemContentType</code>,可以用以下命令查看一个文件的类型：</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mdls README.md</span></span><br><span class="line">_kMDItemDisplayNameWithExtensions      = "README.md"</span><br><span class="line">kMDItemContentCreationDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentCreationDate_Ranking     = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentModificationDate         = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemContentModificationDate_Ranking = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemContentType                     = "net.daringfireball.markdown"</span><br><span class="line">kMDItemContentTypeTree                 = (</span><br><span class="line">    "net.daringfireball.markdown",</span><br><span class="line">    "public.plain-text",</span><br><span class="line">    "public.text",</span><br><span class="line">    "public.data",</span><br><span class="line">    "public.item",</span><br><span class="line">    "public.content"</span><br><span class="line">)</span><br><span class="line">kMDItemDateAdded                       = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemDateAdded_Ranking               = 2021-01-26 00:00:00 +0000</span><br><span class="line">kMDItemDisplayName                     = "README.md"</span><br><span class="line">kMDItemDocumentIdentifier              = 0</span><br><span class="line">kMDItemFSContentChangeDate             = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreationDate                  = 2021-01-26 18:22:18 +0000</span><br><span class="line">kMDItemFSCreatorCode                   = ""</span><br><span class="line">kMDItemFSFinderFlags                   = 0</span><br><span class="line">kMDItemFSHasCustomIcon                 = (null)</span><br><span class="line">kMDItemFSInvisible                     = 0</span><br><span class="line">kMDItemFSIsExtensionHidden             = 0</span><br><span class="line">kMDItemFSIsStationery                  = (null)</span><br><span class="line">kMDItemFSLabel                         = 0</span><br><span class="line">kMDItemFSName                          = "README.md"</span><br><span class="line">kMDItemFSNodeCount                     = (null)</span><br><span class="line">kMDItemFSOwnerGroupID                  = 20</span><br><span class="line">kMDItemFSOwnerUserID                   = 501</span><br><span class="line">kMDItemFSSize                          = 2550</span><br><span class="line">kMDItemFSTypeCode                      = ""</span><br><span class="line">kMDItemInterestingDate_Ranking         = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemKind                            = "Markdown"</span><br><span class="line">kMDItemLastUsedDate                    = 2021-01-27 03:35:22 +0000</span><br><span class="line">kMDItemLastUsedDate_Ranking            = 2021-01-27 00:00:00 +0000</span><br><span class="line">kMDItemLogicalSize                     = 2550</span><br><span class="line">kMDItemPhysicalSize                    = 4096</span><br><span class="line">kMDItemUseCount                        = 2</span><br><span class="line">kMDItemUsedDates                       = (</span><br><span class="line">    "2021-01-26 16:00:00 +0000"</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>所以我先检查了 <code>NSQuickLookPlugin.qlgenerator</code> 的 <code>Info.plist</code> 中的 <code>LSItemContentTypes</code> 的值，但并没找到任何与 <code>qlmarkdown</code> 冲突的部分。所以还是直接卸载坚果云试试，反正现在也不用坚果云了。</p>
-<h2 id="万事大吉"><a href="#万事大吉" class="headerlink" title="万事大吉"></a>万事大吉</h2><p>然后， qlmarkdown works fine❕❕❕😭</p>
-<p>此时此刻，我只想说：Stupid software。</p>
-<p>或许这篇记录现在可以改名为 <code>坚果云引发的惨案</code>。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://github.com/toland/qlmarkdown/issues/39" target="_blank" rel="noopener">qlmarkdown issue 39</a><br><a href="https://www.logcg.com/archives/3382.html#comment-109590" target="_blank" rel="noopener">/usr/libexec/lsd 占用 100% CPU 的解决办法</a>  </p>
+    <title>批量重命名文件</title>
+    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
+    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
+<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Raname file to numbers by file modification time.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in *;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    ext=$(ls "$file" | cut -d. -f2)</span><br><span class="line">    mv "$file" $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
+<p>dir1 是需要批量重命名的文件所在的文件夹路径。</p>
+<h2 id="2021-02-16-fix：不能处理含空格的文件名。"><a href="#2021-02-16-fix：不能处理含空格的文件名。" class="headerlink" title="2021/02/16 fix：不能处理含空格的文件名。"></a>2021/02/16 fix：不能处理含空格的文件名。</h2><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-for file in `ls -rt`;</span></span><br><span class="line"><span class="addition">+for file in *;</span></span><br></pre></td></tr></table></figure>
+<p>`ls -rt` 会被文件名的空格分割， * 则不会。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"> do</span><br><span class="line">     echo $file</span><br><span class="line"><span class="deletion">-    name=$(ls $file | cut -d. -f1)</span></span><br></pre></td></tr></table></figure>
+<p>移除无用代码。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-    ext=$(ls $file | cut -d. -f2)</span></span><br><span class="line"><span class="deletion">-    mv $file $(printf "%03d" $cnt).$ext</span></span><br><span class="line"><span class="addition">+    ext=$(ls "$file" | cut -d. -f2)</span></span><br><span class="line"><span class="addition">+    mv "$file" $(printf "%03d" $cnt).$ext</span></span><br></pre></td></tr></table></figure>
+<p>被 <code>&quot;&quot;</code> 包裹的文件名中即使含空格也不需要转义。</p>
 ]]></content>
       <categories>
-        <category>macOS</category>
+        <category>tool</category>
       </categories>
       <tags>
-        <tag>macOS</tag>
-        <tag>shell</tag>
-        <tag>qlmarkdown</tag>
-        <tag>qlcolorcode</tag>
-        <tag>preview</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2017/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>家庭琐事</title>
@@ -532,36 +568,6 @@
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
 <p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>批量重命名文件</title>
-    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
-    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
-<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Raname file to numbers by file modification time.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in `ls -rt`;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    name=$(ls $file | cut -d. -f1)</span><br><span class="line">    ext=$(ls $file | cut -d. -f2)</span><br><span class="line">    mv $file $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
-<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
-<p>dir1 是需要批量重命名的文件所在的文件夹。</p>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2017/10/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
