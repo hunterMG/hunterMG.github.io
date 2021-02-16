@@ -20,12 +20,11 @@ cd $dir
 file_num=$(ls -l | wc -l);
 echo $file_num
 cnt=1
-for file in `ls -rt`;
+for file in *;
 do
     echo $file
-    name=$(ls $file | cut -d. -f1)
-    ext=$(ls $file | cut -d. -f2)
-    mv $file $(printf "%03d" $cnt).$ext
+    ext=$(ls "$file" | cut -d. -f2)
+    mv "$file" $(printf "%03d" $cnt).$ext
     cnt=`expr $cnt + 1`
 done
 ```
@@ -33,4 +32,26 @@ done
 ```shell
 rename.sh dir1
 ```
-dir1 是需要批量重命名的文件所在的文件夹。
+dir1 是需要批量重命名的文件所在的文件夹路径。
+
+## 2021/02/16 fix：不能处理含空格的文件名。
+```diff
+-for file in `ls -rt`;
++for file in *;
+```
+\`ls -rt\` 会被文件名的空格分割， * 则不会。
+
+```diff
+ do
+     echo $file
+-    name=$(ls $file | cut -d. -f1)
+```
+移除无用代码。
+
+```diff
+-    ext=$(ls $file | cut -d. -f2)
+-    mv $file $(printf "%03d" $cnt).$ext
++    ext=$(ls "$file" | cut -d. -f2)
++    mv "$file" $(printf "%03d" $cnt).$ext
+```
+被 `""` 包裹的文件名中即使含空格也不需要转义。
