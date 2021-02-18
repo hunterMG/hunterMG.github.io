@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>HunterMG</title>
+  <title>HunterMG&#39;s Blog</title>
   
   <subtitle>Note &amp; share</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://hunterMG.github.io/"/>
+  <link href="https://hunterMG.net/"/>
   <updated>2021-02-16T09:59:12.056Z</updated>
-  <id>https://hunterMG.github.io/</id>
+  <id>https://hunterMG.net/</id>
   
   <author>
     <name>hunterMG</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>批量重命名文件</title>
-    <link href="https://hunterMG.github.io/2021/02/07/rename-files-to-numbers-by-file-modification-time/"/>
-    <id>https://hunterMG.github.io/2021/02/07/rename-files-to-numbers-by-file-modification-time/</id>
+    <link href="https://hunterMG.net/2021/02/07/rename-files-to-numbers-by-file-modification-time/"/>
+    <id>https://hunterMG.net/2021/02/07/rename-files-to-numbers-by-file-modification-time/</id>
     <published>2021-02-06T17:06:11.000Z</published>
     <updated>2021-02-16T09:59:12.056Z</updated>
     
@@ -31,19 +31,19 @@
     
     </summary>
     
-      <category term="tool" scheme="https://hunterMG.github.io/categories/tool/"/>
+      <category term="tool" scheme="https://hunterMG.net/categories/tool/"/>
     
     
-      <category term="Linux" scheme="https://hunterMG.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://hunterMG.net/tags/Linux/"/>
     
-      <category term="Shell" scheme="https://hunterMG.github.io/tags/Shell/"/>
+      <category term="Shell" scheme="https://hunterMG.net/tags/Shell/"/>
     
   </entry>
   
   <entry>
     <title>Get newest code from original repo</title>
-    <link href="https://hunterMG.github.io/2021/02/04/Get-newest-code-from-original-repo/"/>
-    <id>https://hunterMG.github.io/2021/02/04/Get-newest-code-from-original-repo/</id>
+    <link href="https://hunterMG.net/2021/02/04/Get-newest-code-from-original-repo/"/>
+    <id>https://hunterMG.net/2021/02/04/Get-newest-code-from-original-repo/</id>
     <published>2021-02-04T06:53:50.000Z</published>
     <updated>2021-02-13T12:50:06.387Z</updated>
     
@@ -60,8 +60,8 @@
   
   <entry>
     <title>家庭琐事</title>
-    <link href="https://hunterMG.github.io/2021/02/03/something-about-family/"/>
-    <id>https://hunterMG.github.io/2021/02/03/something-about-family/</id>
+    <link href="https://hunterMG.net/2021/02/03/something-about-family/"/>
+    <id>https://hunterMG.net/2021/02/03/something-about-family/</id>
     <published>2021-02-03T03:34:20.000Z</published>
     <updated>2021-02-14T15:44:47.783Z</updated>
     
@@ -73,23 +73,23 @@
     
     </summary>
     
-      <category term="family" scheme="https://hunterMG.github.io/categories/family/"/>
+      <category term="family" scheme="https://hunterMG.net/categories/family/"/>
     
     
-      <category term="family" scheme="https://hunterMG.github.io/tags/family/"/>
+      <category term="family" scheme="https://hunterMG.net/tags/family/"/>
     
-      <category term="parents" scheme="https://hunterMG.github.io/tags/parents/"/>
+      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
     
-      <category term="emotion" scheme="https://hunterMG.github.io/tags/emotion/"/>
+      <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
     
-      <category term="life" scheme="https://hunterMG.github.io/tags/life/"/>
+      <category term="life" scheme="https://hunterMG.net/tags/life/"/>
     
   </entry>
   
   <entry>
     <title>macOS Markdown 预览和 lsd 进程占用 CPU</title>
-    <link href="https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/"/>
-    <id>https://hunterMG.github.io/2021/01/28/resolve-macOS-preview-problems/</id>
+    <link href="https://hunterMG.net/2021/01/28/resolve-macOS-preview-problems/"/>
+    <id>https://hunterMG.net/2021/01/28/resolve-macOS-preview-problems/</id>
     <published>2021-01-28T03:11:07.000Z</published>
     <updated>2021-01-28T15:10:31.271Z</updated>
     
@@ -101,25 +101,25 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://hunterMG.github.io/categories/macOS/"/>
+      <category term="macOS" scheme="https://hunterMG.net/categories/macOS/"/>
     
     
-      <category term="macOS" scheme="https://hunterMG.github.io/tags/macOS/"/>
+      <category term="macOS" scheme="https://hunterMG.net/tags/macOS/"/>
     
-      <category term="shell" scheme="https://hunterMG.github.io/tags/shell/"/>
+      <category term="shell" scheme="https://hunterMG.net/tags/shell/"/>
     
-      <category term="qlmarkdown" scheme="https://hunterMG.github.io/tags/qlmarkdown/"/>
+      <category term="qlmarkdown" scheme="https://hunterMG.net/tags/qlmarkdown/"/>
     
-      <category term="qlcolorcode" scheme="https://hunterMG.github.io/tags/qlcolorcode/"/>
+      <category term="qlcolorcode" scheme="https://hunterMG.net/tags/qlcolorcode/"/>
     
-      <category term="preview" scheme="https://hunterMG.github.io/tags/preview/"/>
+      <category term="preview" scheme="https://hunterMG.net/tags/preview/"/>
     
   </entry>
   
   <entry>
     <title>使用frp进行内网穿透</title>
-    <link href="https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/"/>
-    <id>https://hunterMG.github.io/2021/01/09/access-a-host-behind-a-NAT-via-frp/</id>
+    <link href="https://hunterMG.net/2021/01/09/access-a-host-behind-a-NAT-via-frp/"/>
+    <id>https://hunterMG.net/2021/01/09/access-a-host-behind-a-NAT-via-frp/</id>
     <published>2021-01-09T03:09:02.000Z</published>
     <updated>2021-01-09T06:25:14.037Z</updated>
     
@@ -131,17 +131,17 @@
     
     </summary>
     
-      <category term="note" scheme="https://hunterMG.github.io/categories/note/"/>
+      <category term="note" scheme="https://hunterMG.net/categories/note/"/>
     
     
-      <category term="Linux" scheme="https://hunterMG.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://hunterMG.net/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
-    <link href="https://hunterMG.github.io/2020/12/26/fix-pcap-ext/"/>
-    <id>https://hunterMG.github.io/2020/12/26/fix-pcap-ext/</id>
+    <link href="https://hunterMG.net/2020/12/26/fix-pcap-ext/"/>
+    <id>https://hunterMG.net/2020/12/26/fix-pcap-ext/</id>
     <published>2020-12-26T07:10:13.000Z</published>
     <updated>2021-01-09T06:26:34.251Z</updated>
     
@@ -153,19 +153,19 @@
     
     </summary>
     
-      <category term="Shell" scheme="https://hunterMG.github.io/categories/Shell/"/>
+      <category term="Shell" scheme="https://hunterMG.net/categories/Shell/"/>
     
     
-      <category term="shell" scheme="https://hunterMG.github.io/tags/shell/"/>
+      <category term="shell" scheme="https://hunterMG.net/tags/shell/"/>
     
-      <category term="Linux" scheme="https://hunterMG.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://hunterMG.net/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>当你看过世界</title>
-    <link href="https://hunterMG.github.io/2020/04/27/nothing/"/>
-    <id>https://hunterMG.github.io/2020/04/27/nothing/</id>
+    <link href="https://hunterMG.net/2020/04/27/nothing/"/>
+    <id>https://hunterMG.net/2020/04/27/nothing/</id>
     <published>2020-04-27T07:03:49.000Z</published>
     <updated>2020-04-27T07:34:10.874Z</updated>
     
@@ -177,15 +177,15 @@
     
     </summary>
     
-      <category term="life" scheme="https://hunterMG.github.io/categories/life/"/>
+      <category term="life" scheme="https://hunterMG.net/categories/life/"/>
     
     
   </entry>
   
   <entry>
     <title>lesson from wechat group</title>
-    <link href="https://hunterMG.github.io/2020/02/21/lesson-from-wechat-group/"/>
-    <id>https://hunterMG.github.io/2020/02/21/lesson-from-wechat-group/</id>
+    <link href="https://hunterMG.net/2020/02/21/lesson-from-wechat-group/"/>
+    <id>https://hunterMG.net/2020/02/21/lesson-from-wechat-group/</id>
     <published>2020-02-20T16:01:17.000Z</published>
     <updated>2020-04-27T07:33:58.649Z</updated>
     
@@ -197,15 +197,15 @@
     
     </summary>
     
-      <category term="life" scheme="https://hunterMG.github.io/categories/life/"/>
+      <category term="life" scheme="https://hunterMG.net/categories/life/"/>
     
     
   </entry>
   
   <entry>
     <title>oneindex refer test</title>
-    <link href="https://hunterMG.github.io/2020/02/16/oneindex-refer-test/"/>
-    <id>https://hunterMG.github.io/2020/02/16/oneindex-refer-test/</id>
+    <link href="https://hunterMG.net/2020/02/16/oneindex-refer-test/"/>
+    <id>https://hunterMG.net/2020/02/16/oneindex-refer-test/</id>
     <published>2020-02-16T13:40:31.000Z</published>
     <updated>2021-01-09T06:26:14.813Z</updated>
     
@@ -220,15 +220,15 @@
     
     </summary>
     
-      <category term="tools" scheme="https://hunterMG.github.io/categories/tools/"/>
+      <category term="tools" scheme="https://hunterMG.net/categories/tools/"/>
     
     
   </entry>
   
   <entry>
     <title>Stop being horny: I choose to dig myself</title>
-    <link href="https://hunterMG.github.io/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/"/>
-    <id>https://hunterMG.github.io/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</id>
+    <link href="https://hunterMG.net/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/"/>
+    <id>https://hunterMG.net/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</id>
     <published>2019-12-01T02:54:07.000Z</published>
     <updated>2019-12-01T08:59:23.408Z</updated>
     
@@ -241,15 +241,15 @@
     
     </summary>
     
-      <category term="emotion" scheme="https://hunterMG.github.io/categories/emotion/"/>
+      <category term="emotion" scheme="https://hunterMG.net/categories/emotion/"/>
     
     
   </entry>
   
   <entry>
     <title>Break the wa11 by v2ray</title>
-    <link href="https://hunterMG.github.io/2018/10/12/method-of-break-the-wa11-by-v2ray/"/>
-    <id>https://hunterMG.github.io/2018/10/12/method-of-break-the-wa11-by-v2ray/</id>
+    <link href="https://hunterMG.net/2018/10/12/method-of-break-the-wa11-by-v2ray/"/>
+    <id>https://hunterMG.net/2018/10/12/method-of-break-the-wa11-by-v2ray/</id>
     <published>2018-10-12T07:54:51.000Z</published>
     <updated>2019-12-01T08:59:17.160Z</updated>
     
@@ -262,25 +262,25 @@
     
     </summary>
     
-      <category term="Network" scheme="https://hunterMG.github.io/categories/Network/"/>
+      <category term="Network" scheme="https://hunterMG.net/categories/Network/"/>
     
     
-      <category term="note" scheme="https://hunterMG.github.io/tags/note/"/>
+      <category term="note" scheme="https://hunterMG.net/tags/note/"/>
     
-      <category term="tools" scheme="https://hunterMG.github.io/tags/tools/"/>
+      <category term="tools" scheme="https://hunterMG.net/tags/tools/"/>
     
-      <category term="wa11" scheme="https://hunterMG.github.io/tags/wa11/"/>
+      <category term="wa11" scheme="https://hunterMG.net/tags/wa11/"/>
     
-      <category term="v2ray" scheme="https://hunterMG.github.io/tags/v2ray/"/>
+      <category term="v2ray" scheme="https://hunterMG.net/tags/v2ray/"/>
     
-      <category term="privacy" scheme="https://hunterMG.github.io/tags/privacy/"/>
+      <category term="privacy" scheme="https://hunterMG.net/tags/privacy/"/>
     
   </entry>
   
   <entry>
     <title>android-auto-script</title>
-    <link href="https://hunterMG.github.io/2018/08/15/android-auto-script/"/>
-    <id>https://hunterMG.github.io/2018/08/15/android-auto-script/</id>
+    <link href="https://hunterMG.net/2018/08/15/android-auto-script/"/>
+    <id>https://hunterMG.net/2018/08/15/android-auto-script/</id>
     <published>2018-08-15T03:47:18.000Z</published>
     <updated>2019-12-01T09:03:28.826Z</updated>
     
@@ -292,21 +292,21 @@
     
     </summary>
     
-      <category term="Android" scheme="https://hunterMG.github.io/categories/Android/"/>
+      <category term="Android" scheme="https://hunterMG.net/categories/Android/"/>
     
     
-      <category term="note" scheme="https://hunterMG.github.io/tags/note/"/>
+      <category term="note" scheme="https://hunterMG.net/tags/note/"/>
     
-      <category term="android" scheme="https://hunterMG.github.io/tags/android/"/>
+      <category term="android" scheme="https://hunterMG.net/tags/android/"/>
     
-      <category term="reading list" scheme="https://hunterMG.github.io/tags/reading-list/"/>
+      <category term="reading list" scheme="https://hunterMG.net/tags/reading-list/"/>
     
   </entry>
   
   <entry>
     <title>Hackintosh note</title>
-    <link href="https://hunterMG.github.io/2018/04/11/Hackintosh-note/"/>
-    <id>https://hunterMG.github.io/2018/04/11/Hackintosh-note/</id>
+    <link href="https://hunterMG.net/2018/04/11/Hackintosh-note/"/>
+    <id>https://hunterMG.net/2018/04/11/Hackintosh-note/</id>
     <published>2018-04-11T01:17:24.000Z</published>
     <updated>2019-12-01T09:03:42.380Z</updated>
     
@@ -318,19 +318,19 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://hunterMG.github.io/categories/macOS/"/>
+      <category term="macOS" scheme="https://hunterMG.net/categories/macOS/"/>
     
     
-      <category term="macOS" scheme="https://hunterMG.github.io/tags/macOS/"/>
+      <category term="macOS" scheme="https://hunterMG.net/tags/macOS/"/>
     
-      <category term="Hackintosh" scheme="https://hunterMG.github.io/tags/Hackintosh/"/>
+      <category term="Hackintosh" scheme="https://hunterMG.net/tags/Hackintosh/"/>
     
   </entry>
   
   <entry>
     <title>learn python</title>
-    <link href="https://hunterMG.github.io/2018/03/26/learn-python/"/>
-    <id>https://hunterMG.github.io/2018/03/26/learn-python/</id>
+    <link href="https://hunterMG.net/2018/03/26/learn-python/"/>
+    <id>https://hunterMG.net/2018/03/26/learn-python/</id>
     <published>2018-03-26T01:57:47.000Z</published>
     <updated>2019-12-01T09:01:45.625Z</updated>
     
@@ -342,21 +342,21 @@
     
     </summary>
     
-      <category term="development" scheme="https://hunterMG.github.io/categories/development/"/>
+      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
     
     
-      <category term="python" scheme="https://hunterMG.github.io/tags/python/"/>
+      <category term="python" scheme="https://hunterMG.net/tags/python/"/>
     
-      <category term="numpy" scheme="https://hunterMG.github.io/tags/numpy/"/>
+      <category term="numpy" scheme="https://hunterMG.net/tags/numpy/"/>
     
-      <category term="pandas" scheme="https://hunterMG.github.io/tags/pandas/"/>
+      <category term="pandas" scheme="https://hunterMG.net/tags/pandas/"/>
     
   </entry>
   
   <entry>
     <title>python errors notes</title>
-    <link href="https://hunterMG.github.io/2018/03/22/python-import-errors-notes/"/>
-    <id>https://hunterMG.github.io/2018/03/22/python-import-errors-notes/</id>
+    <link href="https://hunterMG.net/2018/03/22/python-import-errors-notes/"/>
+    <id>https://hunterMG.net/2018/03/22/python-import-errors-notes/</id>
     <published>2018-03-22T08:57:37.000Z</published>
     <updated>2019-12-01T09:02:00.181Z</updated>
     
@@ -368,17 +368,17 @@
     
     </summary>
     
-      <category term="development" scheme="https://hunterMG.github.io/categories/development/"/>
+      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
     
     
-      <category term="python" scheme="https://hunterMG.github.io/tags/python/"/>
+      <category term="python" scheme="https://hunterMG.net/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>install Tensorflow on macOS</title>
-    <link href="https://hunterMG.github.io/2018/03/01/install-tensorflow-on-macOS/"/>
-    <id>https://hunterMG.github.io/2018/03/01/install-tensorflow-on-macOS/</id>
+    <link href="https://hunterMG.net/2018/03/01/install-tensorflow-on-macOS/"/>
+    <id>https://hunterMG.net/2018/03/01/install-tensorflow-on-macOS/</id>
     <published>2018-03-01T09:12:57.000Z</published>
     <updated>2019-12-01T09:03:00.282Z</updated>
     
@@ -390,23 +390,23 @@
     
     </summary>
     
-      <category term="development" scheme="https://hunterMG.github.io/categories/development/"/>
+      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
     
     
-      <category term="Machine Learning" scheme="https://hunterMG.github.io/tags/Machine-Learning/"/>
+      <category term="Machine Learning" scheme="https://hunterMG.net/tags/Machine-Learning/"/>
     
-      <category term="Deep Learning" scheme="https://hunterMG.github.io/tags/Deep-Learning/"/>
+      <category term="Deep Learning" scheme="https://hunterMG.net/tags/Deep-Learning/"/>
     
-      <category term="TensorFlow" scheme="https://hunterMG.github.io/tags/TensorFlow/"/>
+      <category term="TensorFlow" scheme="https://hunterMG.net/tags/TensorFlow/"/>
     
-      <category term="macOS" scheme="https://hunterMG.github.io/tags/macOS/"/>
+      <category term="macOS" scheme="https://hunterMG.net/tags/macOS/"/>
     
   </entry>
   
   <entry>
     <title>Write blog with Hexo</title>
-    <link href="https://hunterMG.github.io/2018/01/24/write-blog-with-hexo/"/>
-    <id>https://hunterMG.github.io/2018/01/24/write-blog-with-hexo/</id>
+    <link href="https://hunterMG.net/2018/01/24/write-blog-with-hexo/"/>
+    <id>https://hunterMG.net/2018/01/24/write-blog-with-hexo/</id>
     <published>2018-01-24T11:02:13.000Z</published>
     <updated>2019-12-01T01:46:52.560Z</updated>
     
@@ -418,25 +418,25 @@
     
     </summary>
     
-      <category term="note" scheme="https://hunterMG.github.io/categories/note/"/>
+      <category term="note" scheme="https://hunterMG.net/categories/note/"/>
     
     
-      <category term="hexo" scheme="https://hunterMG.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="https://hunterMG.net/tags/hexo/"/>
     
-      <category term="github" scheme="https://hunterMG.github.io/tags/github/"/>
+      <category term="github" scheme="https://hunterMG.net/tags/github/"/>
     
-      <category term="webhook" scheme="https://hunterMG.github.io/tags/webhook/"/>
+      <category term="webhook" scheme="https://hunterMG.net/tags/webhook/"/>
     
-      <category term="submodule" scheme="https://hunterMG.github.io/tags/submodule/"/>
+      <category term="submodule" scheme="https://hunterMG.net/tags/submodule/"/>
     
-      <category term="HTTPS" scheme="https://hunterMG.github.io/tags/HTTPS/"/>
+      <category term="HTTPS" scheme="https://hunterMG.net/tags/HTTPS/"/>
     
   </entry>
   
   <entry>
     <title>利用docker搭建cacti开发平台</title>
-    <link href="https://hunterMG.github.io/2017/10/19/cacti-develop-with-docker/"/>
-    <id>https://hunterMG.github.io/2017/10/19/cacti-develop-with-docker/</id>
+    <link href="https://hunterMG.net/2017/10/19/cacti-develop-with-docker/"/>
+    <id>https://hunterMG.net/2017/10/19/cacti-develop-with-docker/</id>
     <published>2017-10-19T08:11:58.000Z</published>
     <updated>2019-12-01T09:02:40.122Z</updated>
     
@@ -449,21 +449,21 @@
     
     </summary>
     
-      <category term="development" scheme="https://hunterMG.github.io/categories/development/"/>
+      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
     
     
-      <category term="配置" scheme="https://hunterMG.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="https://hunterMG.net/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="docker" scheme="https://hunterMG.github.io/tags/docker/"/>
+      <category term="docker" scheme="https://hunterMG.net/tags/docker/"/>
     
-      <category term="cacti" scheme="https://hunterMG.github.io/tags/cacti/"/>
+      <category term="cacti" scheme="https://hunterMG.net/tags/cacti/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://hunterMG.github.io/2017/10/18/hello-world/"/>
-    <id>https://hunterMG.github.io/2017/10/18/hello-world/</id>
+    <link href="https://hunterMG.net/2017/10/18/hello-world/"/>
+    <id>https://hunterMG.net/2017/10/18/hello-world/</id>
     <published>2017-10-18T11:31:00.000Z</published>
     <updated>2021-01-09T06:26:43.117Z</updated>
     
