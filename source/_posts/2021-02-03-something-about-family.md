@@ -130,3 +130,9 @@ tags:
 
 我开始觉得我拯救不了他们了···
 
+## 2021/02/21 鸡飞狗跳的一晚
+见["Sorry, sir. You're dancing at the wrong place."](2021-02-21-Sorry-sir-You-dance-at-the-wrong-place.md).
+
+爸妈，我不会放弃你们的。我会努力让你们的身体和精神都健康。
+
+大光头！刚把得！💪
