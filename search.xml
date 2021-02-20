@@ -60,27 +60,6 @@
       </tags>
   </entry>
   <entry>
-    <title>install Tensorflow on macOS</title>
-    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
-    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
-<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
-<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
-<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
-<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
-<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
-<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
-<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Deep Learning</tag>
-        <tag>TensorFlow</tag>
-        <tag>macOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用docker搭建cacti开发平台</title>
     <url>/2017/10/19/cacti-develop-with-docker/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
@@ -119,19 +98,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Hackintosh note</title>
-    <url>/2018/04/11/Hackintosh-note/</url>
-    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
-<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
-<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+    <title>install Tensorflow on macOS</title>
+    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
+    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
+<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
+<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
+<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
+<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
+<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>macOS</category>
+        <category>development</category>
       </categories>
       <tags>
+        <tag>Machine Learning</tag>
+        <tag>Deep Learning</tag>
+        <tag>TensorFlow</tag>
         <tag>macOS</tag>
-        <tag>Hackintosh</tag>
       </tags>
   </entry>
   <entry>
@@ -188,6 +172,67 @@
       </tags>
   </entry>
   <entry>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android-auto-script</title>
+    <url>/2018/08/15/android-auto-script/</url>
+    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
+<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
+<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
+<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
+<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
+<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>android</tag>
+        <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stop being horny: I choose to dig myself</title>
+    <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
+    <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
+<p>昨天晚上经历了很痛苦的一段时间，选择写下来的原因是因为想要以后避免这样痛苦的经历。都说“痛苦，是成长最快的方式”，不是吗？还有就是要记录下自己的情感，既然它产生了，就不能完完全全的否定它，选择记下来也是为了在情感的道路上有一些成长吧。而且写在这里也不会有什么人看到吧，毕竟我的博客好像也没啥人关注😂<br><a id="more"></a></p>
+<h2 id="怎么会爱上了她"><a href="#怎么会爱上了她" class="headerlink" title="怎么会爱上了她"></a>怎么会爱上了她</h2><p>其实事情要从远古时期开始说起吧，，， </p>
+<h3 id="夏令营"><a href="#夏令营" class="headerlink" title="夏令营"></a>夏令营</h3><p>大学之前的一个同学，之前一直是“好兄弟”的关系，而且是属于我在她面前可以无所顾忌的说话的那种。因为在正式的高中开始之前就一起被选择作为中考成绩优秀的学生参加了未来高中学校的夏令营，而且是一个组（7个人），她是组长，我是副组长。（描述的这么详细如果是当年一起夏令营的可能会想到是谁了，不过以我的判断当年夏令营里的人应该都不会知道我有博客）。当时她给我的感觉是大大咧咧的，然后身高不高，很娇小，但是嗓门很大，操着一口纯正的我们的方言，像个小大人；嗓门大给我一种能量很大的感觉，然后性格是很活泼（现在也是），可以说是自来熟了，我当时反而是比较内向，现在想来就是一个自我感觉良好的单纯傻小子吧。因为在一个组就免不了打交道，她就像完全对别人不陌生一样（另一个现在关系仍然很好的沙雕组员可以作证）,这让当时内向的我感觉挺舒服的吧，就是没那么尴尬，所以还是挺喜欢和她说话的。因为是组长，所以跟我说话的时候给我一种“颐指气使”的感觉（应该是她幽默的方式），然后我也甘愿“做牛做马”（抖M？），所以相处起来还是挺愉快的。当时可能也没多想什么吧。  </p>
+<h3 id="高中"><a href="#高中" class="headerlink" title="高中"></a>高中</h3><p>七天夏令营结束后就是高一开学了，高中三年给我的感觉是一样的吧，我们俩在隔壁班。平时路上有时候会遇到。因为之前认识，聊天也能聊到一块去。还有就是当时我在班里算是比较优秀的，然后别人就会把我当成一个学霸去对待，就是感觉不到那种平等交流的感觉。我当时的沟通能力也是比较差劲。所以在班里的氛围的感觉就不是特别的舒服（所幸我的初中好友现在也还是好基友是我的同桌，然后还认识了俩好基友，过得也能开心起来，现在想起来真的得感谢他们让我当时没有更自闭）。  </p>
+<p>因为这种状况，我俩遇见的时候我就会觉得特别亲切，因为从某种方面来说我们俩是平等的，我就可以无所顾忌的说话，彼此也能懂对方的心思，有时候有个人进步退步也会真的能为对方感同身受。正是因为如此，我当时就对她很有好感了吧。当时基友看见我俩聊天还会拿我们打趣。但是当时也没有表露出自己的心思，至少没有明显的表现出来吧（一部分因为当时的自闭，一部分因为当时认为高中应该把所有精力放在学习上，所以也没有表白之类的）。她对我应该也就是好朋友的方式吧（直到现在应该也是）。就这样过去了三年。中间她居然还谈了一次恋爱，用“居然“是因为她在我的印象里就是一个不会谈恋爱的人（大大咧咧，小大人，这种人怎么会和人拍拖的嘛），看来还是失算了。当时还挺失望的说实话，不过我也没对人家说过啥，那也是她的自由，平时也还是以好朋友的关系继续往来。  </p>
+<h3 id="本科"><a href="#本科" class="headerlink" title="本科"></a>本科</h3><p>该上大学了，后来知道差点去了一个学校。大学的时候也偶尔联系，很好的朋友。有意思的是我一直以为她是另一个大学的，后来来了一个城市之后约饭我不小心暴露了，她就总拿这个说事，不过我从一开始就以为她是另一所大学的，不知道是之前聊填志愿还是看她朋友圈所以才那么认为的，后来就一直那么认为。唉，头疼。有次寒假在家我们几个好朋友一块约饭的时候知道她当时分手了，竟然有点开心是怎么回事？  </p>
+<h3 id="研一"><a href="#研一" class="headerlink" title="研一"></a>研一</h3><p>然后是研究生了，她工作了，我们在同一个城市了。老友见面吃饭玩耍，很愉快。  </p>
+<p>研一开始想谈恋爱，一个是因为之前可能一直是单相思的状态，也想体会一下爱人和被爱的感觉（本科的时候谈过两次恋爱，不过都是异地，最终都是因为不太合适就分手了。给我最大的感触就是再也不要异地恋了，我也想牵着恋人的手，哪怕就是随意地在路边溜达）；还有一个也是因为考虑到以后也是要结婚的，而结婚的话肯定是和合适的人一起度过后半生才能幸福，那么如何找到一个合适的人呢，你们又要彼此相爱，又要合适，其实感觉是很难的。所以平时就有意识的关注一些心理学的知识，感觉会有一些帮助。但是如果这样只看理论知识没有过相处的情感经历的话怎么能确保自己最后选择的是合适的呢？所以秉着对双方负责的态度，我想恋爱了。</p>
+<p>研一班里其实女生数量还是挺多的，但是因为研究生的关系，大家也就上课见个面，平时也都有自己的事情，所以有看着有好感的也是没什么机会。和她是开学的时候见了个面，后来一直想一块去香山来着，后来每次不是她有事就是我有事就没去成（今年也是，，，醉了，，，）。平时也有交流，还给她写过一个提升工作效率的小软件，后来见面的时候还想让我给写个抢票软件。</p>
+<h3 id="现在"><a href="#现在" class="headerlink" title="现在"></a>现在</h3><p>然后今年是研二开学的时候一起逛了逛恭王府，这次我是真的动心了。那天聊得真得很开心。因为认识了这么多年，重聚在一起，已经很开心了，聊的又投机，就更开心。但当时也没有现场表示什么。回来后，也许是以前的感情又开始在我的心里泛起波澜，加上现在距离又这么近，而且我想我们有同样的背景，就更容易互相理解，我想这次该抓住这个机会了。然后就平时会在微信上聊几句，不过她给我的感觉是在微信上和现实中不太一样，见面的时候很热情，但在微信上就只简短的回复而且有时隔比较久，让我一度以为她失联了。也许是由于工作比较忙的原因吧。然后香山红叶节的时候一直约着去，但是都有事，红叶节过了也就没去成。然后这中间也许是由于报复心理（我是怎么了，，，），我就参加联谊,然后疯狂地和在联谊上认识的女生约会，好像都不太合适，最后都没有第二次了。</p>
+<p>然后就这周五下雪了，我就约她周六去故宫玩，她说要在家里写报告，然后我因为基友没带身份证就没去成故宫，我就说那我去你家串门吧，然后她也百般不愿意，说10平的房子都没地方坐，你还是别来了，还以为我被盗号了，最后说不想我去她家串门，我说“好伤心”，她说“不用伤心”。然后我就也不想跟她在微信上聊了，我是真的很伤心，她可能以为我在开玩笑。然后我就坐在桌子前面，合上笔记本，就这样趴在桌子上想从这一开始一直到现在，然后就留下泪来，我在想自己就是想体会一下被爱和爱人的感觉有什么错吗，为什么会这么痛苦，然后越想就越难受，眼泪似乎也止不住，过了几分钟好了点，擦干眼泪去洗澡睡觉。当时就想着我一定要把这种感觉记下来，以后再也不要经历这种感觉了。当时因为太晚就只记录了自己想说的几句话：</p>
+<blockquote>
+<p>stop being horny：I choose to dig myself<br>因为有所期待，所以才会伤心<br>再也不会因为别人改变自己的想法，做回真正的自己<br>还是会表达自己，分享自己的想法<br>还是会满怀期待，还是会充满希望<br>痛苦，是成长的方式吧  </p>
+</blockquote>
+<p>现在看起来当时因为心情有些激动，有些话似乎过于偏激了。现在看的话也不完全是她让我如此的痛苦，也有我自己的原因：没有明确的告诉她我对她的感情，而是想慢慢地让她感受，实践证明这不靠谱，也不知道是我暗示得太不明显还是她是个榆木脑袋又或许是对我并没有任何非分之想，唉，，，我好难啊。之前她好像说过自己不想谈恋爱一个人过挺好的。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>最后强行升华一下主题吧：在寻觅爱情的同时，我不会放弃对实现自我价值的追求，而且我会把自我价值看得更重。不能因为想谈个恋爱就放弃自己了，一味地委曲求全只会让人失去自我。具有自我意识的人也更有其魅力。还有就是，在表达自己的感情上，是不是也应该大胆一些了，或者说：勇敢一些，毕竟是个大老爷们。</p>
+<p>慢慢来吧，，，</p>
+]]></content>
+      <categories>
+        <category>emotion</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Break the wa11 by v2ray</title>
     <url>/2018/10/12/method-of-break-the-wa11-by-v2ray/</url>
     <content><![CDATA[<h1 id="Check-the-time-VPS-and-your-host"><a href="#Check-the-time-VPS-and-your-host" class="headerlink" title="Check the time (VPS and your host)"></a>Check the time (VPS and your host)</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date -r</span><br></pre></td></tr></table></figure>
@@ -233,59 +278,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Stop being horny: I choose to dig myself</title>
-    <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
-    <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
-<p>昨天晚上经历了很痛苦的一段时间，选择写下来的原因是因为想要以后避免这样痛苦的经历。都说“痛苦，是成长最快的方式”，不是吗？还有就是要记录下自己的情感，既然它产生了，就不能完完全全的否定它，选择记下来也是为了在情感的道路上有一些成长吧。而且写在这里也不会有什么人看到吧，毕竟我的博客好像也没啥人关注😂<br><a id="more"></a></p>
-<h2 id="怎么会爱上了她"><a href="#怎么会爱上了她" class="headerlink" title="怎么会爱上了她"></a>怎么会爱上了她</h2><p>其实事情要从远古时期开始说起吧，，， </p>
-<h3 id="夏令营"><a href="#夏令营" class="headerlink" title="夏令营"></a>夏令营</h3><p>大学之前的一个同学，之前一直是“好兄弟”的关系，而且是属于我在她面前可以无所顾忌的说话的那种。因为在正式的高中开始之前就一起被选择作为中考成绩优秀的学生参加了未来高中学校的夏令营，而且是一个组（7个人），她是组长，我是副组长。（描述的这么详细如果是当年一起夏令营的可能会想到是谁了，不过以我的判断当年夏令营里的人应该都不会知道我有博客）。当时她给我的感觉是大大咧咧的，然后身高不高，很娇小，但是嗓门很大，操着一口纯正的我们的方言，像个小大人；嗓门大给我一种能量很大的感觉，然后性格是很活泼（现在也是），可以说是自来熟了，我当时反而是比较内向，现在想来就是一个自我感觉良好的单纯傻小子吧。因为在一个组就免不了打交道，她就像完全对别人不陌生一样（另一个现在关系仍然很好的沙雕组员可以作证）,这让当时内向的我感觉挺舒服的吧，就是没那么尴尬，所以还是挺喜欢和她说话的。因为是组长，所以跟我说话的时候给我一种“颐指气使”的感觉（应该是她幽默的方式），然后我也甘愿“做牛做马”（抖M？），所以相处起来还是挺愉快的。当时可能也没多想什么吧。  </p>
-<h3 id="高中"><a href="#高中" class="headerlink" title="高中"></a>高中</h3><p>七天夏令营结束后就是高一开学了，高中三年给我的感觉是一样的吧，我们俩在隔壁班。平时路上有时候会遇到。因为之前认识，聊天也能聊到一块去。还有就是当时我在班里算是比较优秀的，然后别人就会把我当成一个学霸去对待，就是感觉不到那种平等交流的感觉。我当时的沟通能力也是比较差劲。所以在班里的氛围的感觉就不是特别的舒服（所幸我的初中好友现在也还是好基友是我的同桌，然后还认识了俩好基友，过得也能开心起来，现在想起来真的得感谢他们让我当时没有更自闭）。  </p>
-<p>因为这种状况，我俩遇见的时候我就会觉得特别亲切，因为从某种方面来说我们俩是平等的，我就可以无所顾忌的说话，彼此也能懂对方的心思，有时候有个人进步退步也会真的能为对方感同身受。正是因为如此，我当时就对她很有好感了吧。当时基友看见我俩聊天还会拿我们打趣。但是当时也没有表露出自己的心思，至少没有明显的表现出来吧（一部分因为当时的自闭，一部分因为当时认为高中应该把所有精力放在学习上，所以也没有表白之类的）。她对我应该也就是好朋友的方式吧（直到现在应该也是）。就这样过去了三年。中间她居然还谈了一次恋爱，用“居然“是因为她在我的印象里就是一个不会谈恋爱的人（大大咧咧，小大人，这种人怎么会和人拍拖的嘛），看来还是失算了。当时还挺失望的说实话，不过我也没对人家说过啥，那也是她的自由，平时也还是以好朋友的关系继续往来。  </p>
-<h3 id="本科"><a href="#本科" class="headerlink" title="本科"></a>本科</h3><p>该上大学了，后来知道差点去了一个学校。大学的时候也偶尔联系，很好的朋友。有意思的是我一直以为她是另一个大学的，后来来了一个城市之后约饭我不小心暴露了，她就总拿这个说事，不过我从一开始就以为她是另一所大学的，不知道是之前聊填志愿还是看她朋友圈所以才那么认为的，后来就一直那么认为。唉，头疼。有次寒假在家我们几个好朋友一块约饭的时候知道她当时分手了，竟然有点开心是怎么回事？  </p>
-<h3 id="研一"><a href="#研一" class="headerlink" title="研一"></a>研一</h3><p>然后是研究生了，她工作了，我们在同一个城市了。老友见面吃饭玩耍，很愉快。  </p>
-<p>研一开始想谈恋爱，一个是因为之前可能一直是单相思的状态，也想体会一下爱人和被爱的感觉（本科的时候谈过两次恋爱，不过都是异地，最终都是因为不太合适就分手了。给我最大的感触就是再也不要异地恋了，我也想牵着恋人的手，哪怕就是随意地在路边溜达）；还有一个也是因为考虑到以后也是要结婚的，而结婚的话肯定是和合适的人一起度过后半生才能幸福，那么如何找到一个合适的人呢，你们又要彼此相爱，又要合适，其实感觉是很难的。所以平时就有意识的关注一些心理学的知识，感觉会有一些帮助。但是如果这样只看理论知识没有过相处的情感经历的话怎么能确保自己最后选择的是合适的呢？所以秉着对双方负责的态度，我想恋爱了。</p>
-<p>研一班里其实女生数量还是挺多的，但是因为研究生的关系，大家也就上课见个面，平时也都有自己的事情，所以有看着有好感的也是没什么机会。和她是开学的时候见了个面，后来一直想一块去香山来着，后来每次不是她有事就是我有事就没去成（今年也是，，，醉了，，，）。平时也有交流，还给她写过一个提升工作效率的小软件，后来见面的时候还想让我给写个抢票软件。</p>
-<h3 id="现在"><a href="#现在" class="headerlink" title="现在"></a>现在</h3><p>然后今年是研二开学的时候一起逛了逛恭王府，这次我是真的动心了。那天聊得真得很开心。因为认识了这么多年，重聚在一起，已经很开心了，聊的又投机，就更开心。但当时也没有现场表示什么。回来后，也许是以前的感情又开始在我的心里泛起波澜，加上现在距离又这么近，而且我想我们有同样的背景，就更容易互相理解，我想这次该抓住这个机会了。然后就平时会在微信上聊几句，不过她给我的感觉是在微信上和现实中不太一样，见面的时候很热情，但在微信上就只简短的回复而且有时隔比较久，让我一度以为她失联了。也许是由于工作比较忙的原因吧。然后香山红叶节的时候一直约着去，但是都有事，红叶节过了也就没去成。然后这中间也许是由于报复心理（我是怎么了，，，），我就参加联谊,然后疯狂地和在联谊上认识的女生约会，好像都不太合适，最后都没有第二次了。</p>
-<p>然后就这周五下雪了，我就约她周六去故宫玩，她说要在家里写报告，然后我因为基友没带身份证就没去成故宫，我就说那我去你家串门吧，然后她也百般不愿意，说10平的房子都没地方坐，你还是别来了，还以为我被盗号了，最后说不想我去她家串门，我说“好伤心”，她说“不用伤心”。然后我就也不想跟她在微信上聊了，我是真的很伤心，她可能以为我在开玩笑。然后我就坐在桌子前面，合上笔记本，就这样趴在桌子上想从这一开始一直到现在，然后就留下泪来，我在想自己就是想体会一下被爱和爱人的感觉有什么错吗，为什么会这么痛苦，然后越想就越难受，眼泪似乎也止不住，过了几分钟好了点，擦干眼泪去洗澡睡觉。当时就想着我一定要把这种感觉记下来，以后再也不要经历这种感觉了。当时因为太晚就只记录了自己想说的几句话：</p>
-<blockquote>
-<p>stop being horny：I choose to dig myself<br>因为有所期待，所以才会伤心<br>再也不会因为别人改变自己的想法，做回真正的自己<br>还是会表达自己，分享自己的想法<br>还是会满怀期待，还是会充满希望<br>痛苦，是成长的方式吧  </p>
-</blockquote>
-<p>现在看起来当时因为心情有些激动，有些话似乎过于偏激了。现在看的话也不完全是她让我如此的痛苦，也有我自己的原因：没有明确的告诉她我对她的感情，而是想慢慢地让她感受，实践证明这不靠谱，也不知道是我暗示得太不明显还是她是个榆木脑袋又或许是对我并没有任何非分之想，唉，，，我好难啊。之前她好像说过自己不想谈恋爱一个人过挺好的。</p>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>最后强行升华一下主题吧：在寻觅爱情的同时，我不会放弃对实现自我价值的追求，而且我会把自我价值看得更重。不能因为想谈个恋爱就放弃自己了，一味地委曲求全只会让人失去自我。具有自我意识的人也更有其魅力。还有就是，在表达自己的感情上，是不是也应该大胆一些了，或者说：勇敢一些，毕竟是个大老爷们。</p>
-<p>慢慢来吧，，，</p>
-]]></content>
-      <categories>
-        <category>emotion</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>android-auto-script</title>
-    <url>/2018/08/15/android-auto-script/</url>
-    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
-<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
-<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
-<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
-<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
-<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>android</tag>
-        <tag>reading list</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-  </entry>
-  <entry>
     <title>lesson from wechat group</title>
     <url>/2020/02/21/lesson-from-wechat-group/</url>
     <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
@@ -297,6 +289,14 @@
 ]]></content>
       <categories>
         <category>life</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
       </categories>
   </entry>
   <entry>
@@ -468,49 +468,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Get newest code from original repo</title>
-    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
-    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
-<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
-<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
-<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
-<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
-<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
-<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
-<ol>
-<li><p>添加远程 repo，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拉取远程 repo 信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建并切换到分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并最新的代码，解决冲突：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
-<li><p>切换到 master 分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除临时分支（optional）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
-<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
-<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>家庭琐事</title>
     <url>/2021/02/03/something-about-family/</url>
     <content><![CDATA[<p>看完这个，你有可能会了解更多的我。但是看的过程可能会很压抑。<br>如果只是想和我交流技术，是没必要点开的。<br><a id="more"></a></p>
@@ -559,6 +516,9 @@
 <p>想到这里，看到我爸靠在沙发上睡着了。是在爷爷家照顾爷爷奶奶累的吧，这几天又是照顾他们又是招待亲戚，和我妈也时有口角，整个人都憔悴了很多，在爷爷家的时候我和妈妈也尽量帮他做事。可他心里也是很累吧，今天听他声音都有点哑。中午又喝酒了，我妈都闻到他身上很大酒气。</p>
 <p>我爸接到大伯的电话，去了爷爷家。<br>我妈说爸明天要去大舅家走亲戚。说他太固执。说刚才又看他手机发现了什么。<br>我说“妈，你怎么又···你不是说不看了吗？你改了吧。”<br>我低下头，哭了。<br>哭了一会，抬起头，发现我妈捂着脸，好像也哭了。可能看出我肩膀在抖吧。<br>我站起来说“我去睡了，今天不洗脚了”。</p>
 <p>我开始觉得我拯救不了他们了···</p>
+<h2 id="2021-02-21-鸡飞狗跳的一晚"><a href="#2021-02-21-鸡飞狗跳的一晚" class="headerlink" title="2021/02/21 鸡飞狗跳的一晚"></a>2021/02/21 鸡飞狗跳的一晚</h2><p>见<a href="2021-02-21-Sorry-sir-You-dance-at-the-wrong-place.md">“Sorry, sir. You’re dancing at the wrong place.”</a>.</p>
+<p>爸妈，我不会放弃你们的。我会努力让你们的身体和精神都健康。</p>
+<p>大光头！刚把得！💪</p>
 ]]></content>
       <categories>
         <category>family</category>
@@ -568,6 +528,68 @@
         <tag>parents</tag>
         <tag>emotion</tag>
         <tag>life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Get newest code from original repo</title>
+    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
+    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
+<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
+<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
+<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
+<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
+<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
+<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
+<ol>
+<li><p>添加远程 repo，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程 repo 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建并切换到分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并最新的代码，解决冲突：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
+<li><p>切换到 master 分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除临时分支（optional）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
+<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>“Sorry, sir. You&#39;re dancing at the wrong place.”</title>
+    <url>/2021/02/21/Sorry-sir-You-dance-at-the-wrong-place/</url>
+    <content><![CDATA[<p>标题随便取的，无任何内涵。<br><a id="more"></a></p>
+<h2 id="醉酒的“课”"><a href="#醉酒的“课”" class="headerlink" title="醉酒的“课”"></a>醉酒的“课”</h2><h3 id="利用醉酒"><a href="#利用醉酒" class="headerlink" title="利用醉酒"></a>利用醉酒</h3><p>醉酒是一个很好的工具，对于懦弱的人来说。平时不敢说、不好意思说的话，都可以借醉酒说出来，而万一犯了什么错误，也是一句“哎呀我喝多了对不住”，一般情况对方也不会怪ta。（不会吧？不会吧？不会真的有人会怪醉酒的人吧？[doge]）</p>
+<h3 id="酒量的作用"><a href="#酒量的作用" class="headerlink" title="酒量的作用"></a>酒量的作用</h3><p>酒量大的人，与酒量小的人比，喝一样多的酒，头脑仍能保持清醒。此时稍以言辞，便将醉酒的人耍得团团乱转（如果醉酒的人本来情商就不高，那对于ta来说更是“神来之笔”）。“享受” 挥洒 “权力”、发泄情绪的 “快感”。</p>
+<p><strong>(PS.以前我的愿望是世界和平，现在我的愿望是消灭酒精。)</strong></p>
+<p>(PPS.现在在家里也太废了，整天写这些垃圾东西。)</p>
+<p>鸡飞狗跳的一晚结束了，，，</p>
+<p>2021/02/21 02:57.</p>
+]]></content>
+      <categories>
+        <category>trash</category>
+      </categories>
+      <tags>
+        <tag>family</tag>
+        <tag>emotion</tag>
       </tags>
   </entry>
 </search>
