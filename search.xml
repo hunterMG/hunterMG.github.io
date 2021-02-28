@@ -60,24 +60,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python errors notes</title>
-    <url>/2018/03/22/python-import-errors-notes/</url>
-    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
-<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
-<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
-<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用docker搭建cacti开发平台</title>
     <url>/2017/10/19/cacti-develop-with-docker/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
@@ -137,6 +119,41 @@
       </tags>
   </entry>
   <entry>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android-auto-script</title>
+    <url>/2018/08/15/android-auto-script/</url>
+    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
+<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
+<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
+<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
+<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
+<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>android</tag>
+        <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>learn python</title>
     <url>/2018/03/26/learn-python/</url>
     <content><![CDATA[<p>Note for python functions.<br><a id="more"></a></p>
@@ -172,38 +189,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Hackintosh note</title>
-    <url>/2018/04/11/Hackintosh-note/</url>
-    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
-<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
-<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>macOS</category>
-      </categories>
-      <tags>
-        <tag>macOS</tag>
-        <tag>Hackintosh</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android-auto-script</title>
-    <url>/2018/08/15/android-auto-script/</url>
-    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
-<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
-<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
-<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
-<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
-<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>Android</category>
+        <category>development</category>
       </categories>
       <tags>
-        <tag>note</tag>
-        <tag>android</tag>
-        <tag>reading list</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -252,6 +252,14 @@
       </tags>
   </entry>
   <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Stop being horny: I choose to dig myself</title>
     <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
     <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
@@ -292,11 +300,13 @@
       </categories>
   </entry>
   <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+    <title>当你看过世界</title>
+    <url>/2020/04/27/nothing/</url>
+    <content><![CDATA[<p>..<br><a id="more"></a><br>现在每天似乎都有焦虑在伴随着我。<br>悲观，抑郁，丧，或许就是现在的我吧。<br>吃完午饭，刷个朋友圈，一个班的同学在知乎上发表了一篇NLP领域的文章。打开链接，读过文章，却不能领略其中一二，评论区也有著名导师、大牛师兄纷纷称赞。<br>是羡慕吗，还是嫉妒？不管是什么，又有什么用。<br>每天做着毫无意义的工作，没有能力的提升，<br>未来会怎么样，<br>当你知道你穷极一生也没办法过上自己向往的生活，实现自己的价值，你会怎么想。<br>是该妥协吗，<br>老老实实的做个平凡人，<br>你的出身没办法改变，<br>原来人在出生的时候就到达了顶点。<br>想这些又有什么用，<br>觉得活着太累，没有希望，<br>可你家里只有自己，<br>连离开的权利都被剥夺。<br>当你看着别人过着你想要的生活，<br>燃起过无数次希望，<br>也绝望过无数次，<br>没有意义。  </p>
+<p>当你看过世界，<br>却发现世界并不是你的。  </p>
+]]></content>
       <categories>
-        <category>tools</category>
+        <category>life</category>
       </categories>
   </entry>
   <entry>
@@ -325,16 +335,6 @@
         <tag>shell</tag>
         <tag>Linux</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>当你看过世界</title>
-    <url>/2020/04/27/nothing/</url>
-    <content><![CDATA[<p>..<br><a id="more"></a><br>现在每天似乎都有焦虑在伴随着我。<br>悲观，抑郁，丧，或许就是现在的我吧。<br>吃完午饭，刷个朋友圈，一个班的同学在知乎上发表了一篇NLP领域的文章。打开链接，读过文章，却不能领略其中一二，评论区也有著名导师、大牛师兄纷纷称赞。<br>是羡慕吗，还是嫉妒？不管是什么，又有什么用。<br>每天做着毫无意义的工作，没有能力的提升，<br>未来会怎么样，<br>当你知道你穷极一生也没办法过上自己向往的生活，实现自己的价值，你会怎么想。<br>是该妥协吗，<br>老老实实的做个平凡人，<br>你的出身没办法改变，<br>原来人在出生的时候就到达了顶点。<br>想这些又有什么用，<br>觉得活着太累，没有希望，<br>可你家里只有自己，<br>连离开的权利都被剥夺。<br>当你看着别人过着你想要的生活，<br>燃起过无数次希望，<br>也绝望过无数次，<br>没有意义。  </p>
-<p>当你看过世界，<br>却发现世界并不是你的。  </p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
   </entry>
   <entry>
     <title>使用frp进行内网穿透</title>
@@ -473,6 +473,42 @@
       </tags>
   </entry>
   <entry>
+    <title>fix you</title>
+    <url>/2021/02/28/fix-you/</url>
+    <content><![CDATA[<p>把自己的一些心理活动和感悟记录在这里吧。慢慢成长，，，<br><a id="more"></a></p>
+<h2 id="2021-02-28-平等、信任、社交"><a href="#2021-02-28-平等、信任、社交" class="headerlink" title="2021/02/28 平等、信任、社交"></a>2021/02/28 平等、信任、社交</h2><p>路过一个很重要的朋友家，想去唠唠嗑（其实是想和她吐槽一下这个寒假在家里的生活，因为家庭情况特别相似），结果被没起床没洗头拒绝了，开始很失望，但是尝试着自己说服了自己。</p>
+<p>不能太以自我为中心，以为别人都要围着你转，这种也算是一种“巨婴”心理吧。要认识到自己和别人是<strong>平等</strong>的，并没有什么不同。而且不管怎么说，也是男女有别吧。自己可能不觉得有什么，但是别人不一定这么认为，要理解。</p>
+<p>还有就是对别人的<strong>信任</strong>太弱了，一旦别人的行为不符合你的预期就会特别的失望，觉得再也不能去信任ta。如果不能去相信别人，就会产生很多失望、伤心这些负面情绪，经常伤害自己。所以要尝试着去信任别人，逐渐锻炼出一颗强大的心脏。</p>
+<p>最后就是现实里的<strong>社交</strong>和网络上的还是差异比较大的，自己好像不太擅长。以后少用娱乐和社交类的APP，多和活人交流沟通吧。</p>
+<p>刚才在搜 psychology 的拼写时看到一个“聚光灯效应”，发现和自己“没洗头出门不敢摘帽子”有点像，算是意外收获吧。</p>
+<blockquote>
+<p>心理学领域有哪些事实，是人们不愿相信的？ - Boyka的回答 - 知乎<br><a href="https://www.zhihu.com/question/51049813/answer/153365398" target="_blank" rel="noopener">https://www.zhihu.com/question/51049813/answer/153365398</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>psychology</category>
+      </categories>
+      <tags>
+        <tag>emotion</tag>
+        <tag>psychology</tag>
+        <tag>life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2017/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Get newest code from original repo</title>
     <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
     <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
@@ -513,20 +549,6 @@
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
 <p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2017/10/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -588,8 +610,8 @@
       <tags>
         <tag>family</tag>
         <tag>emotion</tag>
-        <tag>parents</tag>
         <tag>life</tag>
+        <tag>parents</tag>
       </tags>
   </entry>
 </search>

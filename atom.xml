@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hunterMG.net/"/>
-  <updated>2021-02-20T19:07:52.298Z</updated>
+  <updated>2021-02-28T06:37:31.448Z</updated>
   <id>https://hunterMG.net/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fix you</title>
+    <link href="https://hunterMG.net/2021/02/28/fix-you/"/>
+    <id>https://hunterMG.net/2021/02/28/fix-you/</id>
+    <published>2021-02-28T05:28:20.000Z</published>
+    <updated>2021-02-28T06:37:31.448Z</updated>
+    
+    <content type="html"><![CDATA[<p>把自己的一些心理活动和感悟记录在这里吧。慢慢成长，，，<br><a id="more"></a></p><h2 id="2021-02-28-平等、信任、社交"><a href="#2021-02-28-平等、信任、社交" class="headerlink" title="2021/02/28 平等、信任、社交"></a>2021/02/28 平等、信任、社交</h2><p>路过一个很重要的朋友家，想去唠唠嗑（其实是想和她吐槽一下这个寒假在家里的生活，因为家庭情况特别相似），结果被没起床没洗头拒绝了，开始很失望，但是尝试着自己说服了自己。</p><p>不能太以自我为中心，以为别人都要围着你转，这种也算是一种“巨婴”心理吧。要认识到自己和别人是<strong>平等</strong>的，并没有什么不同。而且不管怎么说，也是男女有别吧。自己可能不觉得有什么，但是别人不一定这么认为，要理解。</p><p>还有就是对别人的<strong>信任</strong>太弱了，一旦别人的行为不符合你的预期就会特别的失望，觉得再也不能去信任ta。如果不能去相信别人，就会产生很多失望、伤心这些负面情绪，经常伤害自己。所以要尝试着去信任别人，逐渐锻炼出一颗强大的心脏。</p><p>最后就是现实里的<strong>社交</strong>和网络上的还是差异比较大的，自己好像不太擅长。以后少用娱乐和社交类的APP，多和活人交流沟通吧。</p><p>刚才在搜 psychology 的拼写时看到一个“聚光灯效应”，发现和自己“没洗头出门不敢摘帽子”有点像，算是意外收获吧。</p><blockquote><p>心理学领域有哪些事实，是人们不愿相信的？ - Boyka的回答 - 知乎<br><a href="https://www.zhihu.com/question/51049813/answer/153365398" target="_blank" rel="noopener">https://www.zhihu.com/question/51049813/answer/153365398</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;把自己的一些心理活动和感悟记录在这里吧。慢慢成长，，，&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="psychology" scheme="https://hunterMG.net/categories/psychology/"/>
+    
+    
+      <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
+    
+      <category term="psychology" scheme="https://hunterMG.net/tags/psychology/"/>
+    
+      <category term="life" scheme="https://hunterMG.net/tags/life/"/>
+    
+  </entry>
   
   <entry>
     <title>“Sorry, sir. You&#39;re dancing at the wrong place.”</title>
@@ -104,9 +130,9 @@
     
       <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
     
-      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
-    
       <category term="life" scheme="https://hunterMG.net/tags/life/"/>
+    
+      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
     
   </entry>
   
@@ -481,24 +507,6 @@
       <category term="docker" scheme="https://hunterMG.net/tags/docker/"/>
     
       <category term="cacti" scheme="https://hunterMG.net/tags/cacti/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://hunterMG.net/2017/10/18/hello-world/"/>
-    <id>https://hunterMG.net/2017/10/18/hello-world/</id>
-    <published>2017-10-18T11:31:00.000Z</published>
-    <updated>2021-01-09T06:26:43.117Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
     
   </entry>
   
