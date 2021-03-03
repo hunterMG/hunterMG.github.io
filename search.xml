@@ -60,24 +60,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python errors notes</title>
-    <url>/2018/03/22/python-import-errors-notes/</url>
-    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
-<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
-<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
-<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用docker搭建cacti开发平台</title>
     <url>/2017/10/19/cacti-develop-with-docker/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
@@ -113,6 +95,24 @@
         <tag>配置</tag>
         <tag>docker</tag>
         <tag>cacti</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -172,41 +172,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hackintosh note</title>
-    <url>/2018/04/11/Hackintosh-note/</url>
-    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
-<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
-<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>macOS</category>
-      </categories>
-      <tags>
-        <tag>macOS</tag>
-        <tag>Hackintosh</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android-auto-script</title>
-    <url>/2018/08/15/android-auto-script/</url>
-    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
-<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
-<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
-<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
-<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
-<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>android</tag>
-        <tag>reading list</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Stop being horny: I choose to dig myself</title>
     <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
     <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
@@ -231,6 +196,41 @@
       <categories>
         <category>emotion</category>
       </categories>
+  </entry>
+  <entry>
+    <title>android-auto-script</title>
+    <url>/2018/08/15/android-auto-script/</url>
+    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
+<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
+<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
+<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
+<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
+<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>android</tag>
+        <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
+      </tags>
   </entry>
   <entry>
     <title>Break the wa11 by v2ray</title>
@@ -278,14 +278,6 @@
       </tags>
   </entry>
   <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-  </entry>
-  <entry>
     <title>lesson from wechat group</title>
     <url>/2020/02/21/lesson-from-wechat-group/</url>
     <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
@@ -300,6 +292,14 @@
       </categories>
   </entry>
   <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+  </entry>
+  <entry>
     <title>当你看过世界</title>
     <url>/2020/04/27/nothing/</url>
     <content><![CDATA[<p>..<br><a id="more"></a><br>现在每天似乎都有焦虑在伴随着我。<br>悲观，抑郁，丧，或许就是现在的我吧。<br>吃完午饭，刷个朋友圈，一个班的同学在知乎上发表了一篇NLP领域的文章。打开链接，读过文章，却不能领略其中一二，评论区也有著名导师、大牛师兄纷纷称赞。<br>是羡慕吗，还是嫉妒？不管是什么，又有什么用。<br>每天做着毫无意义的工作，没有能力的提升，<br>未来会怎么样，<br>当你知道你穷极一生也没办法过上自己向往的生活，实现自己的价值，你会怎么想。<br>是该妥协吗，<br>老老实实的做个平凡人，<br>你的出身没办法改变，<br>原来人在出生的时候就到达了顶点。<br>想这些又有什么用，<br>觉得活着太累，没有希望，<br>可你家里只有自己，<br>连离开的权利都被剥夺。<br>当你看着别人过着你想要的生活，<br>燃起过无数次希望，<br>也绝望过无数次，<br>没有意义。  </p>
@@ -308,6 +308,33 @@
       <categories>
         <category>life</category>
       </categories>
+  </entry>
+  <entry>
+    <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
+    <url>/2020/12/26/fix-pcap-ext/</url>
+    <content><![CDATA[<p>最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 <code>0xa1b2c3d4</code>, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 <code>0x0a0d0d0a</code>, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见<a href="https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error" target="_blank" rel="noopener">dpkt invalid tcpdump header error</a>）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 <code>.pcapng</code>.<br><a id="more"></a></p>
+<p>批量检查pcap文件头并改正的脚本: <code>fixPcapExt.sh</code><br>参数：放置pcap文件的目录<br>思路：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">遍历目录中的文件：  </span><br><span class="line">    如果文件的扩展名是否是`.pcap`：  </span><br><span class="line">        如果文件的前4个字节为`0x0a0d0d0a`:  </span><br><span class="line">            修改文件名</span><br></pre></td></tr></table></figure></p>
+<p>实现：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fix wrong pcap file extention.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> pcap files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">for file in `ls .`</span><br><span class="line">    do</span><br><span class="line">    if [ "$&#123;file##*.&#125;"x = "pcap"x ];then</span><br><span class="line">        if [ `hexdump -n 4 -e '4 "%x"' $file`x = "a0d0d0a"x ];then</span><br><span class="line">            echo $file</span><br><span class="line">            name=$(ls $file | cut -d. -f1) </span><br><span class="line">            mv $file "$name".pcapng</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    done</span><br></pre></td></tr></table></figure></p>
+<p>要点：</p>
+<ol>
+<li><p>if [ “${file##*.}”x = “pcap”x ];then   </p>
+<p>${file##*.} 是提取文件扩展名，##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容；<br>x 是防止字符串为空时报错；<br>这一行中的空格都不能去掉，会报错。</p>
+</li>
+<li><p>`hexdump -n 4 -e ‘4 “%x”‘ $file`</p>
+<p> 用hexdump检查前4个字节，并格式化输出</p>
+</li>
+<li><p>name=$(ls $file | cut -d. -f1) </p>
+<p> 提取文件名中的名字部分。<br> <code>cut -d. -f1</code> :提取以点为分隔符的第1部分。  </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title>使用frp进行内网穿透</title>
@@ -371,33 +398,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
-    <url>/2020/12/26/fix-pcap-ext/</url>
-    <content><![CDATA[<p>最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 <code>0xa1b2c3d4</code>, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 <code>0x0a0d0d0a</code>, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见<a href="https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error" target="_blank" rel="noopener">dpkt invalid tcpdump header error</a>）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 <code>.pcapng</code>.<br><a id="more"></a></p>
-<p>批量检查pcap文件头并改正的脚本: <code>fixPcapExt.sh</code><br>参数：放置pcap文件的目录<br>思路：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">遍历目录中的文件：  </span><br><span class="line">    如果文件的扩展名是否是`.pcap`：  </span><br><span class="line">        如果文件的前4个字节为`0x0a0d0d0a`:  </span><br><span class="line">            修改文件名</span><br></pre></td></tr></table></figure></p>
-<p>实现：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fix wrong pcap file extention.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> pcap files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">for file in `ls .`</span><br><span class="line">    do</span><br><span class="line">    if [ "$&#123;file##*.&#125;"x = "pcap"x ];then</span><br><span class="line">        if [ `hexdump -n 4 -e '4 "%x"' $file`x = "a0d0d0a"x ];then</span><br><span class="line">            echo $file</span><br><span class="line">            name=$(ls $file | cut -d. -f1) </span><br><span class="line">            mv $file "$name".pcapng</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    done</span><br></pre></td></tr></table></figure></p>
-<p>要点：</p>
-<ol>
-<li><p>if [ “${file##*.}”x = “pcap”x ];then   </p>
-<p>${file##*.} 是提取文件扩展名，##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容；<br>x 是防止字符串为空时报错；<br>这一行中的空格都不能去掉，会报错。</p>
-</li>
-<li><p>`hexdump -n 4 -e ‘4 “%x”‘ $file`</p>
-<p> 用hexdump检查前4个字节，并格式化输出</p>
-</li>
-<li><p>name=$(ls $file | cut -d. -f1) </p>
-<p> 提取文件名中的名字部分。<br> <code>cut -d. -f1</code> :提取以点为分隔符的第1部分。  </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Shell</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>macOS Markdown 预览和 lsd 进程占用 CPU</title>
     <url>/2021/01/28/resolve-macOS-preview-problems/</url>
     <content><![CDATA[<p>Mac 上一直用“一指禅”预览文件，但是它本身不支持 Markdown 文件的预览，所以用 brew 装了 <a href="https://github.com/toland/qlmarkdown" target="_blank" rel="noopener">qlmarkdown</a> 这个插件。但不知从什么时候起，可能是某次 OS 版本更新之后吧，就不能预览 Markdown 文件了。<br><a id="more"></a></p>
@@ -430,6 +430,49 @@
         <tag>qlcolorcode</tag>
         <tag>preview</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Get newest code from original repo</title>
+    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
+    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
+<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
+<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
+<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
+<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
+<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
+<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
+<ol>
+<li><p>添加远程 repo，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程 repo 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建并切换到分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并最新的代码，解决冲突：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
+<li><p>切换到 master 分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除临时分支（optional）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
+<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
+]]></content>
   </entry>
   <entry>
     <title>批量重命名文件</title>
@@ -517,49 +560,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Get newest code from original repo</title>
-    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
-    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
-<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
-<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
-<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
-<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
-<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
-<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
-<ol>
-<li><p>添加远程 repo，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拉取远程 repo 信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建并切换到分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并最新的代码，解决冲突：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
-<li><p>切换到 master 分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除临时分支（optional）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
-<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
-<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>“Sorry, sir. You&#39;re dancing at the wrong place.”</title>
     <url>/2021/02/21/Sorry-sir-You-dance-at-the-wrong-place/</url>
     <content><![CDATA[<p>标题随便取的，无任何内涵。<br><a id="more"></a></p>
@@ -598,36 +598,6 @@
         <tag>emotion</tag>
         <tag>life</tag>
         <tag>psychology</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>a letter to Dad</title>
-    <url>/2021/03/01/a-letter-to-Dad/</url>
-    <content><![CDATA[<p>酗酒<br>孝道<br>家庭<br>人生</p>
-]]></content>
-      <categories>
-        <category>love</category>
-      </categories>
-      <tags>
-        <tag>family</tag>
-        <tag>parents</tag>
-        <tag>emotion</tag>
-        <tag>love</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>a letter to Mom</title>
-    <url>/2021/03/01/a-letter-to-Mom/</url>
-    <content><![CDATA[<p>停止抱怨<br>理智<br>爱好<br>人生</p>
-]]></content>
-      <categories>
-        <category>love</category>
-      </categories>
-      <tags>
-        <tag>family</tag>
-        <tag>parents</tag>
-        <tag>emotion</tag>
-        <tag>love</tag>
       </tags>
   </entry>
   <entry>
