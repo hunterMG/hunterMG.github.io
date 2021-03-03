@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hunterMG.net/"/>
-  <updated>2021-02-28T06:37:31.448Z</updated>
+  <updated>2021-03-01T14:31:48.600Z</updated>
   <id>https://hunterMG.net/</id>
   
   <author>
@@ -15,6 +15,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>a letter to Mom</title>
+    <link href="https://hunterMG.net/2021/03/01/a-letter-to-Mom/"/>
+    <id>https://hunterMG.net/2021/03/01/a-letter-to-Mom/</id>
+    <published>2021-03-01T14:27:20.000Z</published>
+    <updated>2021-03-01T14:31:48.600Z</updated>
+    
+    <content type="html"><![CDATA[<p>停止抱怨<br>理智<br>爱好<br>人生</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;停止抱怨&lt;br&gt;理智&lt;br&gt;爱好&lt;br&gt;人生&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="love" scheme="https://hunterMG.net/categories/love/"/>
+    
+    
+      <category term="family" scheme="https://hunterMG.net/tags/family/"/>
+    
+      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
+    
+      <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
+    
+      <category term="love" scheme="https://hunterMG.net/tags/love/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>a letter to Dad</title>
+    <link href="https://hunterMG.net/2021/03/01/a-letter-to-Dad/"/>
+    <id>https://hunterMG.net/2021/03/01/a-letter-to-Dad/</id>
+    <published>2021-03-01T14:23:57.000Z</published>
+    <updated>2021-03-01T14:31:39.860Z</updated>
+    
+    <content type="html"><![CDATA[<p>酗酒<br>孝道<br>家庭<br>人生</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;酗酒&lt;br&gt;孝道&lt;br&gt;家庭&lt;br&gt;人生&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="love" scheme="https://hunterMG.net/categories/love/"/>
+    
+    
+      <category term="family" scheme="https://hunterMG.net/tags/family/"/>
+    
+      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
+    
+      <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
+    
+      <category term="love" scheme="https://hunterMG.net/tags/love/"/>
+    
+  </entry>
   
   <entry>
     <title>fix you</title>
@@ -36,9 +100,9 @@
     
       <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
     
-      <category term="psychology" scheme="https://hunterMG.net/tags/psychology/"/>
-    
       <category term="life" scheme="https://hunterMG.net/tags/life/"/>
+    
+      <category term="psychology" scheme="https://hunterMG.net/tags/psychology/"/>
     
   </entry>
   
@@ -128,11 +192,11 @@
     
       <category term="family" scheme="https://hunterMG.net/tags/family/"/>
     
+      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
+    
       <category term="emotion" scheme="https://hunterMG.net/tags/emotion/"/>
     
       <category term="life" scheme="https://hunterMG.net/tags/life/"/>
-    
-      <category term="parents" scheme="https://hunterMG.net/tags/parents/"/>
     
   </entry>
   
@@ -206,9 +270,9 @@
       <category term="Shell" scheme="https://hunterMG.net/categories/Shell/"/>
     
     
-      <category term="shell" scheme="https://hunterMG.net/tags/shell/"/>
-    
       <category term="Linux" scheme="https://hunterMG.net/tags/Linux/"/>
+    
+      <category term="shell" scheme="https://hunterMG.net/tags/shell/"/>
     
   </entry>
   
@@ -450,63 +514,6 @@
       <category term="TensorFlow" scheme="https://hunterMG.net/tags/TensorFlow/"/>
     
       <category term="macOS" scheme="https://hunterMG.net/tags/macOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Write blog with Hexo</title>
-    <link href="https://hunterMG.net/2018/01/24/write-blog-with-hexo/"/>
-    <id>https://hunterMG.net/2018/01/24/write-blog-with-hexo/</id>
-    <published>2018-01-24T11:02:13.000Z</published>
-    <updated>2019-12-01T01:46:52.560Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p><code>hexo</code> to write blog with Markdown syntax<br><code>github</code> to host the source files<br><code>webhook</code> to automaticlly update the blog in VPS<br><code>git submodule</code> to manage the Hexo theme<br><a id="more"></a></p><h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>Add a new github respository(name it : github-id.github.io).<br>On your PC:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install hexo-cli -g <span class="comment"># Node.js required</span></span><br><span class="line">hexo init</span><br><span class="line">git init</span><br><span class="line"><span class="comment"># use branch 'hexo' to store the source files, branch 'master' to store the html files.</span></span><br><span class="line">git checkout -b hexo</span><br><span class="line">git remote add origin git@github.com:github-id/github-id.github.io.git</span><br><span class="line">hexo new <span class="string">"my-first-post"</span></span><br><span class="line"><span class="comment"># write blog</span></span><br><span class="line">hexo g <span class="comment"># generate static html files</span></span><br><span class="line">hexo s <span class="comment"># preview the blog on your pc(default: http://localhost:4000)</span></span><br></pre></td></tr></table></figure></p><p>Config the github repository in <code>_config.yml</code> :<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:github-id/github-id.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></p><p>Deploy the blog.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d <span class="comment"># push html files to the master branch.</span></span><br></pre></td></tr></table></figure></p><p>Now open <a href="https://github-id.github.io" target="_blank" rel="noopener">https://github-id.github.io</a>, you can see your blog.  </p><h2 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h2><ol><li>Add a webhook of your blog’s github respository(branch <code>master</code>).(url example : <code>http://your-host/hook.php</code>)  </li><li><p>Edit <code>hook.php</code> in your VPS as follows:</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">$secret = <span class="string">'blog'</span>; <span class="comment"># must be same as the secret you type on github</span></span><br><span class="line">$signature = $_SERVER[<span class="string">'HTTP_X_HUB_SIGNATURE'</span>];</span><br><span class="line">$json = json_decode(file_get_contents(<span class="string">'php://input'</span>), <span class="keyword">true</span>);</span><br><span class="line">$cmd = <span class="string">"./deploy.sh"</span>;</span><br><span class="line"><span class="keyword">if</span>($signature)&#123;</span><br><span class="line">    $hash = <span class="string">"sha1="</span> . hash_hmac(<span class="string">'sha1'</span>, $HTTP_RAW_POST_DATA, $secret);</span><br><span class="line">    <span class="keyword">if</span> (strcmp($signature, $hash) == <span class="number">0</span> &amp;&amp; array_key_exists(<span class="string">'ref'</span>, $json)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> shell_exec($cmd);</span><br><span class="line">        <span class="keyword">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">header(<span class="string">'X-PHP-Response-Code: 404'</span>, <span class="keyword">true</span>, <span class="number">404</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>Edit <code>deploy.sh</code></p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ../blog</span><br><span class="line"><span class="built_in">echo</span> `date +%D\ %T`&gt;&gt; ../hook/hook.log</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">git clean -f</span><br><span class="line">git pull origin master &gt;&gt; ../hook/hook.log 2&gt;&gt;../hook/hook.log</span><br></pre></td></tr></table></figure></li><li><p>Add deploy key(Read-only access is just fine) for the VPS in your respository:<br>(The example shown below is for <code>apache</code>)</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/www/.ssh</span><br><span class="line">chown -R apache:apache /var/www/.ssh</span><br><span class="line">sudo -Hu apache ssh-keygen -t rsa</span><br><span class="line">cat /var/www/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></li><li><p>Copy the public key to add it in github respository.</p></li><li><p>Clone the repository on VPS folder <code>blog</code>:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line">chown -R apache:apache blog</span><br><span class="line">/usr/bin/sudo -Hu apache git <span class="built_in">clone</span> git@github.com:github-id/github-id.github.io.git blog</span><br><span class="line">``` </span><br><span class="line">7. Test webhook on your PC:  </span><br><span class="line">```sh</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git checkout master</span><br><span class="line">git commit -m <span class="string">"hook test"</span> --allow-empty</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li><li><p>Then check the <code>hook.log</code> on VPS or just open <a href="http://your-donmain-name" target="_blank" rel="noopener">http://your-donmain-name</a> to check the blog.</p><h2 id="Theme-–-submodule"><a href="#Theme-–-submodule" class="headerlink" title="Theme – submodule"></a>Theme – submodule</h2><p>Fork the theme respository.(such as <code>hexo-theme-next</code>)<br>On your PC:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git checkout hexo</span><br><span class="line">git submodule add git@github.com:github-id/hexo-theme-next.git theme/next</span><br></pre></td></tr></table></figure></li></ol><p>So you can manage your blog content and theme in two respository separately.</p><h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><ol><li>Apply a SSL CA on <code>freessl.org</code>;  </li><li>Download the Certificate files(<code>domain.crt</code>, <code>domain.ca.crt</code>, <code>private.key</code>);  </li><li><p>Install necessary module:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mod_ssl openssl</span><br></pre></td></tr></table></figure></li><li><p>Edit /etc/httpd/conf.d/ssl.conf:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SSLCertificateFile /path-to/domain.ca.crt</span><br><span class="line">SSLCertificateKeyFile /path-to/private.key</span><br></pre></td></tr></table></figure></li><li><p>Force HTTPS on all pages(Optional)<br>Config the <code>&lt;Derictory&gt;</code> tag in <code>httpd.conf</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine on</span><br><span class="line">RewriteCond %&#123;SERVER_PORT&#125; !^443$</span><br><span class="line">RewriteRule ^(.*)?$ https://%&#123;SERVER_NAME&#125;/$1 [L,R]</span><br></pre></td></tr></table></figure></li><li><p>Restart apache:</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service httpd restart</span><br></pre></td></tr></table></figure></li></ol><h2 id="After-you-changed-your-PC"><a href="#After-you-changed-your-PC" class="headerlink" title="After you changed your PC :"></a>After you changed your PC :</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b hexo git@github.com:github-id/github-id.github.io.git</span><br><span class="line"><span class="built_in">cd</span> github-id.github.io</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install</span><br><span class="line">hexo new <span class="string">"new-post-name"</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h2&gt;&lt;p&gt;&lt;code&gt;hexo&lt;/code&gt; to write blog with Markdown syntax&lt;br&gt;&lt;code&gt;github&lt;/code&gt; to host the source files&lt;br&gt;&lt;code&gt;webhook&lt;/code&gt; to automaticlly update the blog in VPS&lt;br&gt;&lt;code&gt;git submodule&lt;/code&gt; to manage the Hexo theme&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="note" scheme="https://hunterMG.net/categories/note/"/>
-    
-    
-      <category term="hexo" scheme="https://hunterMG.net/tags/hexo/"/>
-    
-      <category term="github" scheme="https://hunterMG.net/tags/github/"/>
-    
-      <category term="webhook" scheme="https://hunterMG.net/tags/webhook/"/>
-    
-      <category term="submodule" scheme="https://hunterMG.net/tags/submodule/"/>
-    
-      <category term="HTTPS" scheme="https://hunterMG.net/tags/HTTPS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用docker搭建cacti开发平台</title>
-    <link href="https://hunterMG.net/2017/10/19/cacti-develop-with-docker/"/>
-    <id>https://hunterMG.net/2017/10/19/cacti-develop-with-docker/</id>
-    <published>2017-10-19T08:11:58.000Z</published>
-    <updated>2019-12-01T09:02:40.122Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p><p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p><h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p><p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p><h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p><p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p><p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p><h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p><h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p><p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p><p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p><p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p><h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p><p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p><p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p><p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p><p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p><p>选中所有的模板；</p><p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p><p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p><p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p><p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p><p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。&lt;/p&gt;
-&lt;p&gt;以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
-    
-    
-      <category term="配置" scheme="https://hunterMG.net/tags/%E9%85%8D%E7%BD%AE/"/>
-    
-      <category term="docker" scheme="https://hunterMG.net/tags/docker/"/>
-    
-      <category term="cacti" scheme="https://hunterMG.net/tags/cacti/"/>
     
   </entry>
   
