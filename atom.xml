@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hunterMG.net/"/>
-  <updated>2021-02-28T06:37:31.448Z</updated>
+  <updated>2021-03-05T06:15:00.077Z</updated>
   <id>https://hunterMG.net/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fxxk VScode</title>
+    <link href="https://hunterMG.net/2021/03/05/fxxk-VScode/"/>
+    <id>https://hunterMG.net/2021/03/05/fxxk-VScode/</id>
+    <published>2021-03-05T06:12:49.000Z</published>
+    <updated>2021-03-05T06:15:00.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>VScode 中设置<code>.tex</code>文件的 snippet 的配置文件为<code>latax.json</code>而不是<code>tex.json</code>!!!💀</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;VScode 中设置&lt;code&gt;.tex&lt;/code&gt;文件的 snippet 的配置文件为&lt;code&gt;latax.json&lt;/code&gt;而不是&lt;code&gt;tex.json&lt;/code&gt;!!!💀&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>fix you</title>
@@ -480,33 +502,6 @@
       <category term="submodule" scheme="https://hunterMG.net/tags/submodule/"/>
     
       <category term="HTTPS" scheme="https://hunterMG.net/tags/HTTPS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用docker搭建cacti开发平台</title>
-    <link href="https://hunterMG.net/2017/10/19/cacti-develop-with-docker/"/>
-    <id>https://hunterMG.net/2017/10/19/cacti-develop-with-docker/</id>
-    <published>2017-10-19T08:11:58.000Z</published>
-    <updated>2019-12-01T09:02:40.122Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p><p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p><h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p><p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p><h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p><p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p><p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p><h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p><h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p><p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p><p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p><p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p><h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p><p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p><p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p><p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p><p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p><p>选中所有的模板；</p><p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p><p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p><p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p><p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p><p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。&lt;/p&gt;
-&lt;p&gt;以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="development" scheme="https://hunterMG.net/categories/development/"/>
-    
-    
-      <category term="配置" scheme="https://hunterMG.net/tags/%E9%85%8D%E7%BD%AE/"/>
-    
-      <category term="docker" scheme="https://hunterMG.net/tags/docker/"/>
-    
-      <category term="cacti" scheme="https://hunterMG.net/tags/cacti/"/>
     
   </entry>
   
