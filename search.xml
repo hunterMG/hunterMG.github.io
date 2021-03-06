@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用docker搭建cacti开发平台</title>
+    <url>/2017/10/19/cacti-develop-with-docker/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
+<p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p>
+<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p>
+<p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p>
+<h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p>
+<p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p>
+<p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p>
+<h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p>
+<p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p>
+<p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p>
+<p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p>
+<p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
+<p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p>
+<p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p>
+<p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p>
+<p>选中所有的模板；</p>
+<p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p>
+<p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p>
+<p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p>
+<p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p>
+<p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>配置</tag>
+        <tag>docker</tag>
+        <tag>cacti</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Write blog with Hexo</title>
     <url>/2018/01/24/write-blog-with-hexo/</url>
     <content><![CDATA[<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p><code>hexo</code> to write blog with Markdown syntax<br><code>github</code> to host the source files<br><code>webhook</code> to automaticlly update the blog in VPS<br><code>git submodule</code> to manage the Hexo theme<br><a id="more"></a></p>
@@ -81,79 +119,6 @@
       </tags>
   </entry>
   <entry>
-    <title>利用docker搭建cacti开发平台</title>
-    <url>/2017/10/19/cacti-develop-with-docker/</url>
-    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
-<p>以前了解到docker之后一直想自己搭建一个cacti的开发平台，给团队成员节约点时间，这几天终于实现了。最后的效果就是安装好docker之后把代码pull下来执行一条命令就可以运行了。<br><a id="more"></a></p>
-<h2 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>简介</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>官网这么写：Increase security, enable portability and lower costs in 5 days without changing app code.<br>增加安全性，启用可移植性，并在5天内降低成本，而不更改应用程序代码。</p>
-<p>通俗来讲，同样一段代码，在win、linux和mac上可能跑出不一样的结果/效果，即使你都配置了所需的环境，在同样的一个系统平台上也可能由于环境版本的不一致导致不完全一样的效果，而docker解决了这个问题。它使得应用在不同的平台上所部署的环境完全一致。而且和虚拟机相比，docker的容器更轻量，部署更方便，性能更好。</p>
-<h3 id="镜像（image）-容器（container）-仓库（registry）"><a href="#镜像（image）-容器（container）-仓库（registry）" class="headerlink" title="镜像（image） 容器（container） 仓库（registry）"></a>镜像（image） 容器（container） 仓库（registry）</h3><p>要使用docker最好先理解这三个基本的概念。镜像提供了运行容器时所需的一切文件，特点是分层存储，可以类比操作系统镜像。而容器是镜像运行时的实体，可以被创建、启动、停止、删除、暂停。镜像和容器就类似于面向对象中<code>类</code>与<code>对象</code>的关系，镜像是静态的，而容器是动态的。Registry就是用来存放镜像的地方，类似于github的repository。</p>
-<p>推荐一个Docker基础教程<a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker practice</a></p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>因为安装cacti需要很多软件的支撑：apache、mysql、php、snmp，还有很多php的模块（ldap、mysql、snmp、gd、pdo、session、mbstring、json等等等等），安装完还要配置。所以就把这些全部在构建镜像时做好（写Dockerfile构建镜像），运行时只需要安装cacti就好了，因为考虑到以后开发的需要，把cacti的源码放在容器外，使用volume将其挂载到运行的容器上。</p>
-<p>数据库单独使用一个容器，另一个容器运行cacti，这时需要两个容器一起工作，这里使用docker-compoe.yml来进行组织。</p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>在<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官网下载安装即可，win10最好安装<a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe" target="_blank" rel="noopener">Docker for Windows</a>（使用hyper-V，性能更佳）而不是Docker Toolbox。 </p>
-<h3 id="下载所需文件"><a href="#下载所需文件" class="headerlink" title="下载所需文件"></a>下载所需文件</h3><p>有两个，一个是cacti的源码（用于安装及以后的二次开发），一个是运行docker所需的（主要是docker-compose.yml）</p>
-<p>如果已经安装了git的话，新建一个空文件夹，在命令行下进入该文件夹，执行下面两条命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunterMG/cacti.git</span><br><span class="line">git clone https://github.com/hunterMG/cacti-docker.git</span><br></pre></td></tr></table></figure></p>
-<p>如果没有git，到<a href="https://github.com/hunterMG/cacti" target="_blank" rel="noopener">这里</a>和<a href="https://github.com/hunterMG/cacti-docker" target="_blank" rel="noopener">这里</a>下载zip包解压到一个文件夹下即可</p>
-<p>现在你的目录结构是这样的（如果是下载的，把目录名后面的master去掉）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--work</span><br><span class="line">   |--cacti</span><br><span class="line">   |--cacti-docker</span><br></pre></td></tr></table></figure></p>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>win下需要先启动docker服务，双击桌面的docker快捷方式即可，成功启动后可以在任务栏看到一个图标（鼠标放上去可以看到<code>docker is running</code>），右键打开docker设置，把放那两个文件的盘设置为Shared Drives（volume挂载所需）。如果提示防火墙不允许，需要打开445端口，详细看<a href="https://docs.docker.com/docker-for-windows/#shared-drives" target="_blank" rel="noopener">这里</a></p>
-<p>在命令行下进入<code>cacti-docker</code>文件夹，执行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
-<p>就可以看到两个容器正在启动，在控制台交替打印出日志。第一次启动的时间较长(需要安装cacti的模板)，大约几分钟。</p>
-<p>看到输出<code>[Note] Starting httpd service.</code>时即可在浏览器中打开<code>http://localhost</code>，直接开始cacti的安装。</p>
-<p>注意在这一步时<br><img src="/2017/10/19/cacti-develop-with-docker/cacti-template-setup.png" alt="选择模版"></p>
-<p>选中所有的模板；</p>
-<p>最后点<code>Finish</code>后等大概两分钟，就可看到登录页了,默认用户名和密码都是<code>admin</code>：</p>
-<p><img src="/2017/10/19/cacti-develop-with-docker/cacti-login.png" alt="登录"></p>
-<p>第一次登录会强制修改密码，进入后开始下一步的探索吧。<br>关闭的话在命令行按<code>Ctrl</code>+<code>C</code>。  </p>
-<p>只要第一次运行的容器不删除，第二次要运行cacti也是在那个目录执行<code>docker-compose up</code>，此时cacti是直接运行的，无需再次安装。  </p>
-<p>若想重新安装，则删除两个容器和cacti目录下的<code>install.lock</code>, 再执行<code>docker-compose up</code>。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>开发应该把注意力放在写代码上，而不是安装软件，感谢docker。</p>
-]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>配置</tag>
-        <tag>docker</tag>
-        <tag>cacti</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hackintosh note</title>
-    <url>/2018/04/11/Hackintosh-note/</url>
-    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
-<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
-<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
-<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
-<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>macOS</category>
-      </categories>
-      <tags>
-        <tag>macOS</tag>
-        <tag>Hackintosh</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android-auto-script</title>
-    <url>/2018/08/15/android-auto-script/</url>
-    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
-<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
-<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
-<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
-<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
-<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>android</tag>
-        <tag>reading list</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python errors notes</title>
     <url>/2018/03/22/python-import-errors-notes/</url>
     <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
@@ -207,6 +172,41 @@
       </tags>
   </entry>
   <entry>
+    <title>Hackintosh note</title>
+    <url>/2018/04/11/Hackintosh-note/</url>
+    <content><![CDATA[<p>Some useful tips for using macOS.<br><a id="more"></a></p>
+<h2 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h2><p>破解后每次开机都提示访问通讯录<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</span><br></pre></td></tr></table></figure></p>
+<h2 id="Video-player"><a href="#Video-player" class="headerlink" title="Video player"></a>Video player</h2><p>自带的QuickTime Player不能切换音轨<br><a href="https://github.com/lhc70000/iina" target="_blank" rel="noopener">IINA</a>，<br><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">VLC</a></p>
+<h2 id="根据当前输入法让菜单栏显示不同颜色"><a href="#根据当前输入法让菜单栏显示不同颜色" class="headerlink" title="根据当前输入法让菜单栏显示不同颜色"></a>根据当前输入法让菜单栏显示不同颜色</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install showyedge</span><br></pre></td></tr></table></figure>
+<h2 id="jupyter-themes"><a href="#jupyter-themes" class="headerlink" title="jupyter themes"></a><a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">jupyter themes</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install jupyterthemes</span><br><span class="line">jt -l</span><br><span class="line">jt -t onedork -T -f sourcemed</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>Hackintosh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android-auto-script</title>
+    <url>/2018/08/15/android-auto-script/</url>
+    <content><![CDATA[<p>Note while developing an Android script to auto comment in an APP.<br><a id="more"></a></p>
+<h2 id="Floating-Window"><a href="#Floating-Window" class="headerlink" title="Floating Window"></a>Floating Window</h2><p><a href="https://www.jianshu.com/p/ac63c57d2555" target="_blank" rel="noopener">https://www.jianshu.com/p/ac63c57d2555</a> (Global)<br><a href="https://www.jianshu.com/p/95ceb0a2ed27" target="_blank" rel="noopener">https://www.jianshu.com/p/95ceb0a2ed27</a><br><a href="https://github.com/yhaolpz/FloatWindow" target="_blank" rel="noopener">https://github.com/yhaolpz/FloatWindow</a> (can only be used in an APP)  </p>
+<h2 id="Decompile-APK"><a href="#Decompile-APK" class="headerlink" title="Decompile APK"></a>Decompile APK</h2><p><a href="https://blog.csdn.net/guolin_blog/article/details/49738023" target="_blank" rel="noopener">https://blog.csdn.net/guolin_blog/article/details/49738023</a></p>
+<h2 id="adb-shell-input-text-‘你好’"><a href="#adb-shell-input-text-‘你好’" class="headerlink" title="adb shell input text ‘你好’"></a>adb shell input text ‘你好’</h2><p><a href="https://github.com/senzhk/ADBKeyBoard" target="_blank" rel="noopener">https://github.com/senzhk/ADBKeyBoard</a></p>
+<h2 id="execute-shell-comands-in-Java-code"><a href="#execute-shell-comands-in-Java-code" class="headerlink" title="execute shell comands in Java code"></a>execute shell comands in Java code</h2><p><a href="https://github.com/jaredrummler/AndroidShell" target="_blank" rel="noopener">https://github.com/jaredrummler/AndroidShell</a></p>
+<h2 id="CountDownTimer"><a href="#CountDownTimer" class="headerlink" title="CountDownTimer"></a>CountDownTimer</h2><p><code>CountDownTimer</code> must be canceled explicitly in <code>onDestroy</code> in a <code>Service</code>.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (countDownTimer1 != <span class="keyword">null</span>)&#123;</span><br><span class="line">    countDownTimer1.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>android</tag>
+        <tag>reading list</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Break the wa11 by v2ray</title>
     <url>/2018/10/12/method-of-break-the-wa11-by-v2ray/</url>
     <content><![CDATA[<h1 id="Check-the-time-VPS-and-your-host"><a href="#Check-the-time-VPS-and-your-host" class="headerlink" title="Check the time (VPS and your host)"></a>Check the time (VPS and your host)</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date -r</span><br></pre></td></tr></table></figure>
@@ -252,28 +252,6 @@
       </tags>
   </entry>
   <entry>
-    <title>lesson from wechat group</title>
-    <url>/2020/02/21/lesson-from-wechat-group/</url>
-    <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
-<blockquote>
-<p>到了片尾，空海说“通过杨玉环的生死参透了无上密”，白居易说“一字不改，诗是假的，可情是真的”。白居易也参透了无上密。<br>也就是说两个人都明白了一个道理：这个世界是由真相与谎言交织成的，我们要认识到这一点，不要否认现实。同时，如何对待这样的世界呢？接纳谎言，用力地拥抱真相。也可以延伸为：明白这个世界有残酷、无情、虚假的部分，但我不因此厌世，而是将这一部分搁置，用力去珍惜这个世界一点一滴的美好，这样就能得到内心的平静。<br>这也解释了那个抱孩妇人的事情。<br>空海问她为什么平静。她回答：“只要孩子睡着就好了。”也就是说，即使这个世界有惊涛骇浪，但毕竟还有美好的部分，我把我的精力全都用来拥抱这美好、品味这美好，自然无暇去为惊涛骇浪而惊慌了。<br><a href="https://movie.douban.com/review/9011512/" target="_blank" rel="noopener">原文链接</a></p>
-</blockquote>
-<p>不同的人（尤其是不同年龄、时代的人）对同一事物（特别是新生事物）的理解能力是不一样的。思维能力和价值观也会有很大差异，所以，不要去强求别人去理解你的观点或者认同你的价值观。<br>如果想输出价值观的话，还是要好好考虑方式方法。  </p>
-<p>真理总是掌握在少数人的手里，那些实在不能明理的人，不要去强求了。你救不了他们。</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>oneindex refer test</title>
-    <url>/2020/02/16/oneindex-refer-test/</url>
-    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
-      <categories>
-        <category>tools</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Stop being horny: I choose to dig myself</title>
     <url>/2019/12/01/Stop-being-horny-I-choose-to-dig-myself/</url>
     <content><![CDATA[<p>这次是很标题党了，其实只是描述情感的日常。  </p>
@@ -297,6 +275,28 @@
 ]]></content>
       <categories>
         <category>emotion</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>oneindex refer test</title>
+    <url>/2020/02/16/oneindex-refer-test/</url>
+    <content><![CDATA[<video><source src="http://gggg.is-best.net/?/Video/Movie/%E7%9C%8B%E4%B8%8D%E8%A7%81%E7%9A%84%E5%AE%A2%E4%BA%BA%20%E9%AB%98%E6%B8%851080p.mp4" type="video/mp4"></video>]]></content>
+      <categories>
+        <category>tools</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>lesson from wechat group</title>
+    <url>/2020/02/21/lesson-from-wechat-group/</url>
+    <content><![CDATA[<p>有时候真话很难听。<br>大多数人是不喜欢听真话的。<br>说难听的真话会让人不舒服。<br>要学会在真话里添些佐料，或者不去谈论，或者换种方式。<br><a id="more"></a><br>想起来刚看过陈凯歌的《妖猫传》，竟不想在现实里真来了一回。</p>
+<blockquote>
+<p>到了片尾，空海说“通过杨玉环的生死参透了无上密”，白居易说“一字不改，诗是假的，可情是真的”。白居易也参透了无上密。<br>也就是说两个人都明白了一个道理：这个世界是由真相与谎言交织成的，我们要认识到这一点，不要否认现实。同时，如何对待这样的世界呢？接纳谎言，用力地拥抱真相。也可以延伸为：明白这个世界有残酷、无情、虚假的部分，但我不因此厌世，而是将这一部分搁置，用力去珍惜这个世界一点一滴的美好，这样就能得到内心的平静。<br>这也解释了那个抱孩妇人的事情。<br>空海问她为什么平静。她回答：“只要孩子睡着就好了。”也就是说，即使这个世界有惊涛骇浪，但毕竟还有美好的部分，我把我的精力全都用来拥抱这美好、品味这美好，自然无暇去为惊涛骇浪而惊慌了。<br><a href="https://movie.douban.com/review/9011512/" target="_blank" rel="noopener">原文链接</a></p>
+</blockquote>
+<p>不同的人（尤其是不同年龄、时代的人）对同一事物（特别是新生事物）的理解能力是不一样的。思维能力和价值观也会有很大差异，所以，不要去强求别人去理解你的观点或者认同你的价值观。<br>如果想输出价值观的话，还是要好好考虑方式方法。  </p>
+<p>真理总是掌握在少数人的手里，那些实在不能明理的人，不要去强求了。你救不了他们。</p>
+]]></content>
+      <categories>
+        <category>life</category>
       </categories>
   </entry>
   <entry>
@@ -432,49 +432,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Get newest code from original repo</title>
-    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
-    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
-<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
-<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
-<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
-<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
-<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
-<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
-<ol>
-<li><p>添加远程 repo，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拉取远程 repo 信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建并切换到分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并最新的代码，解决冲突：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
-<li><p>切换到 master 分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除临时分支（optional）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
-<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
-<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>家庭琐事</title>
     <url>/2021/02/03/something-about-family/</url>
     <content><![CDATA[<p>看完这个，你有可能会了解更多的我。但是看的过程可能会很压抑。<br>如果只是想和我交流技术，是没必要点开的。<br><a id="more"></a></p>
@@ -538,6 +495,49 @@
       </tags>
   </entry>
   <entry>
+    <title>Get newest code from original repo</title>
+    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
+    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
+<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
+<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
+<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
+<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
+<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
+<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
+<ol>
+<li><p>添加远程 repo，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程 repo 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建并切换到分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并最新的代码，解决冲突：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
+<li><p>切换到 master 分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除临时分支（optional）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
+<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>批量重命名文件</title>
     <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
     <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
@@ -581,7 +581,7 @@
   <entry>
     <title>fix you</title>
     <url>/2021/02/28/fix-you/</url>
-    <content><![CDATA[<p>把自己的一些心理活动和感悟记录在这里吧。慢慢成长，，，<br><a id="more"></a></p>
+    <content><![CDATA[<p>把自己的一些心理活动和感悟记录在这里吧。慢慢成长，，，<br>持续记录。<br><a id="more"></a></p>
 <h2 id="2021-02-28-平等、信任、社交"><a href="#2021-02-28-平等、信任、社交" class="headerlink" title="2021/02/28 平等、信任、社交"></a>2021/02/28 平等、信任、社交</h2><p>路过一个很重要的朋友家，想去唠唠嗑（其实是想和她吐槽一下这个寒假在家里的生活，因为家庭情况特别相似），结果被没起床没洗头拒绝了，开始很失望，但是尝试着自己说服了自己。</p>
 <p>不能太以自我为中心，以为别人都要围着你转，这种也算是一种“巨婴”心理吧。要认识到自己和别人是<strong>平等</strong>的，并没有什么不同。而且不管怎么说，也是男女有别吧。自己可能不觉得有什么，但是别人不一定这么认为，要理解。</p>
 <p>还有就是对别人的<strong>信任</strong>太弱了，一旦别人的行为不符合你的预期就会特别的失望，觉得再也不能去信任ta。如果不能去相信别人，就会产生很多失望、伤心这些负面情绪，经常伤害自己。所以要尝试着去信任别人，逐渐锻炼出一颗强大的心脏。</p>
@@ -590,6 +590,10 @@
 <blockquote>
 <p>心理学领域有哪些事实，是人们不愿相信的？ - Boyka的回答 - 知乎<br><a href="https://www.zhihu.com/question/51049813/answer/153365398" target="_blank" rel="noopener">https://www.zhihu.com/question/51049813/answer/153365398</a></p>
 </blockquote>
+<h2 id="2021年3月6日-星期六-中国标准时间-下午11-00"><a href="#2021年3月6日-星期六-中国标准时间-下午11-00" class="headerlink" title="2021年3月6日 星期六 中国标准时间 下午11:00:"></a>2021年3月6日 星期六 中国标准时间 下午11:00:</h2><p>讨厌这样的自己，明明任务没有完成却不尽力去做，不分轻重缓急的玩，被其他不紧急的事情所吸引，然后在充满懊悔和自我怜悯中弥补。</p>
+<p>现在心情很糟是吧，你要记住这种心情，下次做什么再拖延、再不分轻重缓急，健康还是人生，迟早出大问题。</p>
+<p>舍弃那些无关紧要的“兴趣”吧，即使是有用的，人这一生的时间是有限的，不可能面面俱到。也要承认自己能力的不足，不要去攀比。没什么好比的。</p>
+<p>长远目标和视野。</p>
 ]]></content>
       <categories>
         <category>psychology</category>
