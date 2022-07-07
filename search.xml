@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>python errors notes</title>
-    <url>/2018/03/22/python-import-errors-notes/</url>
-    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
-<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
-<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
-<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用docker搭建cacti开发平台</title>
     <url>/2017/10/19/cacti-develop-with-docker/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>原来在安装配置cacti的时候一直感叹安装步骤繁琐无比，光是环境依赖就要安装很多个，而且配置文件也要改很多东西，万一哪一步错了纠正也很麻烦，很容易就又从头开始，十分恶心。但是程序装不好，看不到跑出来的效果，谈什么二次开发，所以装好软件算是一个必要条件，但注意力不应该放在这里。</p>
@@ -54,27 +36,6 @@
         <tag>配置</tag>
         <tag>docker</tag>
         <tag>cacti</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>install Tensorflow on macOS</title>
-    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
-    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
-<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
-<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
-<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
-<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
-<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
-<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
-<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>development</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Deep Learning</tag>
-        <tag>TensorFlow</tag>
-        <tag>macOS</tag>
       </tags>
   </entry>
   <entry>
@@ -134,6 +95,45 @@
         <tag>webhook</tag>
         <tag>submodule</tag>
         <tag>HTTPS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python errors notes</title>
+    <url>/2018/03/22/python-import-errors-notes/</url>
+    <content><![CDATA[<p>environment: python3.6, not tested on python2.x<br><a id="more"></a></p>
+<h2 id="ImportError-cannot-import-name-imread"><a href="#ImportError-cannot-import-name-imread" class="headerlink" title="ImportError: cannot import name imread"></a>ImportError: cannot import name imread</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install Pillow==2.6.0</span><br></pre></td></tr></table></figure>
+<h2 id="ModuleNotFoundError-No-module-named-‘past’"><a href="#ModuleNotFoundError-No-module-named-‘past’" class="headerlink" title="ModuleNotFoundError: No module named ‘past’"></a>ModuleNotFoundError: No module named ‘past’</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip install future</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError-unknown-locale-UTF-8"><a href="#ValueError-unknown-locale-UTF-8" class="headerlink" title="ValueError: unknown locale: UTF-8"></a>ValueError: unknown locale: UTF-8</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  export LC_ALL=en_US.UTF-8<br>    export LANG=en_US.UTF-8<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>install Tensorflow on macOS</title>
+    <url>/2018/03/01/install-tensorflow-on-macOS/</url>
+    <content><![CDATA[<p>This is a simple note for installing TensorFlow from source on macOS.<br><a id="more"></a></p>
+<h2 id="Install-python"><a href="#Install-python" class="headerlink" title="Install python"></a>Install python</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew install python</span><br></pre></td></tr></table></figure>
+<p>It will install Python-2.7.14. Type <code>python2.7</code> and check the version.</p>
+<h2 id="Install-pip"><a href="#Install-pip" class="headerlink" title="Install pip"></a>Install pip</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<h2 id="Install-virtualenv"><a href="#Install-virtualenv" class="headerlink" title="Install virtualenv"></a>Install virtualenv</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo pip install virtualenv --upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="Create-a-env"><a href="#Create-a-env" class="headerlink" title="Create a env"></a>Create a env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~/tensorflow --python=python2.7</span><br></pre></td></tr></table></figure>
+<h2 id="activate-the-env"><a href="#activate-the-env" class="headerlink" title="activate the env"></a>activate the env</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/tensorflow</span><br><span class="line"><span class="built_in">source</span> bin/activate</span><br></pre></td></tr></table></figure>
+<h2 id="Install-Tensorflow-from-source-code"><a href="#Install-Tensorflow-from-source-code" class="headerlink" title="Install Tensorflow from source code"></a>Install Tensorflow from source code</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">brew cask install caskroom/versions/java8</span><br><span class="line">brew install bazel</span><br><span class="line">pip install six numpy wheel</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/tensorflow/tensorflow</span><br><span class="line"><span class="built_in">cd</span> tensorflow <span class="comment"># the source code dir</span></span><br><span class="line">git checkout r1.1 <span class="comment"># up to you</span></span><br><span class="line">./configure</span><br><span class="line">bazel build --local_resources 3072,4,1.0 --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.6.0rc1-cp27-cp27m-macosx_10_12_x86_64.whl</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>development</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Deep Learning</tag>
+        <tag>TensorFlow</tag>
+        <tag>macOS</tag>
       </tags>
   </entry>
   <entry>
@@ -274,6 +274,33 @@
       </categories>
   </entry>
   <entry>
+    <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
+    <url>/2020/12/26/fix-pcap-ext/</url>
+    <content><![CDATA[<p>最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 <code>0xa1b2c3d4</code>, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 <code>0x0a0d0d0a</code>, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见<a href="https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error" target="_blank" rel="noopener">dpkt invalid tcpdump header error</a>）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 <code>.pcapng</code>.<br><a id="more"></a></p>
+<p>批量检查pcap文件头并改正的脚本: <code>fixPcapExt.sh</code><br>参数：放置pcap文件的目录<br>思路：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">遍历目录中的文件：  </span><br><span class="line">    如果文件的扩展名是否是`.pcap`：  </span><br><span class="line">        如果文件的前4个字节为`0x0a0d0d0a`:  </span><br><span class="line">            修改文件名</span><br></pre></td></tr></table></figure></p>
+<p>实现：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fix wrong pcap file extention.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> pcap files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">for file in `ls .`</span><br><span class="line">    do</span><br><span class="line">    if [ "$&#123;file##*.&#125;"x = "pcap"x ];then</span><br><span class="line">        if [ `hexdump -n 4 -e '4 "%x"' $file`x = "a0d0d0a"x ];then</span><br><span class="line">            echo $file</span><br><span class="line">            name=$(ls $file | cut -d. -f1) </span><br><span class="line">            mv $file "$name".pcapng</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    done</span><br></pre></td></tr></table></figure></p>
+<p>要点：</p>
+<ol>
+<li><p>if [ “${file##*.}”x = “pcap”x ];then   </p>
+<p>${file##*.} 是提取文件扩展名，##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容；<br>x 是防止字符串为空时报错；<br>这一行中的空格都不能去掉，会报错。</p>
+</li>
+<li><p>`hexdump -n 4 -e ‘4 “%x”‘ $file`</p>
+<p> 用hexdump检查前4个字节，并格式化输出</p>
+</li>
+<li><p>name=$(ls $file | cut -d. -f1) </p>
+<p> 提取文件名中的名字部分。<br> <code>cut -d. -f1</code> :提取以点为分隔符的第1部分。  </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>当你看过世界</title>
     <url>/2020/04/27/nothing/</url>
     <content><![CDATA[<p>..<br><a id="more"></a><br>现在每天似乎都有焦虑在伴随着我。<br>悲观，抑郁，丧，或许就是现在的我吧。<br>吃完午饭，刷个朋友圈，一个班的同学在知乎上发表了一篇NLP领域的文章。打开链接，读过文章，却不能领略其中一二，评论区也有著名导师、大牛师兄纷纷称赞。<br>是羡慕吗，还是嫉妒？不管是什么，又有什么用。<br>每天做着毫无意义的工作，没有能力的提升，<br>未来会怎么样，<br>当你知道你穷极一生也没办法过上自己向往的生活，实现自己的价值，你会怎么想。<br>是该妥协吗，<br>老老实实的做个平凡人，<br>你的出身没办法改变，<br>原来人在出生的时候就到达了顶点。<br>想这些又有什么用，<br>觉得活着太累，没有希望，<br>可你家里只有自己，<br>连离开的权利都被剥夺。<br>当你看着别人过着你想要的生活，<br>燃起过无数次希望，<br>也绝望过无数次，<br>没有意义。  </p>
@@ -379,6 +406,49 @@
       </tags>
   </entry>
   <entry>
+    <title>Get newest code from original repo</title>
+    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
+    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
+<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
+<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
+<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
+<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
+<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
+<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
+<ol>
+<li><p>添加远程 repo，</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程 repo 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建并切换到分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并最新的代码，解决冲突：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
+<li><p>切换到 master 分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除临时分支（optional）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
+<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>家庭琐事</title>
     <url>/2021/02/03/something-about-family/</url>
     <content><![CDATA[<p>看完这个，你有可能会了解更多的我。但是看的过程可能会很压抑。<br>如果只是想和我交流技术，是没必要点开的。<br><a id="more"></a></p>
@@ -442,47 +512,45 @@
       </tags>
   </entry>
   <entry>
-    <title>Get newest code from original repo</title>
-    <url>/2021/02/04/Get-newest-code-from-original-repo/</url>
-    <content><![CDATA[<p>Clone 开源项目后，在本地进行了修改，并提交到了自己的远程repo，如何从原 git 仓库获取最新的代码并 push 到自己的 repo。<br><a id="more"></a></p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>从 Github 上看到了一个开源项目，想自己部署，但是由于项目代码中的配置文件需要某软件的账号和 token，而原仓库中由于是开源项目所以是一个公用的账号，而自己部署的话肯定还是得用自己的，这里我选择使用私有仓库，一定程度上防止 token 泄漏。</p>
-<p>因为 Fork 后的仓库不能设为私有，我只能先将代码拉取到本地：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Stitchpunk/atari-ai.git test</span><br></pre></td></tr></table></figure></p>
-<p>在 Github 上建一个私有仓库，如：<code>test</code>.</p>
-<p>在本地仓库中将远程仓库 <code>origin</code> 改为自己私有仓库的地址：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v <span class="comment"># check remote repo address</span></span></span><br><span class="line">origin  git@github.com:hunterMG/test.git (fetch)</span><br><span class="line">origin  git@github.com:hunterMG/test.git (push)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote remove origin <span class="comment"># remove remote repo</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:hunterMG/test.git <span class="comment"># add remote repo of yourself</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master <span class="comment"># push code to your remote repo</span></span></span><br></pre></td></tr></table></figure>
-<p>这时候就可以在本地写代码，提交到本地仓库，再 push 到 Github 之后结合一些 CD/CI 的方法部署了。</p>
-<h2 id="原-repo-更新代码后如何更新自己的repo"><a href="#原-repo-更新代码后如何更新自己的repo" class="headerlink" title="原 repo 更新代码后如何更新自己的repo"></a>原 repo 更新代码后如何更新自己的repo</h2><p>几天之后新的问题来了：原开源仓库更新了新的 feature ，我想加到自己的仓库里，因为不是直接用 Github 的 Web 端 Fork 的仓库，所以不能用这篇<a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a>里提到的方法（直接在 Web 端发起 PR 从原仓库更新）。</p>
-<p>然后看到了这个：<a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a>, 感觉差不多，试试还真行。</p>
-<ol>
-<li><p>添加远程 repo，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add Stitchpunk https://github.com/Stitchpunk/atari-ai.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拉取远程 repo 信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch Stitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建并切换到分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b mergeStitchpunk #or git switch -c mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并最新的代码，解决冲突：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge Stitchpunk/master</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="更新自己-repo-主分支的代码"><a href="#更新自己-repo-主分支的代码" class="headerlink" title="更新自己 repo 主分支的代码"></a>更新自己 repo 主分支的代码</h3><ol>
-<li><p>切换到 master 分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master #or git switch master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>合并分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除临时分支（optional）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d mergeStitchpunk</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>不过现在看来好像可以在第 4 步时直接切换到 master 分支，将代码直接合并到 master 上。😂</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/gqzdev/p/11900362.html" target="_blank" rel="noopener">Github中进行fork后，原仓库更新了如何与原仓库同步</a></p>
-<p><a href="https://juejin.cn/post/6844903761593237511" target="_blank" rel="noopener">GIT - 拉取其他仓库的某个分支的代码</a></p>
-<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" target="_blank" rel="noopener">创建与合并分支</a></p>
+    <title>“Sorry, sir. You&#39;re dancing at the wrong place.”</title>
+    <url>/2021/02/21/Sorry-sir-You-dance-at-the-wrong-place/</url>
+    <content><![CDATA[<p>标题随便取的，无任何内涵。<br><a id="more"></a></p>
+<h2 id="醉酒的“课”"><a href="#醉酒的“课”" class="headerlink" title="醉酒的“课”"></a>醉酒的“课”</h2><h3 id="利用醉酒"><a href="#利用醉酒" class="headerlink" title="利用醉酒"></a>利用醉酒</h3><p>醉酒是一个很好的工具，对于懦弱的人来说。平时不敢说、不好意思说的话，都可以借醉酒说出来，而万一犯了什么错误，也是一句“哎呀我喝多了对不住”，一般情况对方也不会怪ta。（不会吧？不会吧？不会真的有人会怪醉酒的人吧？[doge]）</p>
+<h3 id="酒量的作用"><a href="#酒量的作用" class="headerlink" title="酒量的作用"></a>酒量的作用</h3><p>酒量大的人，与酒量小的人比，喝一样多的酒，头脑仍能保持清醒。此时稍以言辞，便将醉酒的人耍得团团乱转（如果醉酒的人本来情商就不高，那对于ta来说更是“神来之笔”）。“享受” 挥洒 “权力”、发泄情绪的 “快感”。<br>（这两种人，哪种更可怜一些呢？）</p>
+<p><strong>(PS.以前我的愿望是世界和平，现在我的愿望是消灭酒精。)</strong></p>
+<p>(PPS.现在在家里也太废了，整天写这些垃圾东西。)</p>
+<p>鸡飞狗跳的一晚结束了，，，</p>
+<p>2021/02/21 02:57.</p>
 ]]></content>
+      <categories>
+        <category>trash</category>
+      </categories>
+      <tags>
+        <tag>family</tag>
+        <tag>emotion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>批量重命名文件</title>
+    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
+    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
+<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Raname file to numbers by file modification time.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in *;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    ext=$(ls "$file" | cut -d. -f2)</span><br><span class="line">    mv "$file" $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
+<p>dir1 是需要批量重命名的文件所在的文件夹路径。</p>
+<h2 id="2021-02-16-fix：不能处理含空格的文件名。"><a href="#2021-02-16-fix：不能处理含空格的文件名。" class="headerlink" title="2021/02/16 fix：不能处理含空格的文件名。"></a>2021/02/16 fix：不能处理含空格的文件名。</h2><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-for file in `ls -rt`;</span></span><br><span class="line"><span class="addition">+for file in *;</span></span><br></pre></td></tr></table></figure>
+<p>`ls -rt` 会被文件名的空格分割， * 则不会。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"> do</span><br><span class="line">     echo $file</span><br><span class="line"><span class="deletion">-    name=$(ls $file | cut -d. -f1)</span></span><br></pre></td></tr></table></figure>
+<p>移除无用代码。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-    ext=$(ls $file | cut -d. -f2)</span></span><br><span class="line"><span class="deletion">-    mv $file $(printf "%03d" $cnt).$ext</span></span><br><span class="line"><span class="addition">+    ext=$(ls "$file" | cut -d. -f2)</span></span><br><span class="line"><span class="addition">+    mv "$file" $(printf "%03d" $cnt).$ext</span></span><br></pre></td></tr></table></figure>
+<p>被 <code>&quot;&quot;</code> 包裹的文件名中即使含空格也不需要转义。</p>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
   </entry>
   <entry>
     <title>fix you</title>
@@ -509,44 +577,17 @@
       </tags>
   </entry>
   <entry>
-    <title>批量重命名文件</title>
-    <url>/2021/02/07/rename-files-to-numbers-by-file-modification-time/</url>
-    <content><![CDATA[<p>用 Shell 脚本重命名文件夹中所有的文件，根据文件的修改时间排序，将文件名改为从 <code>001</code> 开始的数字。根据<a href="/2020/12/26/fix-pcap-ext/index.html">使用shell脚本批量检查pcap文件头并修改文件扩展名</a>中写的脚本修改而来。<br><a id="more"></a></p>
-<p>rename.sh :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Raname file to numbers by file modification time.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">file_num=$(ls -l | wc -l);</span><br><span class="line">echo $file_num</span><br><span class="line">cnt=1</span><br><span class="line">for file in *;</span><br><span class="line">do</span><br><span class="line">    echo $file</span><br><span class="line">    ext=$(ls "$file" | cut -d. -f2)</span><br><span class="line">    mv "$file" $(printf "%03d" $cnt).$ext</span><br><span class="line">    cnt=`expr $cnt + 1`</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
-<p>用法：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rename.sh dir1</span><br></pre></td></tr></table></figure></p>
-<p>dir1 是需要批量重命名的文件所在的文件夹路径。</p>
-<h2 id="2021-02-16-fix：不能处理含空格的文件名。"><a href="#2021-02-16-fix：不能处理含空格的文件名。" class="headerlink" title="2021/02/16 fix：不能处理含空格的文件名。"></a>2021/02/16 fix：不能处理含空格的文件名。</h2><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-for file in `ls -rt`;</span></span><br><span class="line"><span class="addition">+for file in *;</span></span><br></pre></td></tr></table></figure>
-<p>`ls -rt` 会被文件名的空格分割， * 则不会。</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"> do</span><br><span class="line">     echo $file</span><br><span class="line"><span class="deletion">-    name=$(ls $file | cut -d. -f1)</span></span><br></pre></td></tr></table></figure>
-<p>移除无用代码。</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-    ext=$(ls $file | cut -d. -f2)</span></span><br><span class="line"><span class="deletion">-    mv $file $(printf "%03d" $cnt).$ext</span></span><br><span class="line"><span class="addition">+    ext=$(ls "$file" | cut -d. -f2)</span></span><br><span class="line"><span class="addition">+    mv "$file" $(printf "%03d" $cnt).$ext</span></span><br></pre></td></tr></table></figure>
-<p>被 <code>&quot;&quot;</code> 包裹的文件名中即使含空格也不需要转义。</p>
+    <title>fxxk VScode</title>
+    <url>/2021/03/05/fxxk-VScode/</url>
+    <content><![CDATA[<p>VScode 中设置<code>.tex</code>文件的 snippet 的配置文件是<code>latex.json</code>而不是<code>tex.json</code>!!!💀</p>
 ]]></content>
       <categories>
-        <category>tool</category>
+        <category>Latex</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>“Sorry, sir. You&#39;re dancing at the wrong place.”</title>
-    <url>/2021/02/21/Sorry-sir-You-dance-at-the-wrong-place/</url>
-    <content><![CDATA[<p>标题随便取的，无任何内涵。<br><a id="more"></a></p>
-<h2 id="醉酒的“课”"><a href="#醉酒的“课”" class="headerlink" title="醉酒的“课”"></a>醉酒的“课”</h2><h3 id="利用醉酒"><a href="#利用醉酒" class="headerlink" title="利用醉酒"></a>利用醉酒</h3><p>醉酒是一个很好的工具，对于懦弱的人来说。平时不敢说、不好意思说的话，都可以借醉酒说出来，而万一犯了什么错误，也是一句“哎呀我喝多了对不住”，一般情况对方也不会怪ta。（不会吧？不会吧？不会真的有人会怪醉酒的人吧？[doge]）</p>
-<h3 id="酒量的作用"><a href="#酒量的作用" class="headerlink" title="酒量的作用"></a>酒量的作用</h3><p>酒量大的人，与酒量小的人比，喝一样多的酒，头脑仍能保持清醒。此时稍以言辞，便将醉酒的人耍得团团乱转（如果醉酒的人本来情商就不高，那对于ta来说更是“神来之笔”）。“享受” 挥洒 “权力”、发泄情绪的 “快感”。<br>（这两种人，哪种更可怜一些呢？）</p>
-<p><strong>(PS.以前我的愿望是世界和平，现在我的愿望是消灭酒精。)</strong></p>
-<p>(PPS.现在在家里也太废了，整天写这些垃圾东西。)</p>
-<p>鸡飞狗跳的一晚结束了，，，</p>
-<p>2021/02/21 02:57.</p>
-]]></content>
-      <categories>
-        <category>trash</category>
-      </categories>
-      <tags>
-        <tag>family</tag>
-        <tag>emotion</tag>
+        <tag>Latex</tag>
+        <tag>VScode</tag>
+        <tag>tex</tag>
       </tags>
   </entry>
   <entry>
@@ -593,34 +634,6 @@
       </tags>
   </entry>
   <entry>
-    <title>fxxk VScode</title>
-    <url>/2021/03/05/fxxk-VScode/</url>
-    <content><![CDATA[<p>VScode 中设置<code>.tex</code>文件的 snippet 的配置文件是<code>latex.json</code>而不是<code>tex.json</code>!!!💀</p>
-]]></content>
-      <categories>
-        <category>Latex</category>
-      </categories>
-      <tags>
-        <tag>Latex</tag>
-        <tag>VScode</tag>
-        <tag>tex</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2017/10/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Android Programming 3rd Edition Chap 12 Challenge</title>
     <url>/2022/07/04/Android-Programming-3rd-Edition-Chap-12-Challenge/</url>
     <content><![CDATA[<p>Android编程权威指南 第3版 第12章 挑战练习。<br><a id="more"></a></p>
@@ -658,30 +671,17 @@
       </tags>
   </entry>
   <entry>
-    <title>使用shell脚本批量检查pcap文件头并修改文件扩展名</title>
-    <url>/2020/12/26/fix-pcap-ext/</url>
-    <content><![CDATA[<p>最近在使用一个数据集时遇到了一个问题，正常 .pcap 文件的文件头是 <code>0xa1b2c3d4</code>, 但该数据集中的部分 .pcap 文件的文件头却是 .pcapng 文件的 <code>0x0a0d0d0a</code>, 将文件的扩展名更改即可，否则用 dpkt 包处理时会出错。（具体原因见<a href="https://stackoverflow.com/questions/23523524/dpkt-invalid-tcpdump-header-error" target="_blank" rel="noopener">dpkt invalid tcpdump header error</a>）,所以实现一个脚本来检查 .pcap 文件的文件头并修改错误文件的扩展名为 <code>.pcapng</code>.<br><a id="more"></a></p>
-<p>批量检查pcap文件头并改正的脚本: <code>fixPcapExt.sh</code><br>参数：放置pcap文件的目录<br>思路：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">遍历目录中的文件：  </span><br><span class="line">    如果文件的扩展名是否是`.pcap`：  </span><br><span class="line">        如果文件的前4个字节为`0x0a0d0d0a`:  </span><br><span class="line">            修改文件名</span><br></pre></td></tr></table></figure></p>
-<p>实现：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> fix wrong pcap file extention.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arg:  dir path <span class="built_in">where</span> pcap files at.</span></span><br><span class="line">dir=$1</span><br><span class="line">cd $dir</span><br><span class="line">for file in `ls .`</span><br><span class="line">    do</span><br><span class="line">    if [ "$&#123;file##*.&#125;"x = "pcap"x ];then</span><br><span class="line">        if [ `hexdump -n 4 -e '4 "%x"' $file`x = "a0d0d0a"x ];then</span><br><span class="line">            echo $file</span><br><span class="line">            name=$(ls $file | cut -d. -f1) </span><br><span class="line">            mv $file "$name".pcapng</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    done</span><br></pre></td></tr></table></figure></p>
-<p>要点：</p>
-<ol>
-<li><p>if [ “${file##*.}”x = “pcap”x ];then   </p>
-<p>${file##*.} 是提取文件扩展名，##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容；<br>x 是防止字符串为空时报错；<br>这一行中的空格都不能去掉，会报错。</p>
-</li>
-<li><p>`hexdump -n 4 -e ‘4 “%x”‘ $file`</p>
-<p> 用hexdump检查前4个字节，并格式化输出</p>
-</li>
-<li><p>name=$(ls $file | cut -d. -f1) </p>
-<p> 提取文件名中的名字部分。<br> <code>cut -d. -f1</code> :提取以点为分隔符的第1部分。  </p>
-</li>
-</ol>
+    <title>Hello World</title>
+    <url>/2017/10/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>Shell</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>shell</tag>
-      </tags>
   </entry>
 </search>
