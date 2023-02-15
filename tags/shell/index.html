@@ -105,7 +105,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="HunterMG&#39;s Blog">
-<meta property="og:url" content="https://hunterMG.net/tags/Shell/index.html">
+<meta property="og:url" content="https://hunterMG.net/tags/shell/index.html">
 <meta property="og:site_name" content="HunterMG&#39;s Blog">
 <meta property="og:locale" content="_en">
 <meta name="twitter:card" content="summary">
@@ -118,10 +118,10 @@
 
 
 
-  <link rel="canonical" href="https://hunterMG.net/tags/Shell/">
+  <link rel="canonical" href="https://hunterMG.net/tags/shell/">
 
 
-  <title>Tag: Shell | HunterMG's Blog</title>
+  <title>Tag: shell | HunterMG's Blog</title>
   
 
 
@@ -303,7 +303,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Shell<small>Tag</small>
+        <h1>shell<small>Tag</small>
         </h1>
       </div>
 
@@ -315,17 +315,69 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2021/02/07/rename-files-to-numbers-by-file-modification-time/" itemprop="url">
+            <a class="post-title-link" href="/2021/04/22/connect-Wifi-in-linux-via-cmd/" itemprop="url">
               
-                <span itemprop="name">批量重命名文件</span>
+                <span itemprop="name">connect Wifi in linux via cmd</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2021-02-07T01:06:11+08:00" content="2021-02-07">
-          02-07
+        <time class="post-time" itemprop="dateCreated" datetime="2021-04-22T09:04:48+08:00" content="2021-04-22">
+          04-22
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2021/01/28/resolve-macOS-preview-problems/" itemprop="url">
+              
+                <span itemprop="name">macOS Markdown 预览和 lsd 进程占用 CPU</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2021-01-28T11:11:07+08:00" content="2021-01-28">
+          01-28
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2020/12/26/fix-pcap-ext/" itemprop="url">
+              
+                <span itemprop="name">使用shell脚本批量检查pcap文件头并修改文件扩展名</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-12-26T15:10:13+08:00" content="2020-12-26">
+          12-26
         </time>
       </div>
 
@@ -467,7 +519,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -895,78 +947,6 @@
               })
               searchResultList += "</ul>";
               resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-             resultContent.innerHTML = searchResultList;
             }
           }
 
